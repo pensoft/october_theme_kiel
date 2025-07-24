@@ -1,0 +1,20 @@
+<div class="related-news-records">
+{% for record in related %}
+    <div class="news-item">
+        <div class="home-news-cover">
+            <a href="/news/{{record.slug}}">
+                <img src="{{ record.cover.path}}" alt="{{ record.title }}">
+                <div class="btn read-more-btn btn-primary">Read</div>
+                <div class="news-date">{{ record.published_at|date('d.m.Y') }}</div>
+                <div class="blur_filter"></div>
+            </a>
+        </div>
+        <div class="news-content">
+
+            <a href="/news/{{record.slug}}">
+                <div class="news-title">{{ record.title|length > 100 ? record.title|slice(0, 100)|replace({"&nbsp;": " ", ".": ". "}) ~ '...' : record.title|replace({"&nbsp;": " ", ".": ". "})  }}</div>
+            </a>
+        </div>
+    </div>
+{% endfor %}
+</div>

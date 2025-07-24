@@ -1,0 +1,507 @@
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+    width: 100%!important;
+    flex-basis: 100%!important;
+    max-width: 100%!important;
+    padding: 0!important;
+    background: none!important;
+    border: none!important;
+    color: @dark-color!important;
+}
+
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active,
+a.ui-button:active,
+.ui-button:active,
+.ui-button.ui-state-active:hover {
+    border: 0px solid #232323 !important;
+    background: white !important;
+    font-weight: normal !important;
+    color: #ffffff !important;
+    .breakpoint-large-down({
+        border: 0px solid #232323 !important;
+        background: white !important;
+        font-weight: normal !important;
+        color: #ffffff !important;
+    });
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
+    border: none!important;
+    background: none!important;
+    font-weight: normal;
+    color: unset!important;
+}
+
+.ui-accordion .ui-accordion-content {
+    padding: 0;
+    border-top: 0;
+    overflow: unset!important;
+    height: unset!important;
+}
+
+.ui-accordion .ui-accordion-header {
+    display: block!important;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    margin: 0!important;
+    padding: 0 1rem 0 0!important;
+    font-size: 100%;
+    outline: none;
+    .breakpoint-large-down({
+        padding: 0!important;
+        text-align: left!important;
+        width: 100%;
+    });
+}
+
+.ui-accordion .ui-accordion-content {
+    padding: 0 0 0 1rem!important;
+    border-top: 0;
+    overflow: unset!important;
+    .breakpoint-large-down({
+        padding: 0!important;
+        text-align: left!important;
+    });
+}
+
+
+.ui-icon {
+    display: none!important;
+}
+
+.ui-widget {
+    font-size: 1em;
+}
+
+.ui-widget div{
+
+}
+
+.ui-state-active{
+    border: none !important;
+    background: none!important;
+    font-weight: normal !important;
+    color: unset !important;
+}
+
+/*------------------------*/
+
+
+
+.work_packages .accordion-border, .media_images .accordion-border{
+    border: none;
+    border-radius: 20px;
+    margin: 20px 0;
+    font-size: 1em;
+    cursor: pointer;
+    background: @secondary-color;
+    padding: 27px;
+    width: calc(~'100% - 54px');
+    min-height: 243px;
+}
+
+.media_images .accordion-border{
+    min-height: unset;
+}
+
+.work_packages .accordion-toggle, .media_images .accordion-toggle{
+    background: none;
+    border: none;
+    border-radius: unset;
+    padding: 0;
+    color: #625143;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 23px; /* 104.545% */
+    letter-spacing: -0.66px;
+    .title_container{
+        height: 110px;
+    }
+
+
+}
+.work_packages .accordion-content, .media_images .accordion-content{
+    margin-top: 20px;
+    line-height: 1.5em!important;
+    padding: 0 7px;
+    ol{
+        list-style-type: decimal;
+        padding-left: 40px;
+    }
+}
+
+.media_images .accordion-content{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.work_packages .accordion-content p{
+    .breakpoint-large-down({
+        padding: 0!important;
+        text-align: left!important;
+        color: @dark-color;
+    });
+}
+
+.work_packages .plusminus, .media_images .plusminus{
+    color: @yellow-color;
+    position: relative;
+    text-transform: uppercase;
+    max-width: fit-content;
+    padding-right: 18px;
+    font-size: 16px;
+    &:after{
+        position: absolute;
+        right: 0;
+        top: 2px;
+        width: 17px;
+        height: 17px;
+        content: '';
+        transition: all 0.3s ease-in-out;
+        background: url("../../assets/images/yellow-arrow-down.svg") right center no-repeat;
+        background-size: 13px;
+
+    }
+    &:hover{
+        &:after{
+            transform:rotate(-45deg);
+        }
+    }
+
+}
+
+.work_packages .green_bullet{
+    color: #88B440;
+    text-align: center;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.66px;
+    width: 85px;
+    height: 85px;
+    background: url("../../assets/images/spinner.svg") center no-repeat;
+    background-size: contain;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+
+
+/*----*/
+
+
+.sent-messages-container{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    line-height: 1.3em!important;
+    font-weight: 300!important;
+
+    .messages{
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        background: @secondary-color;
+        border-radius: 20px;
+    }
+
+    .messages .accordion-border{
+        border: none;
+        border-radius: 20px;
+        padding: 0px;
+        margin: 20px 0;
+        font-size: 1em;
+        cursor: pointer;
+        width: 100%;
+        background: @secondary-color;
+
+    }
+
+    .messages .accordion-toggle{
+        background: none;
+        border: none;
+        border-radius: unset;
+        color: @default-color;
+        font-size: 1em;
+        padding: 25px!important;
+        cursor: pointer;
+
+    }
+    .messages .accordion-content{
+        margin-top: 20px;
+        padding: 20px;
+        line-height: 1.5em!important;
+        ol{
+            list-style-type: decimal;
+            padding-left: 40px;
+        }
+        h2{
+            text-align: left !important;
+        }
+    }
+
+
+    .messages .accordion-content p{
+        .breakpoint-large-down({
+            padding: 0!important;
+            text-align: left!important;
+            color: @dark-color;
+        });
+    }
+
+    .messages .plusminus{
+        //flex-basis: 10%;
+        color: @yellow-color;
+        position: relative;
+        text-transform: uppercase;
+        max-width: fit-content;
+        padding-right: 18px;
+        font-size: 16px;
+        &:after{
+            position: absolute;
+            right: 0;
+            top: 2px;
+            width: 17px;
+            height: 17px;
+            content: '';
+            transition: all 0.3s ease-in-out;
+            background: url("../../assets/images/yellow-arrow-down.svg") right center no-repeat;
+            background-size: 13px;
+
+        }
+        &:hover{
+            &:after{
+                transform:rotate(-45deg);
+            }
+        }
+
+        .breakpoint-large-down({
+            position: relative;
+        });
+    }
+
+    .messages .green_bullet{
+        color: @white-color;
+        max-width: 100px;
+        height: 100px;
+        background: @link-color;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: uppercase;
+        border-radius: 12px 0 0 12px;
+        font-size: 28px;
+    }
+
+    h2{
+        font-size: 20px;
+        text-align: left;
+        margin: 20px 0 10px 0;
+    }
+    a{
+        font-weight: bold;
+        color: @link-color;
+        &.email{
+            background: url("../../assets/images/email-colour.svg") left no-repeat;
+            background-size: 27px;
+            padding-left: 36px;
+            margin: 9px 0;
+            display: block;
+            float: left;
+        }
+    }
+
+    .role ul{
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: inline;
+        li{
+            display: inline-block;
+            color: @white-color;
+            padding: 3px 10px;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0 10px 10px 0;
+            .breakpoint-small-down({
+                margin: 10px auto;
+                display: table;
+            });
+        }
+    }
+
+    .breakpoint-laptop-down({
+        .col-lg-6{
+            padding: 0!important;
+        }
+    });
+}
+
+
+/* --- regions -- */
+
+.focal-regions{
+
+    .pilots .accordion-border{
+        border: none;
+        border-radius: 20px;
+        margin: 20px 0;
+        font-size: 1em;
+        cursor: pointer;
+        background: @secondary-color;
+        padding: 27px;
+        width: calc(~'100% - 54px');
+    }
+
+    .pilots .accordion-toggle{
+        background: none;
+        border: none;
+        border-radius: unset;
+        padding: 0;
+        color: #625143;
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 23px; /* 104.545% */
+        letter-spacing: -0.66px;
+        .title_container{
+            height: 80px;
+
+            .breakpoint-large-down({
+                height: fit-content;
+                margin-bottom: 20px;
+            });
+
+
+            .number{
+                border-radius: 50%;
+                background: #B8A877;
+                display: flex;
+                width: 24px;
+                height: 24px;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+                flex-shrink: 0;
+                color: #FFF;
+
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 23px; /* 164.286% */
+                letter-spacing: -0.42px;
+                margin-right: 10px;
+                margin-bottom: 50px;
+                float: left;
+            }
+        }
+
+        .flag_container{
+            .flag-Sweden{
+                background: url("../../assets/images/flag-Sweden.png") center no-repeat;
+                background-size: contain;
+                width: 36px;
+                height: 26px;
+                float: right;
+            }
+            .flag-Germany{
+                background: url("../../assets/images/flag-Germany.png") center no-repeat;
+                background-size: contain;
+                width: 36px;
+                height: 26px;
+                float: right;
+            }
+            .flag-Poland{
+                background: url("../../assets/images/flag-Poland.png") center no-repeat;
+                background-size: contain;
+                width: 36px;
+                height: 26px;
+                float: right;
+            }
+            .flag-UK{
+                background: url("../../assets/images/flag-UK.png") center no-repeat;
+                background-size: contain;
+                width: 36px;
+                height: 26px;
+                float: right;
+            }
+            .flag-Netherlands{
+                background: url("../../assets/images/flag-Netherlands.png") center no-repeat;
+                background-size: contain;
+                width: 36px;
+                height: 26px;
+                float: right;
+            }
+            .flag-Tenerife{
+                background: url("../../assets/images/flag-Tenerife.png") center no-repeat;
+                background-size: contain;
+                width: 36px;
+                height: 26px;
+                float: right;
+            }
+            .flag-Spain{
+                background: url("../../assets/images/flag-Spain.png") center no-repeat;
+                background-size: contain;
+                width: 36px;
+                height: 26px;
+                float: right;
+            }
+        }
+
+
+    }
+    .pilots .accordion-content{
+        margin-top: 20px;
+        line-height: 1.5em!important;
+        padding: 0 7px;
+        ol{
+            list-style-type: decimal;
+            padding-left: 40px;
+        }
+    }
+
+
+    .pilots .accordion-content p{
+        .breakpoint-large-down({
+            padding: 0!important;
+            text-align: left!important;
+            color: @dark-color;
+        });
+    }
+
+    .pilots .plusminus{
+        color: @yellow-color;
+        position: relative;
+        text-transform: uppercase;
+        max-width: fit-content;
+        padding-right: 18px;
+        font-size: 16px;
+        &:after{
+            position: absolute;
+            right: 0;
+            top: 2px;
+            width: 17px;
+            height: 17px;
+            content: '';
+            transition: all 0.3s ease-in-out;
+            background: url("../../assets/images/yellow-arrow-down.svg") right center no-repeat;
+            background-size: 13px;
+
+        }
+        &:hover{
+            &:after{
+                transform:rotate(-45deg);
+            }
+        }
+
+    }
+}
+

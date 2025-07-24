@@ -1,0 +1,86 @@
+title = "Documents search"
+url = "/documents-search"
+layout = "default"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[searchResults]
+resultsPerPage = 10
+showProviderBadge = 1
+noResultsMessage = 0
+visitPageMessage = "Visit page"
+
+[alternateHrefLangElements]
+==
+<?php
+use Pensoft\Icp\Models\Subfolders;
+use System\Models\File;
+
+function onStart(){
+    $this['folders'] = Subfolders::where('pensoft_icp_subfolders.parent_id', null)->get();
+	$term = Request::get('q') ?: Request::get('query');
+	if($term){
+		$foldersData = Subfolders::where('name','iLIKE','%'.$term.'%')->get();
+		$this['foldersData'] = $foldersData;
+
+		$filesData = File::where('attachment_type', 'Pensoft\Icp\Models\Subfolders')->get();
+
+		$files = $filesData->filter(function ($file) use ($term) {
+			if(Str::is(strtolower('*' . $term . '*'), strtolower($file->file_name))){
+				$folder = Subfolders::where('id', $file->attachment_id)->first();
+				$file->folderData = $folder;
+				return $file;
+			}
+		});
+		$this['filesData'] = $files;
+	}
+}
+
+public function onDownloadHandler(){
+	$files = post('files');
+	return Redirect::to('trigger-download')->with('files', $files); // pass attributes in the session
+}
+?>
+==
+
+<div class="row middle-xs between-xs internal-documents">
+
+    <div class="col-xs-12">
+
+        <div class="row icp_main_page">
+            {% partial 'components/icp_folders_list' folders=folders %}
+
+
+            <div class="col-md-10 col-xs-12 folders_container">
+
+                <h1 class="base_heading inner-page">Search results for {{ searchResults.query }}</h1>
+
+                <div class="row middle-xs between-xs mb-4">
+                    <div class="col-md-6 start-md col-xs-12 center-xs">{% partial 'components/search-documents-search-form' %}</div>
+                </div>
+
+
+                {% if user %}
+                {% if foldersData or foldersData %}
+                {% for resultFolder in foldersData %}
+                {% partial 'components/internal_documents_search' folder=resultFolder  %}
+                {% endfor %}
+
+                {% for resultFile in filesData %}
+                {% partial 'components/internal_documents_search' file=resultFile %}
+                {% endfor %}
+
+                {% else %}
+
+                {{'No records found'|_}}
+
+                {% endif %}
+                {% endif %}
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

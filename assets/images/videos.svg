@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="69.173" height="60.249" viewBox="0 0 69.173 60.249">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_3680" data-name="Rectangle 3680" width="26" height="17" transform="translate(0 0.091)" fill="#6da2aa"/>
+    </clipPath>
+  </defs>
+  <g id="Group_15874" data-name="Group 15874" transform="translate(-1038.604 -253.876)">
+    <path id="Polygon_38" data-name="Polygon 38" d="M47.248,0a8,8,0,0,1,6.938,4.017l12.7,22.124a8,8,0,0,1,0,7.966l-12.7,22.124a8,8,0,0,1-6.938,4.017H21.925a8,8,0,0,1-6.938-4.017L2.286,34.107a8,8,0,0,1,0-7.966l12.7-22.124A8,8,0,0,1,21.925,0Z" transform="translate(1038.604 253.876)" fill="#edf2f4"/>
+    <g id="Group_15044" data-name="Group 15044" transform="translate(1060 274.909)">
+      <g id="Group_15043" data-name="Group 15043" clip-path="url(#clip-path)">
+        <path id="Path_48488" data-name="Path 48488" d="M22.859,0H2.777A2.772,2.772,0,0,0,0,2.777V14.314a2.8,2.8,0,0,0,2.777,2.777H22.859a2.8,2.8,0,0,0,2.777-2.777V2.777A2.772,2.772,0,0,0,22.859,0M16.707,9.058l-5.9,3.418a.63.63,0,0,1-.94-.555V5.127a.63.63,0,0,1,.94-.555l5.9,3.418a.605.605,0,0,1,0,1.068" fill="#6da2aa"/>
+      </g>
+    </g>
+  </g>
+</svg>

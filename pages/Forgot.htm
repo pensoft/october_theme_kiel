@@ -1,0 +1,26 @@
+title = "Password reset"
+url = "/forgot"
+layout = "default"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[resetPassword]
+paramCode = "code"
+==
+{% if not user %}
+
+<div class="container">
+    <div class="login_form_container">
+        <div class="login_form_content">
+            <h3>Password reset</h3>
+            {% if resetPassword.code == null %}
+            {% partial 'components/resetpassword/restore' %}
+            {% else %}
+            {% partial 'components/resetpassword/reset' %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endif %}

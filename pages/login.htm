@@ -1,0 +1,23 @@
+url = "/login"
+layout = "default"
+title = "Log in"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[account]
+redirect = "internal-documents"
+paramCode = "code"
+forceSecure = 0
+requirePassword = 0
+==
+{% if not user %}
+	<div class="container">
+        <div class="login_form_container">
+            <div class="login_form_content">
+                <h3>Log in</h3>
+                {% partial 'components/account/signin' %}
+            </div>
+        </div>
+	</div>
+    {% endif %}

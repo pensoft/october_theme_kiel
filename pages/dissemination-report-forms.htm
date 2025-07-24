@@ -1,0 +1,50 @@
+url = "/internal-repository/forms"
+layout = "default"
+title = "Reporting forms"
+
+[session]
+security = "user"
+allowedUserGroups[] = "internal-users"
+allowedUserGroups[] = "registered"
+allowedUserGroups[] = "guest"
+redirect = "home"
+==
+<?php
+use Pensoft\Icp\Models\Subfolders;
+use System\Models\File;
+
+function onStart(){
+
+    $this['folders'] = Subfolders::where('pensoft_icp_subfolders.parent_id', null)->get();
+
+}
+?>
+==
+{% component 'session' %}
+
+    <div class="row middle-xs between-xs internal-documents">
+
+        <div class="col-xs-12">
+
+            <div class="row icp_main_page">
+                {% partial 'components/icp_folders_list' folders=folders %}
+                <div class="col-md-10 col-xs-12 folders_container">
+
+                    <div class="row middle-xs between-xs mb-4">
+                        <div class="col-md-6 start-md col-xs-12 center-xs">{% partial 'components/search-documents-search-form' %}</div>
+                    </div>
+
+
+                    <ul class="reporting_forms_list">
+                        <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSeBxuvfLio1F_xd2QdGTBsSrk4bFd5U6KShdiu3XUxSWhQ_LQ/viewform" target="_blank">Kiel Communication Activities Form</a></li>
+                        <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSckG4jENfVlW2l0rwCcJDLHEQA5x207iGCw-RQsM0AgNngiPg/viewform" target="_blank">Kiel Dissemination Activities Form</a></li>
+                        <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdP-cnRlMz0ZXcRVM2kZybKh15i564MFFOwAIMqPS89ansMhg/viewform" target="_blank">Kiel Publications Form</a></li>
+                        <li><a href="https://docs.google.com/forms/d/e/1FAIpQLScpFpHcN4HBnRzEg0QIRQEoJTMAohXu4Sq2oD1gkLinWvEhsQ/viewform" target="_blank">Kiel Datasets Form</a></li>
+                    </ul>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,137 @@
+.navbar-loggedin-user{
+  background: @white-color;
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.09);
+    //position: absolute;
+    position: fixed;
+    z-index: 999;
+    height: 77px;
+    display: flex;
+    width: 100%;
+    //top: 254px;
+    top: 0;
+
+    .navbar-collapse{
+        display: flex;
+        justify-content: end;
+    }
+
+    .profilename_and_avatar{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-left: 1px solid #E4E4E4;
+        height: 20px;
+        img{
+            width: auto;
+            float: left;
+            margin-right: 20px;
+        }
+    }
+
+    nav{
+        justify-content: end;
+    }
+
+    ul{
+        float: right;
+    }
+}
+
+.my-sent-messages,
+.internal-documents,
+.living-documents,
+.dissemination-report-forms,
+.profile,
+.users,
+.documents-search,
+.mailing{
+    .navbar-loggedin-user{
+        top: 330px;
+        z-index: 99;
+        position: absolute;
+        //position: fixed;
+        //position: relative;
+    }
+
+    &#layout-content{
+        margin-top: 75px;
+
+    }
+
+    .header-image-bar {
+        .breakpoint-large-down({
+            height: 226px!important;
+        });
+    }
+}
+
+.navbar-loggedin-user ul{
+  list-style-type: none;
+  .breakpoint-large-down({
+    padding: 0;
+  })
+}
+
+.navbar-loggedin-user ul li{
+  display: inline;
+  padding: 0 12px;
+  .breakpoint-large-down({
+    padding: 0 8px;
+  })
+}
+
+.navbar-loggedin-user ul li a{
+    color: #575757;
+    text-align: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.48px;
+
+  .breakpoint-large-down({
+    padding: 0;
+    font-size: 16px;
+  })
+}
+
+.navbar-loggedin-user ul li a:hover{
+  opacity: 0.6;
+}
+
+.navbar-loggedin-user li.active a{}
+
+.nav-item.sign-in a{
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+    &:hover{
+        color: @link-color;
+    }
+  .breakpoint-large-down({
+      padding: 0;
+      padding-bottom: 5px;
+  });
+}
+
+#headerNavbarLogin{
+  .breakpoint-large-down({
+    display: none;
+  });
+}
+
+.profile_name span{
+  color: #575757;
+  .breakpoint-large-down({
+    display: none;
+  })
+}
+
+#headerNavbar{
+  .breakpoint-large-down({
+    display: flex;
+  });
+}

@@ -1,0 +1,43 @@
+/**
+	SVG map
+*/
+
+.fill_default:hover
+{
+    opacity:0.8;
+    cursor:pointer;
+}
+
+.tooltiptext {
+    display: none;
+    width: fit-content;
+    position: fixed;
+    z-index: 1;
+    padding: 10px 15px;
+    border-radius: 29px;
+    background: #422F1F;
+    color: #FFF;
+    text-align: center;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 23px; /* 191.667% */
+    letter-spacing: -0.36px;
+}
+
+.tooltiptext.active {
+    display: initial;
+}
+
+.pulse{
+}
+
+.blink{
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}

@@ -1,0 +1,200 @@
+url = "/focal-regions"
+layout = "default"
+title = "Focal regions"
+
+[siteSearchInclude]
+
+[jumbotron about]
+jumbotron = "about"
+title = 1
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron regional]
+jumbotron = "regional-attributes"
+title = 1
+background = "transperant"
+templates = "template3"
+description_limit = 0
+==
+<?php
+use Pensoft\Accordions\Models\Item;
+
+    function onStart(){
+        $this['regions'] = Item::where('category_id', 2)->get();
+    }
+?>
+==
+{% component 'siteSearchInclude' %}
+    <div class="container">
+        <div class="row top-xs">
+            <div class="col-md-4 col-xs-12">
+                {% component 'about' %}
+            </div>
+            <div class="col-md-8 col-xs-12">
+                <span class="tooltiptext" id="tooltip">Bulgaria</span>
+                {% partial 'components/pilots_map' %}
+            </div>
+        </div>
+
+        <div class="row top-xs pilots">
+            {% for key, item in regions %}
+                <div class="accordion-border key_{{key}}"><!-- 1 --><!-- css 1 -->
+                    <div class="row accordion-toggle">
+                        <div class="col-xs-10 start-xs title_container"><span class="number">{{key + 1}}</span> {{item.title}}, {{item.prefix}}</div>
+                        <div class="col-xs-2 end-xs-xs flag_container"><div class="flag-{{item.prefix}}"></div> </div>
+                        <div class="col-xs-12 plusminus"><span class="plus">READ MORE</span></div>
+                    </div>
+
+                    <div class="accordion-content" style="display: none;">
+                        {{item.body|raw}}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+<div class="container-fluid bg-secondary">
+    <div class="container">
+        <div class="row middle-xs between-md around-xs">
+            <div class="col-md-6 col-xs-12 attr_text">{% component 'regional' %}</div>
+            <div class="col-md-5 col-xs-12 end-md center-xs  attr_table">
+
+                <table class="regions_info">
+                    <tr>
+                        <th>Focal Region</th>
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                        <th>4</th>
+                        <th>5</th>
+                        <th>6</th>
+                        <th>7</th>
+                    </tr>
+                    <tr>
+                        <td>Rare/threatened</td>
+                        <td><img src="{{'x.svg'|media}}"> </td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                    </tr>
+                    <tr>
+                        <td>Beekeeping</td>
+                        <td></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                    </tr>
+                    <tr>
+                        <td>Othe pollinators</td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Natura2000</td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Intensive farming</td>
+                        <td></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td></td>
+                        <td></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                    </tr>
+                    <tr>
+                        <td>Smallholders</td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td></td>
+                        <td></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Urban areas</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Fruit crops</td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Energy crops</td>
+                        <td></td>
+                        <td></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td></td>
+                        <td></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                    </tr>
+                    <tr>
+                        <td>Medicinal crops</td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Fodder crops</td>
+                        <td></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                    </tr>
+                    <tr>
+                        <td>Living Lab</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                        <td><img src="{{'x.svg'|media}}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

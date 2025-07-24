@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100.173" height="87.249" viewBox="0 0 100.173 87.249">
+  <g id="Group_15884" data-name="Group 15884" transform="translate(-382 -539.251)">
+    <path id="Polygon_48" data-name="Polygon 48" d="M70.5,0a8,8,0,0,1,6.938,4.017L97.887,39.641a8,8,0,0,1,0,7.966L77.436,83.232A8,8,0,0,1,70.5,87.249H29.675a8,8,0,0,1-6.938-4.017L2.286,47.607a8,8,0,0,1,0-7.966L22.737,4.017A8,8,0,0,1,29.675,0Z" transform="translate(382 539.251)" fill="#edf2f4"/>
+    <g id="Group_15865" data-name="Group 15865" transform="translate(416.164 561.953)">
+      <g id="Group_1779" data-name="Group 1779" transform="translate(-0.163 0)">
+        <rect id="Rectangle_3350" data-name="Rectangle 3350" width="33.037" height="2.429" rx="1.215" transform="translate(0.102 6.316)" fill="#6da2aa"/>
+        <rect id="Rectangle_3351" data-name="Rectangle 3351" width="33.037" height="2.429" rx="1.215" transform="translate(0.102 0)" fill="#6da2aa"/>
+        <path id="Subtraction_7" data-name="Subtraction 7" d="M-12439.429-478.954h-27a3,3,0,0,1-3-3v-23.993a3,3,0,0,1,3-3h27a3,3,0,0,1,3,3v23.993A3,3,0,0,1-12439.429-478.954Zm-12.292-20.113h0l-8.729,8.728-.4,3.586a.746.746,0,0,0,.188.587.754.754,0,0,0,.56.251.791.791,0,0,0,.085-.006l3.586-.394,8.729-8.731-4.021-4.021Zm3.555-2.926a1.5,1.5,0,0,0-1.067.441l-1.774,1.774,2.558,2.56,1.461,1.461,1.777-1.774a1.512,1.512,0,0,0,0-2.134l-1.887-1.887A1.5,1.5,0,0,0-12448.166-501.993Z" transform="translate(12469.43 521.593)" fill="#6da2aa"/>
+      </g>
+    </g>
+  </g>
+</svg>

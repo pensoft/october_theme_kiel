@@ -1,0 +1,70 @@
+url = "/consortium"
+layout = "default"
+title = "Consortium"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+header_image = "about.jpg"
+==
+<?php
+use Pensoft\Partners\Models\Partners;
+
+function onStart(){
+	$this['partners'] =  Partners::where('type', 1)->get();
+	$this['a_partners'] =  Partners::where('type', 2)->get();
+}
+?>
+==
+<div class="container">
+        <div class="row container">
+            <div class="row partners_list">
+                {% for k, partner in partners %}
+                        <div class="partner-item key_{{k}}" data-aos="fade-up">
+                            <div class="row middle-xs logo_and_link">
+                                <div class="col-xs-4 col-md-4 partner_logo">
+                                    <a href="{{partner.instituion_url}}" target="_blank">
+                                        <img alt="{{ partner.instituion }}" src="{{partner.cover.path}}">
+                                    </a>
+                                </div>
+                                <div class="col-xs-8 col-md-8 partner_title">
+                                    <h4>{{partner.instituion}} <a href="{{partner.instituion_url}}" target="_blank">({{partner.email}})</a></h4>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 partner_description">
+                                <div class="partner_content toogle-contact-paragraphs" style="display: none;">
+                                    {{partner.content|raw}}
+                                </div>
+                                <a class="read-more-expand dorsal">Read more</a>
+                            </div>
+                        </div>
+                {% endfor %}
+            </div>
+
+
+
+        </div>
+
+    <div class="row container">
+
+        <h1>Associated partners</h1>
+
+        <div class="row partners_list">
+
+            {% for k, partner in a_partners %}
+            <div class="partner-item key_22{{k}}" data-aos="fade-up">
+                <div class="row middle-xs logo_and_link">
+                    <div class="col-xs-4 col-md-4 partner_logo">
+                        <a href="{{partner.instituion_url}}" target="_blank">
+                            <img alt="{{ partner.instituion }}" src="{{partner.cover.thumb(120,auto,{'mode':'crop'})}}">
+                        </a>
+                    </div>
+                    <div class="col-xs-8 col-md-8 partner_title">
+                        <h4>{{partner.instituion}} <a href="{{partner.instituion_url}}" target="_blank">({{partner.email}})</a></h4>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    </div>

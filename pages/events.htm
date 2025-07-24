@@ -1,0 +1,168 @@
+url = "/events/:slug?|[a-zA-Z\-0-9]"
+layout = "default"
+title = "Events"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[calendar]
+default = "true"
+limit = "null"
+category = "null"
+language = "en"
+redirect_to_detailed_page = "false"
+default_view = "dayGridMonth"
+==
+<?php
+use Pensoft\Calendar\Models\Entry;
+use Carbon\Carbon;
+use Pensoft\Articles\Models\Category;
+use Pensoft\Articles\Models\Article;
+
+use Spatie\GoogleCalendar\Event;
+
+function onStart(){
+
+    if($this->param('slug')){
+$this['entry'] =  Entry::select(
+'*',
+'title',
+'place',
+'description',
+'url',
+
+DB::raw("to_char(\"start\", 'DD') as start_day"),
+DB::raw("to_char(\"start\", 'YYYY') as start_year"),
+DB::raw("to_char(\"end\", 'DD') as end_day"),
+DB::raw("to_char(\"end\", 'YYYY') as end_year"),
+DB::raw("to_char(\"start\", 'month') as start_month"),
+DB::raw("to_char(\"end\", 'month') as end_month"),
+DB::raw("
+\"end\" is not null as has_end
+")
+
+
+)->where('slug', $this->param('slug'))->first();
+
+\BennoThommo\Meta\Meta::set('twitter:card', 'summary_large_image');
+\BennoThommo\Meta\Meta::set('twitter:title', $this['entry']['title']);
+\BennoThommo\Meta\Meta::set('twitter:description', str_limit(Html::strip($this['entry']['description']), 255));
+\BennoThommo\Meta\Meta::set('og:title', $this['entry']['title']);
+\BennoThommo\Meta\Meta::set('og:description', str_limit(Html::strip($this['entry']['description']), 255) );
+\BennoThommo\Meta\Meta::set('og:type', 'article');
+\BennoThommo\Meta\Meta::set('og:url', $this->pageUrl(''));
+if($this['entry']['cover_image']){
+\BennoThommo\Meta\Meta::set('twitter:image', $this['entry']['cover_image']->getThumb(600, null, ['mode' => 'auto']));
+
+
+\BennoThommo\Meta\Meta::set('og:image', $this['entry']['cover_image']->getThumb(600, 314, ['mode' => 'crop']));
+\BennoThommo\Meta\Meta::set('og:image:width', 600);
+\BennoThommo\Meta\Meta::set('og:image:height', 314);
+}
+
+}
+$this['page_url'] = $this->pageUrl('');
+$this['google_calendar_events'] = Event::get();
+//$this['google_calendar_events_test'] = Event::get(null, null, [], getenv('GOOGLE_CALENDAR_TEST_ID'));
+
+$this['entries'] = Entry::orderBy('start', 'asc')->paginate(20);
+
+//$this['entries2025'] = Entry::whereYear('start', Carbon::now()->year)->orderBy('start', 'asc')->paginate(20);
+//$this['entries2026'] = Entry::whereYear('start', '2026')->orderBy('start', 'asc')->paginate(20);
+
+$this['slug'] = $this->param('slug');
+
+
+}
+?>
+==
+{% if not slug %}
+
+<div class="container-fluid events">
+
+    <div class="container">
+        <div class="tabs">
+            <a class="" href="#listView"></a>
+            <a class="" href="#calendarView"></a>
+        </div>
+    </div>
+
+    <div class="container events_container">
+        <div class="row" id="listView">
+                    <div class="events_list_container">
+                    {% for google_cal in google_calendar_events %}
+                        {% set start_date = google_cal.googleEvent.start.dateTime ?: google_cal.googleEvent.start.date %}
+                        <div class="row entry_item middle-xs">
+                            <div class="col-md-11 col-xs-12 body_container">
+                                <a href="{{google_cal.googleEvent.htmlLink}}" target="_blank">
+                                    <div class="entry_content">
+                                        <div class="date_container">{{start_date|date("j M")}}</div>
+                                        <div class="entry_title">{{google_cal.googleEvent.summary}}</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-1 col-xs-12 read-more-events end-md center-xs">
+                                <a href="{{google_cal.googleEvent.htmlLink}}" class="read-more" target="_blank">Read more</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                    {% partial 'eventslist' records=entries %}
+                    {% if entries.count > 20 %}
+                    <div class="row container">
+                        {{ entries.fragment('listView').render|raw }}
+                    </div>
+                    {% endif %}
+        </div>
+        <div class="row" id="calendarView">
+            <iframe src="https://calendar.google.com/calendar/embed?src=motive.project.stat%40gmail.com&ctz=Europe%2FSofia" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+            {% component 'calendar' %}
+        </div>
+    </div>
+
+</div>
+
+
+{% else %}
+
+    {% if entry %}
+    <div class="container">
+        <div class="row single-news-item">
+            <div class="col-md-12 col-xs-12 mb-2">
+                <a href="/events" class="go-back-link">Back</a>
+            </div>
+            <div class="col-md-5 col-xs-12">
+                <div class="fixed_image">
+                    {% if entry.cover_image %}
+                    <img class="content" src="{{ entry.cover_image|crop_image|resize(387, auto, { mode: 'crop' }) }}" />
+                    {% endif %}
+
+                    {% if entry.url %}
+                    <a href="{{entry.url}}" class="read_more" target="_blank">View event <i></i></a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-7 col-xs-12">
+                <div class="text-published">{% if entry.start|date("j") == entry.end|date("j") %} {{entry.start|date("j M Y")}} {% elseif entry.start|date("M") == entry.end|date("M") %} {{entry.start|date("j")}}-{{entry.end|date("j M Y")}} {% else %} {{entry.start|date("d M Y")}} - {{entry.end|date("d M Y")}}{% endif %}<br>{{entry.place}}</div>
+                <div class="news-title">
+                    <h1 class="single-new-title">{{entry.title}}</h1>
+                </div>
+
+                <div class="content">
+                    {{entry.description|raw}}
+                </div>
+
+                <div class="share_container">
+                    <div class="share_label">Share</div>
+                    <div class="share_icons">
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{page_url}}" target="_blank" class="pr p-linkedin big"></a>
+                        <a href="https://bsky.app/intent/compose?text={{page_url}}" class="pr p-bluesky big"  target="_blank"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+
+{% endif %}

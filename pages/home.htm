@@ -1,0 +1,84 @@
+url = "/"
+layout = "default"
+title = "Kiel | Science comes to town"
+is_hidden = 0
+meta_title = "Kiel | Science comes to town"
+meta_description = "Welcome to Kiel"
+seo_keywords = "keywords"
+robot_index = "index"
+robot_follow = "follow"
+
+[jumbotron intro]
+jumbotron = "programme-2026"
+title = 1
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[SimpleContactFormComponent]
+templates = "template3"
+recaptcha_key = "6LcRo4wrAAAAAIcCNL3BHJljaedeYhuiU-W5Bq9r"
+message_label = "Message"
+==
+<?php
+use Pensoft\Calendar\Models\Entry;
+use Spatie\GoogleCalendar\Event;
+use Carbon\Carbon;
+
+function onStart(){
+    $this['entries'] = Entry::where('end', '>', Carbon::now())->where('show_on_timeline', true)->where('is_internal', false)->orderBy('start', 'asc')->take(3)->get();
+    $this['google_calendar_events'] = Event::get();
+}
+?>
+==
+<div class="containerintro_content">
+    {% component 'intro' %}
+</div>
+
+<!--{% if entries.count %}-->
+<!--<div class="container upcoming_events_container" data-aos="fade-up">-->
+<!--    <h1 class="display-1">Latest Events</h1>-->
+<!--    <div class="row events_container">-->
+<!--        {% for google_cal in google_calendar_events %}-->
+<!--        {% set start_date = google_cal.googleEvent.start.dateTime ?: google_cal.googleEvent.start.date %}-->
+<!--        <div class="entry_item col-md-3 col-xs-12">-->
+<!--            <div class="date_container">-->
+<!--                <div class="date_wrapper">-->
+<!--                    <span class="date_day">{% if start_date|date("j") != event.end|date("j") %} {{start_date|date("j")}}-{{event.end|date("j")}}{% else %}{{start_date|date("j")}}{% endif %}</span>-->
+<!--                    <span class="date_month">{{start_date|date("M")}}</span>-->
+<!--                    <span class="date_year">{{start_date|date("Y")}}</span>-->
+<!--                </div>-->
+<!--                &lt;!&ndash;{{event.place}}&ndash;&gt;-->
+<!--            </div>-->
+<!--            <h3>{{google_cal.googleEvent.summary}}</h3>-->
+<!--            <a href="{{google_cal.googleEvent.htmlLink}}" class="read_more pure btn">Read more</a>-->
+<!--        </div>-->
+<!--        {% endfor %}-->
+
+<!--        {% for event in entries %}-->
+<!--        <div class="entry_item col-md-3 col-xs-12">-->
+<!--            <div class="date_container">-->
+<!--                <div class="date_wrapper">-->
+<!--                    <span class="date_day">{% if event.start|date("j") != event.end|date("j") %} {{event.start|date("j")}}-{{event.end|date("j")}}{% else %}{{event.start|date("j")}}{% endif %}</span>-->
+<!--                    <span class="date_month">{{event.start|date("M")}}</span>-->
+<!--                    <span class="date_year">{{event.start|date("Y")}}</span>-->
+<!--                </div>-->
+<!--                &lt;!&ndash;{{event.place}}&ndash;&gt;-->
+<!--            </div>-->
+<!--            <h3>{{event.title|raw}}</h3>-->
+<!--            <a href="{{'events'|page}}/{{event.slug}}" class="read_more pure btn">Read more</a>-->
+<!--        </div>-->
+<!--        {% endfor %}-->
+<!--    </div>-->
+<!--</div>-->
+<!--{% endif %}-->
+
+
+<div class="container">
+    <div class="homepage_contact_form">
+        <h1 class="display-1">Contact Form</h1>
+        <div class="contact_form_content">
+            {% component 'SimpleContactFormComponent' %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,158 @@
+url = "/media-center/images/:id?|[a-zA-Z\-0-9]"
+layout = "default"
+title = "Images"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[builderList mediaImagesList]
+modelClass = "pensoft\Media\Models\Graphic"
+modelClass = "pensoft\Media\Models\Galleries"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "name"
+noRecordsMessage = "No records found"
+detailsPage = "-"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+
+[jumbotron]
+jumbotron = "under-construction"
+title = 1
+background = "transperant"
+templates = "template1"
+description_limit = 0
+==
+<?php
+use Pensoft\Media\Models\Galleries;
+use Pensoft\Media\Models\Graphic;
+use System\Models\File;
+
+function onStart(){
+	$this['mediaImagesList'] =  Galleries::get();
+	$this['gallery'] = Galleries::where('id', $this->param('id'))->first();
+	$this['id'] = $this->param('id');
+    $this['is_detail_page'] = $this['gallery'] ? true : false;
+
+if(get('download')){
+$file = File::find((int)get('download'));
+$file_name = $file->getLocalPath();
+$recordName = get('file_name') ? get('file_name') : 'Kiel_image';
+$ext= $file->getExtension();
+
+if (file_exists($file_name)) {
+header('Content-Description: File Transfer');
+header('Content-Type: application/octet-stream');
+header("Content-Type: application/force-download");
+header('Content-Disposition: attachment; filename='.$recordName .'.'. $ext);
+header('Content-Transfer-Encoding: binary');
+header('Expires: 0');
+header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+header('Pragma: public');
+header('Content-Length: ' . filesize($file_name));
+ob_clean();
+flush();
+readfile($file_name);
+exit();
+}
+return Redirect::to('/media-center/images');
+}
+}
+
+
+function onDownloadFile(){
+$file = File::find(post('id'));
+$pathToFile = $file->getLocalPath();
+$fileName = $file->file_name;
+$fileType = $file->content_type;
+$headers = [
+'HTTP/1.1 200 OK',
+'Pragma: public',
+'Content-Type: '.$fileType,
+'Content-Type: application/force-download'
+];
+
+return Response::download($pathToFile, $fileName, $headers);
+}
+?>
+==
+
+{% set records = mediaImagesList %}
+
+<div class="container media-images-container">
+    {% if is_detail_page %}
+        <div class="row media_images news">
+            <div class="col-md-12 col-xs-12 mb-2">
+                <a href="/media-center/images" class="go-back-link">Back</a>
+            </div>
+
+            {% if gallery.images %}
+            <div class="row">
+                {% for k, image in gallery.images %}
+                <div class="col-md-4 col-xs-12 home-news-records">
+                    <div class="row news-item">
+                        <div class="col-md-12 col-xs-12 home-news-cover">
+                            <a onclick="openModal(); currentSlide({{ k + 1 }})">
+                                <img src="{{ image.path}}" alt="{{ image.name }}">
+                                <div class="btn zoom-btn btn-primary"><img src="{{'zoom.svg'|media}}" class="zoom_icon"></div>
+                                <div class="blur_filter"></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+
+                <div class="control-popup modal fade" id="imagesModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <button type="button" class="close" onclick="closeModal()">&times;</button>
+                            {% for k, image in gallery.images %}
+                            <div class="slides">
+                                <img src="{{ image.path}}" alt="{{ image.name }}">
+                            </div>
+                            {% endfor %}
+                            <!-- Next/previous controls -->
+                            <a class="prev" onclick="plusSlides(-1)"></a>
+                            <a class="next" onclick="plusSlides(1)"></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            {% endif %}
+        </div>
+    {% else %}
+        {% if records.count() %}
+        <div class="row media_images news">
+            <div class="col-md-12 col-xs-12 mb-2">
+                <a href="/media-center" class="go-back-link">Back</a>
+            </div>
+            {% for record in records %}
+
+            <div class="col-md-4 col-xs-12 home-news-records">
+                <div class="row news-item">
+                    <div class="col-md-12 col-xs-12 home-news-cover">
+                        <a href="/media-center/images/{{record.id}}">
+                            <img src="{{ record.images[0].path}}" alt="{{ record.name }}">
+                            <div class="btn read-more-btn btn-primary">View</div>
+                            <div class="blur_filter"></div>
+                        </a>
+                    </div>
+                    <div class="col-md-12 col-xs-12 news-content">
+
+                        <a href="/media-center/images/{{record.id}}">
+                            <div class="news-title">{{ record.name}}</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            {% else %}
+            {{ noRecordsMessage }}
+            {% endfor %}
+        </div>
+        {% endif %}
+    {% endif %}
+</div>
+

@@ -1,0 +1,73 @@
+[jumbotron funding]
+jumbotron = "funding"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+==
+
+<div class="container-fluid border-box dark-background">
+    <div class="container">
+        <div class="row top-xs between-xs footer-social-menu-container">
+            <div class="col-md-2 col-xs-12 start-md center-xs">
+                <img class="project_footer_logo" src="">
+            </div>
+
+            <div class="col-md-2 col-xs-12 end-md center-xs social-networks">
+                {% if enable_facebook and facebook_url %}
+                <a href="{{facebook_url}}" target="_blank" class="pr p-secondary p-facebook normal" target="_blank"></a>
+                {% endif %}
+                {% if enable_twitter and twitter_url %}
+                <a href="{{twitter_url}}" target="_blank" class="pr p-secondary p-twitter normal" target="_blank"></a>
+                {% endif %}
+                {% if enable_linkedin and linkedin_url %}
+                <a  href="{{linkedin_url}}" target="_blank" class="pr p-secondary p-linkedin normal" target="_blank"></a>
+                {% endif %}
+
+                {% if enable_instagram and instagram_url %}
+                <a  href="{{instagram_url}}" target="_blank" class="pr p-secondary p-instagram normal" target="_blank"></a>
+                {% endif %}
+                {% if this.theme.bluesky_url %}
+                <a href="{{this.theme.bluesky_url}}" target="_blank" class="pr p-secondary p-bluesky small"></a>
+                {% endif %}
+                {% if this.theme.threads_url %}
+                <a href="{{this.theme.threads_url}}" target="_blank" class="pr p-secondary p-threads small"></a>
+                {% endif %}
+                 {% if enable_youtube and youtube_url %}
+                <a  href="{{youtube_url}}" target="_blank" class="pr p-secondary p-youtube normal" target="_blank"></a>
+                {% endif %}
+
+            </div>
+
+        </div>
+        <div class="row disclaimer">
+            <div class="col-md-3 col-xs-12 footer-right-border">
+                {% if (footer_funds_flag != null) %}
+                <div class="funding flex-column my-1 my-lg-0 flex-lg-row px-1 align-items-center col-sm col-xs-12">
+                    {% if footer_funds_flag %}
+                    <img class="mr-0 mr-lg-1" src="{{ footer_funds_flag }}"/>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-md-9 col-xs-12">
+                <div class="funding-text">
+                    {% component 'funding' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid border-box light-background">
+    <div class="container">
+        <div class="row top-xs between-xs footer-menu-container">
+            <div class="col-md-6 col-xs-12 start-md center-xs">
+            </div>
+            <div class="col-md-6 col-xs-12 end-md center-xs powered-by">
+                <span>Designed and powered by <a href="https://pensoft.net/" target="_blank">
+                    <img class="pensoft_logo" src="{{ 'pensoft-logo.svg'|media }}" /></a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="col-md col-xs-12 sidebar_menu_container">
+    {% if folders.count %}
+    <div class="row sidebar_menu_list">
+        {% for record in folders %}
+        <div class="col-xs-12">
+            <div class="sidebar_menu_item {{ record.slug }}">
+                <a href="{{url('internal-repository')}}/{{ record.slug }}" title="{{ record.name }}">
+                    <i></i> <div class="card-header">{{ record.name }}</div>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
