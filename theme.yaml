@@ -296,9 +296,9 @@ form:
                 tab: 'Typography'
                 type: dropdown
                 assetVar: 'font-family'
-                default: arial
+                default: inter
                 options:
-                    arial: Arial
+                    arial: Inter
                     muli: Muli
                     liberationsans: LiberationSans
             background:

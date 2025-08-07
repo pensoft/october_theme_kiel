@@ -53,9 +53,51 @@ numberOfLevels = 2
                 <a href="{{'home'|page}}" class="navbar-brand" id="navbar-brand" style="background: url('{{ this.theme.site_logo.getPath() }}') center no-repeat; background-size: contain;"></a>
                 {% component 'menu' %}
             </div>
+            <div class="funding-social-media">
+                <div class="social_media">
+                    <span>Follow us on</span>
+                    <div>
+                    {% if this.theme.twitter_url %}
+                    <a href="{{this.theme.twitter_url}}" target="_blank" class="pr p-twitter normal "></a>
+                    {% endif %}
+                    {% if this.theme.facebook_url %}
+                    <a href="{{this.theme.facebook_url}}" target="_blank" class="pr p-facebook normal "></a>
+                    {% endif %}
+                    {% if this.theme.linkedin_url %}
+                    <a href="{{this.theme.linkedin_url}}" target="_blank" class="pr p-linkedin normal "></a>
+                    {% endif %}
+                    {% if this.theme.youtube_url %}
+                    <a href="{{this.theme.youtube_url}}" target="_blank" class="pr p-youtube normal "></a>
+                    {% endif %}
+                    {% if this.theme.instagram_url %}
+                    <a href="{{this.theme.instagram_url}}" target="_blank" class="pr p-instagram normal "></a>
+                    {% endif %}
+                    {% if this.theme.researchgate_url %}
+                    <a href="{{this.theme.researchgate_url}}" target="_blank" class="pr p-researchgate normal "></a>
+                    {% endif %}
+                    {% if this.theme.bluesky_url %}
+                    <a href="{{this.theme.bluesky_url}}" target="_blank" class="pr p-secondary p-bluesky normal "></a>
+                    {% endif %}
+                    {% if this.theme.threads_url %}
+                    <a href="{{this.theme.threads_url}}" target="_blank" class="pr p-secondary p-threads normal "></a>
+                    {% endif %}
+                    </div>
+                </div>
+
+
+                <div class="funding">
+                    {% if footer_funds_flag %}
+                        <img class="funding-flag" src="{{ footer_funds_flag }}"/>
+                    {% endif %}
+                </div>
+
+            </div>
         </div>
 
 </nav>
+
+
+
 
 {% if this.theme.header_image %}
 <div class="header-image {{page_id}}">
@@ -74,9 +116,9 @@ numberOfLevels = 2
 {% endif %}
 
 
-{% if user %}
-<script>$(document).trigger('profile')</script>
-<script>$(document).trigger('signout')</script>
-{% else %}
-<script>$(document).trigger('signin')</script>
-{% endif %}
+<!--{% if user %}-->
+<!--<script>$(document).trigger('profile')</script>-->
+<!--<script>$(document).trigger('signout')</script>-->
+<!--{% else %}-->
+<!--<script>$(document).trigger('signin')</script>-->
+<!--{% endif %}-->

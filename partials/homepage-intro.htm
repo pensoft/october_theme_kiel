@@ -1,72 +1,29 @@
-[jumbotron kiel]
-jumbotron = "kiel-where-science-sets-sail"
-title = 1
-background = "transperant"
-templates = "template3"
-description_limit = 0
-
-[jumbotron brest]
-jumbotron = "brest-atlantic-city-innovation"
-title = 1
-background = "transperant"
-templates = "template3"
-description_limit = 0
-
-[jumbotron split]
-jumbotron = "split-coastal-crossroads-knowledge"
-title = 1
-background = "transperant"
-templates = "template3"
-description_limit = 0
-==
 <div class="container-fluid homepage-intro">
-
     <div class="video-carousel">
         <div class="video-carousel-1">
             <video autoplay muted loop>
-                <source src="{{ 'lizard.mp4'|media }}" type="video/mp4">
+                <source src="{{ 'video1.mp4'|media }}" type="video/mp4">
             </video>
             <div class=" container intro-container">
-                {% component 'kiel' %}
+                <h1 class="green"><span>SCIENCE</span> COMES TO TOWN</h1>
             </div>
         </div>
         <div class="video-carousel-2">
             <video autoplay muted loop>
-                <source src="{{ 'dna-rotate.mp4'|media }}" type="video/mp4">
+                <source src="{{ 'video2.mp4'|media }}" type="video/mp4">
             </video>
             <div class=" container intro-container">
-                {% component 'brest' %}
+                <h1 class="pink"><span>SCIENCE</span> COMES TO TOWN</h1>
             </div>
         </div>
         <div class="video-carousel-3">
             <video autoplay muted loop>
-                <source src="{{ 'ede.mp4'|media }}" type="video/mp4">
+                <source src="{{ 'video3.mp4'|media }}" type="video/mp4">
             </video>
             <div class=" container intro-container">
-                {% component 'split' %}
+                <h1 class="blue"><span>SCIENCE</span> COMES TO TOWN</h1>
             </div>
 
         </div>
-    </div>
-
-    <div class="row between-md social-links">
-        {% if this.theme.twitter %}
-            <a href="{{this.theme.twitter_url}}" target="_blank" class="btn pr p-twitter"></a>
-        {% endif %}
-        {% if this.theme.facebook %}
-            <a href="{{this.theme.facebook_url}}" target="_blank" class="btn pr p-facebook"></a>
-        {% endif %}
-        {% if this.theme.linkedin %}
-            <a href="{{this.theme.linkedin_url}}" target="_blank" class="btn pr p-linkedin"></a>
-        {% endif %}
-        {% if this.theme.youtube %}
-            <a href="{{this.theme.youtube_url}}" target="_blank" class="btn pr p-primary p-youtube"></a>
-        {% endif %}
-        {% if this.theme.instagram %}
-            <a href="{{this.theme.instagram_url}}" target="_blank" class="btn pr p-primary p-instagram"></a>
-        {% endif %}
-        {% if this.theme.researchgate %}
-            <a href="{{this.theme.researchgate_url}}" target="_blank" class="btn pr p-primary p-researchgate" style="width: 64px;"></a>
-        {% endif %}
     </div>
 </div>

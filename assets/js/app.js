@@ -319,12 +319,13 @@ $(document).ready(function() {
         infinite: true,
         speed: 1000,
         autoplay: true,
-        arrows: false,
+        arrows: true,
         fade: true,
         lazyLoad: 'ondemand',
-        dots: true,
+        dots: false,
+        prevArrow: '<div class="custom-arrow custom-prev"><img src="/themes/pensoft-kiel/assets/images/arrow-prev.svg" alt="Previous"></div>',
+        nextArrow: '<div class="custom-arrow custom-next"><img src="/themes/pensoft-kiel/assets/images/arrow-next.svg" alt="Next"></div>',
     });
-
 
 
 	onHashChange();

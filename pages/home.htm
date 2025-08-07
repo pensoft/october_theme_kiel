@@ -9,16 +9,38 @@ robot_index = "index"
 robot_follow = "follow"
 
 [jumbotron intro]
-jumbotron = "programme-2026"
+jumbotron = "homepage-intro-1"
+title = 0
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron kiel]
+jumbotron = "kiel-where-science-sets-sail"
 title = 1
 background = "transperant"
 templates = "template3"
 description_limit = 0
 
-[SimpleContactFormComponent]
+[jumbotron brest]
+jumbotron = "brest-atlantic-city-innovation"
+title = 1
+background = "transperant"
 templates = "template3"
-recaptcha_key = "6LcRo4wrAAAAAIcCNL3BHJljaedeYhuiU-W5Bq9r"
-message_label = "Message"
+description_limit = 0
+
+[jumbotron split]
+jumbotron = "split-coastal-crossroads-knowledge"
+title = 1
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron strarting]
+jumbotron = "programme-2026"
+background = "transperant"
+templates = "template3"
+description_limit = 0
 ==
 <?php
 use Pensoft\Calendar\Models\Entry;
@@ -31,54 +53,178 @@ function onStart(){
 }
 ?>
 ==
-<div class="containerintro_content">
-    {% component 'intro' %}
-</div>
-
-<!--{% if entries.count %}-->
-<!--<div class="container upcoming_events_container" data-aos="fade-up">-->
-<!--    <h1 class="display-1">Latest Events</h1>-->
-<!--    <div class="row events_container">-->
-<!--        {% for google_cal in google_calendar_events %}-->
-<!--        {% set start_date = google_cal.googleEvent.start.dateTime ?: google_cal.googleEvent.start.date %}-->
-<!--        <div class="entry_item col-md-3 col-xs-12">-->
-<!--            <div class="date_container">-->
-<!--                <div class="date_wrapper">-->
-<!--                    <span class="date_day">{% if start_date|date("j") != event.end|date("j") %} {{start_date|date("j")}}-{{event.end|date("j")}}{% else %}{{start_date|date("j")}}{% endif %}</span>-->
-<!--                    <span class="date_month">{{start_date|date("M")}}</span>-->
-<!--                    <span class="date_year">{{start_date|date("Y")}}</span>-->
-<!--                </div>-->
-<!--                &lt;!&ndash;{{event.place}}&ndash;&gt;-->
-<!--            </div>-->
-<!--            <h3>{{google_cal.googleEvent.summary}}</h3>-->
-<!--            <a href="{{google_cal.googleEvent.htmlLink}}" class="read_more pure btn">Read more</a>-->
-<!--        </div>-->
-<!--        {% endfor %}-->
-
-<!--        {% for event in entries %}-->
-<!--        <div class="entry_item col-md-3 col-xs-12">-->
-<!--            <div class="date_container">-->
-<!--                <div class="date_wrapper">-->
-<!--                    <span class="date_day">{% if event.start|date("j") != event.end|date("j") %} {{event.start|date("j")}}-{{event.end|date("j")}}{% else %}{{event.start|date("j")}}{% endif %}</span>-->
-<!--                    <span class="date_month">{{event.start|date("M")}}</span>-->
-<!--                    <span class="date_year">{{event.start|date("Y")}}</span>-->
-<!--                </div>-->
-<!--                &lt;!&ndash;{{event.place}}&ndash;&gt;-->
-<!--            </div>-->
-<!--            <h3>{{event.title|raw}}</h3>-->
-<!--            <a href="{{'events'|page}}/{{event.slug}}" class="read_more pure btn">Read more</a>-->
-<!--        </div>-->
-<!--        {% endfor %}-->
-<!--    </div>-->
-<!--</div>-->
-<!--{% endif %}-->
-
-
-<div class="container">
-    <div class="homepage_contact_form">
-        <h1 class="display-1">Contact Form</h1>
-        <div class="contact_form_content">
-            {% component 'SimpleContactFormComponent' %}
+<div class="container intro">
+    <div class="row between-md around-xs">
+        <div class="col-md-12 col-xs-12">
+            <div class="intro_icons">
+                <div class="molecule"></div>
+                <div class="atom"></div>
+                <div class="bacteria"></div>
+            </div>
+            {% component 'intro' %}
         </div>
     </div>
 </div>
+
+<div class="container main_towns">
+    <div class="row between-md around-xs">
+        <div class="col-md-4 col-xs-12">
+            <div class="town_item">
+                <img src="{{'KIEL.png'|media}}" alt="Kiel">
+                <h2>Kiel</h2>
+                <div class="overlay">
+                    <div class="text">{% component 'kiel' %}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xs-12">
+            <div class="town_item">
+                <img src="{{'BREST.png'|media}}" alt="Brest">
+                <h2>Brest</h2>
+                <div class="overlay">
+                    <div class="text">{% component 'brest' %}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-xs-12">
+            <div class="town_item">
+                <img src="{{'SPLIT.png'|media}}" alt="Split">
+                <h2>Split</h2>
+                <div class="overlay">
+                    <div class="text">{% component 'split' %}</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="container strarting">
+    <div class="row between-md around-xs">
+        <div class="col-md-4 col-xs12 col-xs-12 title_and_btn">
+            <h1>Starting 2026</h1>
+            <a href="/coming-soon" class="btn btn-primary">About us</a>
+        </div>
+        <div class="col-md-8 col-xs12 col-xs-12">
+            {% component 'strarting' %}
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid numbers">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-xs-12">
+                <div class="number_item_image"></div>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <div class="number_item_number">
+                    <h1>1000<span>+</span></h1>
+                    <div class="label">Engaging activities</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-xs-12">
+                <div class="number_item_image"></div>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <div class="number_item_number">
+                    <h1>70<span>+</span></h1>
+                    <div class="label">Committed partners</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-xs-12">
+                <div class="number_item_image"></div>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <div class="number_item_number">
+                    <h1>20K<span>+</span></h1>
+                    <div class="label">Scientists involved</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid towns_uppercase_labels">
+    <div class="label_item green">KIEL</div>
+    <div class="label_item pink">BREST</div>
+    <div class="label_item blue">SPLIT</div>
+</div>
+
+
+<!--upcoming events-->
+{% if entries.count %}
+<div class="upcoming_events_container">
+    <div class="container mb-0 pb-0">
+        <div class="row nav-row">
+            <div class="col-md-9 col-xs-12">
+                <h1>HIGHLIGHTS 2026</h1>
+            </div>
+            <div class="col-md-3 col-xs-12 view-all-button">
+                <a href="/coming-soon" class="btn btn-primary">All events</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container home-container">
+        <div class="row highligts-row">
+            <div class="col-md-8 col-xs-12 latest-events">
+                {% if entries|length %}
+                <div class="events-card">
+                    <div class="img-container">
+                        <a href="/coming-soon">
+                            <img src="{{ entries[0].cover_image.path }}" alt="{{ entries[0].title }}">
+                        </a>
+
+                        <a class="events-title" href="{{'events'|page}}/{{entries[0].slug}}">
+                            <div class="events-date">
+                                {% if entries[0].start|date("j") != entries[0].end|date("j") %} {{entries[0].start|date("j")}}-{{entries[0].end|date("j")}}{% else %}{{entries[0].start|date("j")}}{% endif %}
+                                {{entries[0].start|date("M")}}
+                            </div>
+                            <div class="title">
+                                <h3>{{ entries[0].title|raw}}</h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="col-md-4 col-xs-12 highlight-events">
+                {% for event in entries|slice(1, 2) %}
+                <div class="row events-card">
+                    <div class="img-container">
+                        <a href="/coming-soon">
+                            <img src="{{ event.cover_image.path }}" alt="{{ event.title }}">
+                        </a>
+
+                        <a class="events-title" href="{{'events'|page}}/{{event.slug}}">
+                            <div class="events-date">
+                                {% if event.start|date("j") != event.end|date("j") %} {{event.start|date("j")}}-{{event.end|date("j")}}{% else %}{{event.start|date("j")}}{% endif %}
+                                {{event.start|date("M")}}
+                            </div>
+                            <div class="title">
+                                <h3>{{ event.title|raw}}</h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+
