@@ -100,7 +100,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         {% page %}
     </section>
 </div>
-{% if this.theme.enable_footer %}
+{% if this.theme.enable_footer and this.page.id != 'coming-soon' %}
 <!-- Footer -->
 <footer id="layout-footer">
     {% partial 'site/footer'
