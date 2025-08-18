@@ -101,7 +101,7 @@ numberOfLevels = 2
 
 
 
-
+{% if this.page.id != 'home' %}
 <div class="header-image {{page_id}}">
 <!--    {%if this.page.header_image %}-->
 <!--    <div class="header-image-bar" style="background-image: url('{{this.page.header_image|media}}'); background-position: left center;"></div>-->
@@ -109,6 +109,7 @@ numberOfLevels = 2
 <!--    <div class="header-image-bar" style="background-image: url('{{this.theme.header_image.getPath()}}'); background-position: left center;"></div>-->
 <!--    {%endif%}-->
 </div>
+{% endif %}
 
 
 <!--{% if user %}-->
