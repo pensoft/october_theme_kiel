@@ -328,6 +328,19 @@ $(document).ready(function() {
     });
 
 
+    $('.towns_uppercase_labels').slick({
+        dots: false,
+        infinite: true,
+        speed: 1000,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        centerMode: true,
+        arrows: false
+    });
+
+
 	onHashChange();
 	$(window).on("hashchange", function() {
 		onHashChange();

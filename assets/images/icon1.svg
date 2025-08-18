@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="11.215" height="28.979" viewBox="0 0 11.215 28.979">
+  <g id="Group_79" data-name="Group 79" transform="matrix(0.985, -0.174, 0.174, 0.985, -1.191, 0.818)">
+    <path id="Path_53" data-name="Path 53" d="M7.261,0H.294A.294.294,0,0,0,0,.294V1.928a.294.294,0,0,0,.294.294H.908L.984,18.911a2.837,2.837,0,1,0,5.674-.025L6.579,2.222h.681a.3.3,0,0,0,.294-.294V.294A.3.3,0,0,0,7.261,0ZM3,16.814a.58.58,0,1,1,.6-.582A.589.589,0,0,1,3,16.814Zm1.249,2.944a.724.724,0,1,1,.745-.728A.736.736,0,0,1,4.245,19.758ZM5.132,8.952a1.353,1.353,0,1,1-2.707,0V2.222H5.132Z" transform="translate(0 6.859)" fill="#ff009e"/>
+    <ellipse id="Ellipse_1" data-name="Ellipse 1" cx="1.223" cy="1.223" rx="1.223" ry="1.223" transform="translate(2.267 0)" fill="#ff009e"/>
+    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="1.223" cy="1.223" rx="1.223" ry="1.223" transform="translate(3.871 3.289)" fill="#ff009e"/>
+    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.77" cy="0.77" rx="0.77" ry="0.77" transform="translate(1.035 3.632)" fill="#ff009e"/>
+  </g>
+</svg>

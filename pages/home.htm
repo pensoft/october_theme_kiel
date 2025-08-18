@@ -100,6 +100,18 @@ function onStart(){
     </div>
 </div>
 
+<!-- waves-->
+<div class="container-fluid waves">
+    <div class="ocean">
+        <div class="wave pink"></div>
+        <div class="wave green"></div>
+        <div class="wave blue"></div>
+    </div>
+</div>
+
+
+
+
 
 <div class="container strarting">
     <div class="row between-md around-xs">
@@ -184,9 +196,10 @@ function onStart(){
 
 
 <div class="container-fluid towns_uppercase_labels">
-    <div class="label_item green">KIEL</div>
-    <div class="label_item pink">BREST</div>
-    <div class="label_item blue">SPLIT</div>
+    <div class="label_item"></div>
+    <div class="label_item blue">KIEL</div>
+    <div class="label_item green">BREST</div>
+    <div class="label_item pink">SPLIT</div>
 </div>
 
 
@@ -214,7 +227,7 @@ function onStart(){
                             <img src="{{ entries[0].cover_image.path }}" alt="{{ entries[0].title }}">
                         </a>
 
-                        <a class="events-title" href="{{'events'|page}}/{{entries[0].slug}}">
+                        <a class="events-title" href="/coming-soon">
                             <div class="events-date">
                                 {% if entries[0].start|date("j") != entries[0].end|date("j") %} {{entries[0].start|date("j")}}-{{entries[0].end|date("j")}}{% else %}{{entries[0].start|date("j")}}{% endif %}
                                 {{entries[0].start|date("M")}}
@@ -236,7 +249,7 @@ function onStart(){
                             <img src="{{ event.cover_image.path }}" alt="{{ event.title }}">
                         </a>
 
-                        <a class="events-title" href="{{'events'|page}}/{{event.slug}}">
+                        <a class="events-title" href="/coming-soon">
                             <div class="events-date">
                                 {% if event.start|date("j") != event.end|date("j") %} {{event.start|date("j")}}-{{event.end|date("j")}}{% else %}{{event.start|date("j")}}{% endif %}
                                 {{event.start|date("M")}}

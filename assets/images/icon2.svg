@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="29.647" height="29.647" viewBox="0 0 29.647 29.647">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_111" data-name="Rectangle 111" width="29.647" height="29.647" transform="translate(18.581 18.156)" fill="#fff"/>
+    </clipPath>
+  </defs>
+  <g id="Group_84" data-name="Group 84" transform="translate(-18.581 -18.156)" clip-path="url(#clip-path)">
+    <circle id="Ellipse_17" data-name="Ellipse 17" cx="4.941" cy="4.941" r="4.941" transform="translate(27.943 30.093) rotate(-9.005)" fill="#489e01" stroke="#489e01" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <circle id="Ellipse_18" data-name="Ellipse 18" cx="2.471" cy="2.471" r="2.471" transform="translate(29.031 21.166) rotate(-9.005)" fill="#489e01" stroke="#489e01" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <circle id="Ellipse_19" data-name="Ellipse 19" cx="2.471" cy="2.471" r="2.471" transform="translate(22.364 42.234) rotate(-9.005)" fill="#489e01" stroke="#489e01" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <circle id="Ellipse_20" data-name="Ellipse 20" cx="2.471" cy="2.471" r="2.471" transform="translate(41.886 39.14) rotate(-9.005)" fill="#489e01" stroke="#489e01" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <path id="Path_158" data-name="Path 158" d="M32.253,28.784l-.58-3.66M42.02,39.118l-4.754-2.373M26.16,41.631,29.946,37.9" transform="translate(0.572 0.536)" fill="none" stroke="#489e01" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+  </g>
+</svg>
