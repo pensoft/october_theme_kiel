@@ -64,29 +64,27 @@ function elementScrolled(elem) {
 
 }
 
-
-$(window).scroll(function(){
-    // This is then function used to detect if the element is scrolled into view
-    if(elementScrolled('.about_vector1 path')) {
-        $('.about_vector1 path').addClass('scrolled');
-    }else{
-        $('.about_vector1 path').removeClass('scrolled');
-    }
-
-    if(elementScrolled('.about_vector2 path')) {
-        $('.about_vector2 path').addClass('scrolled');
-    }else{
-        $('.about_vector2 path').removeClass('scrolled');
-    }
-
-    if(elementScrolled('.about_vector3 path')) {
-        $('.about_vector3 path').addClass('scrolled');
-    }else{
-        $('.about_vector3 path').removeClass('scrolled');
-    }
-    animateSubscribe();
-
-});
+//
+// $(window).scroll(function(){
+//     // This is then function used to detect if the element is scrolled into view
+//     if(elementScrolled('.wave .pink path')) {
+//         $('.wave .pink path').addClass('scrolled');
+//     }else{
+//         $('.wave .pink path').removeClass('scrolled');
+//     }
+//
+//     if(elementScrolled('.wave .green path')) {
+//         $('.wave .green path').addClass('scrolled');
+//     }else{
+//         $('.wave .green path').removeClass('scrolled');
+//     }
+//
+//     if(elementScrolled('.wave .blue path')) {
+//         $('.wave .blue path').addClass('scrolled');
+//     }else{
+//         $('.wave .blue path').removeClass('scrolled');
+//     }
+// });
 
 
 $(document).ready(function() {
