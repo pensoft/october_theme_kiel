@@ -1051,30 +1051,33 @@ footer .align-items-center{
                         left: 0;
                         z-index: -1;
 
-                        background: transparent linear-gradient(89deg, @blue-color 0%, rgba(244, 0, 159, 0.7) 70%, rgba(50, 104, 255, 0) 100%) 0% 0% no-repeat padding-box;
+                        background: transparent linear-gradient(89deg, @blue-color 0%, rgba(50, 104, 255, 0) 100%) 0% 0% no-repeat padding-box;
                         border-radius: 30px;
                     }
-                    //
-                    //&.green{
-                    //    &:before{
-                    //        background: @green-color;
-                    //        box-shadow: 0 0 50px 50px @green-color;
-                    //    }
-                    //}
-                    //
-                    //&.pink{
-                    //    &:before{
-                    //        background: @pink-color;
-                    //        box-shadow: 0 0 50px 50px @pink-color;
-                    //    }
-                    //}
-                    //
-                    //&.blue{
-                    //    &:before{
-                    //        background: @blue-color;
-                    //        box-shadow: 0 0 50px 50px @blue-color;
-                    //    }
-                    //}
+
+                    &.green{
+                        &:before{
+                            //background: @green-color;
+                            background: transparent linear-gradient(89deg, @green-color 0%, rgba(244, 0, 159, 0) 100%) 0% 0% no-repeat padding-box;
+
+                            //box-shadow: 0 0 50px 50px @green-color;
+                        }
+                    }
+
+                    &.pink{
+                        &:before{
+                            //background: @pink-color;
+                            background: transparent linear-gradient(89deg, @pink-color 0%, rgba(244, 0, 159, 0) 100%) 0% 0% no-repeat padding-box;
+                            //box-shadow: 0 0 50px 50px @pink-color;
+                        }
+                    }
+
+                    &.blue{
+                        &:before{
+                            background: transparent linear-gradient(89deg, @blue-color 0%, rgba(50, 104, 255, 0) 100%) 0% 0% no-repeat padding-box;
+                            //box-shadow: 0 0 50px 50px @blue-color;
+                        }
+                    }
 
                     //.breakpoint-laptop-down({
                     //    font-size: 38px;
