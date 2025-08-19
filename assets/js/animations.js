@@ -259,19 +259,7 @@ function setupAnimations() {
     });
 }
 
-// Helper function to check if element is in view
-function isScrolledIntoView(elem) {
-    var docViewTop = $(window).scrollTop();
-    var docViewBottom = docViewTop + $(window).height();
 
-    if($(elem).height()){
-        var elemTop = $(elem).offset().top;
-        var elemBottom = elemTop + $(elem).height();
-
-        return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
-    }
-    return;
-}
 
 
 

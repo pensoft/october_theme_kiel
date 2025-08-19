@@ -30,6 +30,17 @@
     box-sizing: border-box;
     // padding: 20px 20px 20px 20px;
     padding: 20px 60px !important;
+
+    &:after{
+        position: absolute;
+        background: transparent linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%) 0% 0% no-repeat padding-box;
+        content: '';
+        height: 50vh;
+        width: 100%;
+        left: 0;
+        top: 0;
+    }
+
     .breakpoint-large-down({
         padding: unset !important;
     });
@@ -206,6 +217,10 @@
         transform: translateY(-100%);
 
         .navbar-nav-sub{
+            transform: translateY(-100%);
+        }
+
+        &:after{
             transform: translateY(-100%);
         }
     }

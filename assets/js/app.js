@@ -1,13 +1,15 @@
 
+$(window).scroll(animateNumbers);
 var viewed = false;
+
 var viewed_subscribe = false;
 var viewed_text = false;
 
-window.onscroll = function() {
-    animateTestimonial()
-    animateSubscribe()
-    // animateTextRows()
-}
+// window.onscroll = function() {
+//     animateTestimonial()
+//     animateSubscribe()
+//     // animateTextRows()
+// }
 
 var width = window.innerWidth;
 
@@ -28,30 +30,30 @@ window.addEventListener('scroll', function (e) {
     }
 
 });
-
-function animateTestimonial(){
-    var el = $(".testimonial h3");
-    if (isScrolledIntoView(el) && !viewed) {
-        viewed = true;
-        animateHeadingWords(el);
-    }
-}
-
-function animateSubscribe(){
-    var el = $(".subscriber h1");
-    if (isScrolledIntoView(el) && !viewed_subscribe) {
-        viewed_subscribe = true;
-        animateSubtitleWords(el, 0.8);
-    }
-}
-
-function animateSubscribe(){
-    var el = $(".subscriber h1");
-    if (isScrolledIntoView(el) && !viewed_subscribe) {
-        viewed_subscribe = true;
-        animateTextRowsSmooth();
-    }
-}
+//
+// function animateTestimonial(){
+//     var el = $(".testimonial h3");
+//     if (isScrolledIntoView(el) && !viewed) {
+//         viewed = true;
+//         animateHeadingWords(el);
+//     }
+// }
+//
+// function animateSubscribe(){
+//     var el = $(".subscriber h1");
+//     if (isScrolledIntoView(el) && !viewed_subscribe) {
+//         viewed_subscribe = true;
+//         animateSubtitleWords(el, 0.8);
+//     }
+// }
+//
+// function animateSubscribe(){
+//     var el = $(".subscriber h1");
+//     if (isScrolledIntoView(el) && !viewed_subscribe) {
+//         viewed_subscribe = true;
+//         animateTextRowsSmooth();
+//     }
+// }
 
 
 function elementScrolled(elem) {
@@ -63,29 +65,6 @@ function elementScrolled(elem) {
     }
 
 }
-
-//
-// $(window).scroll(function(){
-//     // This is then function used to detect if the element is scrolled into view
-//     if(elementScrolled('.wave .pink path')) {
-//         $('.wave .pink path').addClass('scrolled');
-//     }else{
-//         $('.wave .pink path').removeClass('scrolled');
-//     }
-//
-//     if(elementScrolled('.wave .green path')) {
-//         $('.wave .green path').addClass('scrolled');
-//     }else{
-//         $('.wave .green path').removeClass('scrolled');
-//     }
-//
-//     if(elementScrolled('.wave .blue path')) {
-//         $('.wave .blue path').addClass('scrolled');
-//     }else{
-//         $('.wave .blue path').removeClass('scrolled');
-//     }
-// });
-
 
 $(document).ready(function() {
     // $("nav").removeClass("no-transition");
@@ -326,17 +305,17 @@ $(document).ready(function() {
     });
 
 
-    $('.towns_uppercase_labels').slick({
-        dots: false,
-        infinite: true,
-        speed: 1000,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        centerMode: true,
-        arrows: false
-    });
+    // $('.towns_uppercase_labels').slick({
+    //     dots: false,
+    //     infinite: true,
+    //     speed: 1000,
+    //     autoplay: true,
+    //     autoplaySpeed: 3000,
+    //     slidesToShow: 3,
+    //     slidesToScroll: 1,
+    //     centerMode: true,
+    //     arrows: false
+    // });
 
 
 	onHashChange();
@@ -505,6 +484,39 @@ $(document).ready(function() {
 
 
 });
+
+
+function animateNumbers() {
+    if (isScrolledIntoView($(".numbers2")) && !viewed) {
+        viewed = true;
+        $('.number_item_number h1 .count').each(function () {
+            var size = $(this).text().split(".")[1] ? $(this).text().split(".")[1].length : 0;
+            $(this).prop('Counter',0).animate({
+                Counter: $(this).text()
+            }, {
+                duration: 1800,
+                easing: 'swing',
+                step: function (now) {
+                    $(this).text(parseFloat(now).toFixed(size));
+                }
+            });
+        });
+    }
+}
+
+// Helper function to check if element is in view
+function isScrolledIntoView(elem) {
+    var docViewTop = $(window).scrollTop();
+    var docViewBottom = docViewTop + $(window).height();
+
+    if($(elem).height()){
+        var elemTop = $(elem).offset().top;
+        var elemBottom = elemTop + $(elem).height();
+        return ((elemBottom/2 <= docViewBottom) && (elemTop >= docViewTop));
+        // return (elemBottom <= docViewBottom);
+    }
+    return;
+}
 
 function openModal() {
     document.getElementById("imagesModal").style.display = "block";
