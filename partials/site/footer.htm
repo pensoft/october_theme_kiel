@@ -4,8 +4,8 @@ background = "transperant"
 templates = "template3"
 description_limit = 0
 
-[menu]
-start = "id-1"
+[menu footer_menu]
+start = "id-13"
 activeNode = 0
 listItemClasses = "item"
 primaryClasses = "nav nav-pills"
@@ -16,19 +16,20 @@ numberOfLevels = 2
 
     <div class="container">
 
-        <div class="row between-md around-xs middle-xs">
-            <div class="col-md-2 col-xs-12 start-md center-xs">
+        <div class="row between-md around-xs middle-xs logo_and_nav">
+            <div class="col-md-1 col-xs-12 start-md center-xs">
                 <div class="footer-logo-container">
                     <a href="{{'home'|page}}"><img src="{{ 'SCTT logo_White.svg'|media }}" alt=""></a>
                 </div>
             </div>
-            <div class="col-md-5 col-xs-12"></div>
-            <div class="col-md-3 col-xs-12 end-md center-xs">
-                {% component 'menu' %}
+            <div class="col-md-6 col-xs-12"></div>
+            <div class="col-md-3 col-xs-12 end-md center-xs navigation">
+                <div class="heading-text">Navigation</div>
+                {% component 'footer_menu' %}
             </div>
         </div>
 
-        <div class="row">
+        <div class="row between-md around-xs">
             <div class="col-md-2 col-xs-12 subscribe start-md center-xs">
                 <div class="heading-text">Subscribe to our newsletter</div>
                 <a href="{{this.theme.subscribe}}" target="_blank" class="">Subscribe</a>
@@ -65,7 +66,7 @@ numberOfLevels = 2
                 </div>
             </div>
 
-            <div class="col-md-6 col-xs-12">
+            <div class="col-md-5 col-xs-12">
                 <div class="footer_funding">
                     <img src="{{'FundedbytheEU_RGB.svg'|media }}"/>
                 </div>
@@ -73,7 +74,7 @@ numberOfLevels = 2
                     {% component 'disclaimer' %}
                 </div>
             </div>
-            <div class="col-md-2 col-xs-12 era">
+            <div class="col-md-3 col-xs-12 era">
                 <img src="{{'ERA_we-are.jpg'|media}}">
             </div>
         </div>
@@ -85,7 +86,7 @@ numberOfLevels = 2
             </div>
             <div class="powered-by end-md start-xs">
                 <span>Designed and powered by <a href="https://pensoft.net/" target="_blank">
-                    <img class="pensoft_logo" src="{{ 'assets/images/pensoft-logo.svg'|theme }}" /></a>
+                    <img class="pensoft_logo" src="{{ 'assets/images/pensoft-logo.png'|theme }}" /></a>
                 </span>
             </div>
         </div>

@@ -12,6 +12,7 @@ forceSecure = 0
 requirePassword = 0
 ==
 {% if not user %}
+{% do redirect('/') %}
 	<div class="container">
         <div class="login_form_container">
             <div class="login_form_content">

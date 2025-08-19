@@ -571,10 +571,6 @@
         width: 90%;
         height: fit-content;
         background: rgba(5, 19, 58, 0.68);
-        //transform: matrix(-1, 0, 0, -1, 0, 0);
-        //background: linear-gradient(180deg, rgba(55, 105, 255, 0) 0%, rgba(55, 105, 255, 0.78) 100%) 0% 0% no-repeat padding-box;
-        //border-radius: 0 0 20px 20px;
-        //opacity: 0.78;
         border-radius: 20px;
         position: absolute;
         bottom: 7px;
@@ -586,9 +582,11 @@
 
         .events-date{
             font-size: 14px;
-            line-height: 42px;
+            line-height: 14px;
+            margin-bottom: 4px;
+            margin-top: 10px;
             font-family: Staatliches;
-            color: #FFFFFF;
+            color: @date-text-color;
         }
 
         .title{
@@ -615,6 +613,10 @@
                 font-size: 22px;
                 line-height: 26px;
             }
+        }
+
+        .events-date{
+            margin-bottom: 8px;
         }
     }
 
