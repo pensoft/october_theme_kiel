@@ -67,10 +67,13 @@
             order: 0;
         });
         .breakpoint-large-down({
-            height: 26px;
+            position: absolute;
+            top: -29px;
+            left: 41px;
+            height: 100px;
             order: unset;
-            z-index: 0;
-            // flex-basis: 230px;
+            z-index: 3;
+            flex-basis: 230px;
         });
     }
 
@@ -139,10 +142,6 @@
             box-sizing: border-box;
             align-items: center;
             z-index: @zindex-dropdown;
-
-            .breakpoint-large-down({
-                display: none;
-            });
 
             .active {
                 &>a {
@@ -576,7 +575,7 @@
         display: flex;
         flex-direction: column;
         position: absolute;
-        right: 24px;
+        right: 42px;
         top: 40px;
         z-index: 1;
         -webkit-user-select: none;
@@ -603,7 +602,7 @@
         height: 2px;
         margin-bottom: 5px;
         position: relative;
-        background: @white-color;
+        background: @dark-color;
         border-radius: 3px;
         z-index: 1;
         transform-origin: 5px 0px;
@@ -661,9 +660,9 @@
         position: absolute;
         width: 100vw;
         height: 100vh;
-        margin: -40px 0 0 -93vw;
+        margin: -55px 0 0 -80vw;
         //padding: 50px 0 0 0;
-        background: black;
+        background: @blue-color;
         color: @white-color!important;
         font-size: 16px!important;
         -webkit-font-smoothing: antialiased;
@@ -673,6 +672,7 @@
         font-weight: 500;
         text-align: center;
         overflow-y: scroll;
+        padding-top: 69px;
 
         a{
             color: @white-color!important;
@@ -794,15 +794,15 @@
         }
     }
 }
-
-@media (max-width:800px) {
-    #menu {
-        margin: -40px 0 0 -86vw;
-
-    }
-}
-@media (max-width:300px) {
-    #menu {
-        margin: -40px 0 0 -81vw;
-    }
-}
+//
+//@media (max-width:800px) {
+//    #menu {
+//        margin: -40px 0 0 -80vw;
+//
+//    }
+//}
+//@media (max-width:300px) {
+//    #menu {
+//        margin: -40px 0 0 -81vw;
+//    }
+//}

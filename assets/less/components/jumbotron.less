@@ -67,6 +67,11 @@
     .town_item{
         position: relative;
         transition: all 0.5s ease-in-out;
+
+        .breakpoint-large-down({
+            margin-bottom: 40px;
+        });
+
         img{
             position: relative;
             border-radius: 39px;
@@ -166,6 +171,18 @@
             margin-bottom: 0;
         }
     }
+
+    .title_and_btn{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .btn-primary{
+            .breakpoint-large-down({
+                margin: 0 auto 40px auto;
+            });
+        }
+    }
 }
 
 
@@ -189,11 +206,7 @@
         padding: 0 0 87px 0;
     }
 
-    .title_and_btn{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
+
 
     h1{
         font-size: 80px;
@@ -378,6 +391,10 @@
     width: 100%;
     height: 400px;
     overflow: hidden;
+
+    .breakpoint-large-down({
+        height: 300px;
+    });
 
 
     .ocean{

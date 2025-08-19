@@ -49,43 +49,12 @@ numberOfLevels = 2
 
 
         <div class="container menu_container">
-            <div class="navbar-collapse collapse center-xs" id="headerNavbarNav" style="display: none;">
+            <div class="navbar-collapse collapse center-xs" id="headerNavbarNav">
                 <a href="{{'home'|page}}" class="navbar-brand" id="navbar-brand" style="background: url('{{ this.theme.site_logo.getPath() }}') center no-repeat; background-size: contain;"></a>
                 {% component 'menu' %}
             </div>
             {% if this.page.id == 'home' %}
             <div class="funding-social-media">
-<!--                <div class="social_media">-->
-<!--                    <span>Follow us on</span>-->
-<!--                    <div>-->
-<!--                    {% if this.theme.twitter_url %}-->
-<!--                    <a href="{{this.theme.twitter_url}}" target="_blank" class="pr p-twitter normal "></a>-->
-<!--                    {% endif %}-->
-<!--                    {% if this.theme.facebook_url %}-->
-<!--                    <a href="{{this.theme.facebook_url}}" target="_blank" class="pr p-facebook normal "></a>-->
-<!--                    {% endif %}-->
-<!--                    {% if this.theme.linkedin_url %}-->
-<!--                    <a href="{{this.theme.linkedin_url}}" target="_blank" class="pr p-linkedin normal "></a>-->
-<!--                    {% endif %}-->
-<!--                    {% if this.theme.youtube_url %}-->
-<!--                    <a href="{{this.theme.youtube_url}}" target="_blank" class="pr p-youtube normal "></a>-->
-<!--                    {% endif %}-->
-<!--                    {% if this.theme.instagram_url %}-->
-<!--                    <a href="{{this.theme.instagram_url}}" target="_blank" class="pr p-instagram normal "></a>-->
-<!--                    {% endif %}-->
-<!--                    {% if this.theme.researchgate_url %}-->
-<!--                    <a href="{{this.theme.researchgate_url}}" target="_blank" class="pr p-researchgate normal "></a>-->
-<!--                    {% endif %}-->
-<!--                    {% if this.theme.bluesky_url %}-->
-<!--                    <a href="{{this.theme.bluesky_url}}" target="_blank" class="pr p-secondary p-bluesky normal "></a>-->
-<!--                    {% endif %}-->
-<!--                    {% if this.theme.threads_url %}-->
-<!--                    <a href="{{this.theme.threads_url}}" target="_blank" class="pr p-secondary p-threads normal "></a>-->
-<!--                    {% endif %}-->
-<!--                    </div>-->
-<!--                </div>-->
-
-
                 <div class="funding">
                     {% if footer_funds_flag %}
                         <img class="funding-flag" src="{{ footer_funds_flag }}"/>
@@ -103,12 +72,6 @@ numberOfLevels = 2
 
 {% if this.page.id != 'home' and this.page.id != 'coming-soon' %}
 <div class="header-image {{page_id}}">
-<!--    {%if this.page.header_image %}-->
-<!--    <div class="header-image-bar" style="background-image: url('{{this.page.header_image|media}}'); background-position: left center;"></div>-->
-<!--    {%else%}-->
-<!--    <div class="header-image-bar" style="background-image: url('{{this.theme.header_image.getPath()}}'); background-position: left center;"></div>-->
-<!--    {%endif%}-->
-
     {% if page_id != 'home' and page_id != 'coming-soon' %}
     <div class="container">
         <h1 class="underline white">
