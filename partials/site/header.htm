@@ -55,13 +55,7 @@ numberOfLevels = 2
         </div>
 
         <div class="funding-social-media">
-            {% if this.page.id == 'home' %}
-            <div class="funding">
-                {% if footer_funds_flag %}
-                <img class="funding-flag" src="{{ footer_funds_flag }}"/>
-                {% endif %}
-            </div>
-            {% endif %}
+
             <div class="social_media">
 <!--                <span>Follow us on</span>-->
                 <div>
@@ -91,6 +85,14 @@ numberOfLevels = 2
                 {% endif %}
                 </div>
             </div>
+
+            {% if this.page.id == 'home' %}
+            <div class="funding">
+                {% if footer_funds_flag %}
+                <img class="funding-flag" src="{{ footer_funds_flag }}"/>
+                {% endif %}
+            </div>
+            {% endif %}
 
 
         </div>

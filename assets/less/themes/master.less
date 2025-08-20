@@ -71,7 +71,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, .title, .head, .page_headi
     line-height: normal;
 }
 h1, h2{
-    font-size: 42px;
+    font-size: 50px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -124,12 +124,13 @@ p:has(.edit-link){
         }
     }
 }
-.social_media{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: start;
-}
+//.social_media{
+//    display: flex;
+//    flex-direction: row;
+//    align-items: center;
+//    justify-content: start;
+//    margin-right: 10px;
+//}
 
 
 ul.pagination{
@@ -971,6 +972,7 @@ ul.pagination{
         justify-content: start;
         align-items: flex-start;
         font-family: Staatliches;
+        margin-right: 10px;
         a{
             //color: @dark-color;
             //display: inline-flex;
@@ -978,15 +980,18 @@ ul.pagination{
 
             width: 34px;
             height: 34px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.08);;
+            background: @blue-color;
+            border: 1px solid @blue-color;
             border-radius: 8px;
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-right: 10px;
+            &:hover{
+                background: @dark-color;
+                border: 1px solid @dark-color;
+            }
 
         }
     }

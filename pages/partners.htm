@@ -1,6 +1,6 @@
-url = "/consortium"
+url = "/partners"
 layout = "default"
-title = "Consortium"
+title = "Partners"
 is_hidden = 0
 robot_index = "index"
 robot_follow = "follow"
@@ -10,32 +10,34 @@ header_image = "about.jpg"
 use Pensoft\Partners\Models\Partners;
 
 function onStart(){
-	$this['partners'] =  Partners::where('type', 1)->get();
-	$this['a_partners'] =  Partners::where('type', 2)->get();
+	$this['all_partners'] =  Partners::where('type', 1)->get();
+	$this['croatian_partners'] =  Partners::whereRaw('country_code ILIKE \'%HR%\'')->where('type', 1)->get();
+	$this['french_partners'] =  Partners::whereRaw('country_code ILIKE \'%FR%\'')->where('type', 1)->get();
+	$this['german_partners'] =  Partners::whereRaw('country_code ILIKE \'%DE%\'')->where('type', 1)->get();
+	$this['international_partners'] =  Partners::whereRaw('country_code NOT ILIKE \'%DE%\' AND country_code NOT ILIKE \'%FR%\' AND country_code NOT ILIKE \'%HR%\'')->where('type', 1)->get();
 }
 ?>
 ==
 <div class="container">
         <div class="row container">
             <div class="row partners_list">
-                {% for k, partner in partners %}
+                {% for k, partner in all_partners %}
                         <div class="partner-item key_{{k}}" data-aos="fade-up">
                             <div class="row middle-xs logo_and_link">
-                                <div class="col-xs-4 col-md-4 partner_logo">
-                                    <a href="{{partner.instituion_url}}" target="_blank">
-                                        <img alt="{{ partner.instituion }}" src="{{partner.cover.path}}">
-                                    </a>
+                                <div class="col-xs- col-md-8 partner_logo">
+                                     <img alt="{{ partner.instituion }}" src="{{partner.cover.path}}" role="presentation" alt="{{ partner.instituion }} logo">
                                 </div>
-                                <div class="col-xs-8 col-md-8 partner_title">
-                                    <h4>{{partner.instituion}} <a href="{{partner.instituion_url}}" target="_blank">({{partner.email}})</a></h4>
+                                <div class="col-xs-12 col-md-12 partner_title">
+                                    <h4>{{partner.instituion}}</h4>
+                                </div>
+                                <div class="col-xs-12 partner_description">
+                                    <div class="partner_content">
+                                        {{partner.content|raw}}
+                                        <a href="{{partner.instituion_url}}" target="_blank" aria-label="Visit {{partner.instituion_url}}">Visit website</a>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-xs-12 partner_description">
-                                <div class="partner_content toogle-contact-paragraphs" style="display: none;">
-                                    {{partner.content|raw}}
-                                </div>
-                                <a class="read-more-expand dorsal">Read more</a>
-                            </div>
+
                         </div>
                 {% endfor %}
             </div>
