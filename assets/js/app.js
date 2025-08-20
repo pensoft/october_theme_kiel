@@ -210,7 +210,7 @@ $(document).ready(function() {
         }
     });
 
-    $('.events .tabs').each(function(){
+    $('.events .tabs, .partners .tabs').each(function(){
         // For each set of tabs, we want to keep track of
         // which tab is active and its associated content
         var $active, $content, $links = $(this).find('a');
@@ -225,6 +225,10 @@ $(document).ready(function() {
         }
 
         if($(this).parent().parent().hasClass('events')){
+            $active.addClass('active');
+        }
+
+        if($(this).parent().parent().hasClass('partners')){
             $active.addClass('active');
         }
 
@@ -392,15 +396,6 @@ $(document).ready(function() {
         $('.work_packages .key_1, .work_packages .key_4, .work_packages .key_7, .work_packages .key_10, .work_packages .key_13, .work_packages .key_16').wrapAll('<div class="col-md-4 col-xs-12" />');
         $('.work_packages .key_2, .work_packages .key_5, .work_packages .key_8, .work_packages .key_11, .work_packages .key_14, .work_packages .key_17').wrapAll('<div class="col-md-4 col-xs-12" />');
 
-        $('.pilots .key_0, .pilots .key_2, .pilots .key_4, .pilots .key_6, .pilots .key_7, .pilots .key_8').wrapAll('<div class="col-md-6 col-xs-12" />');
-        $('.pilots .key_1, .pilots .key_3, .pilots .key_5, .pilots .key_7, .pilots .key_9, .pilots .key_9').wrapAll('<div class="col-md-6 col-xs-12" />');
-
-        $('.partners_list .key_0, .partners_list .key_2, .partners_list .key_4, .partners_list .key_6, .partners_list .key_8, .partners_list .key_10, .partners_list .key_12, .partners_list .key_14').wrapAll('<div class="col-md-6 col-xs-12" />');
-        $('.partners_list .key_1, .partners_list .key_3, .partners_list .key_5, .partners_list .key_7, .partners_list .key_9, .partners_list .key_11, .partners_list .key_13, .partners_list .key_15').wrapAll('<div class="col-md-6 col-xs-12" />');
-
-
-        $('.partners_list .key_220, .partners_list .key_222, .partners_list .key_224, .partners_list .key_226, .partners_list .key_228, .partners_list .key_2210, .partners_list .key_2212, .partners_list .key_2214').wrapAll('<div class="col-md-6 col-xs-12" />');
-        $('.partners_list .key_221, .partners_list .key_223, .partners_list .key_225, .partners_list .key_227, .partners_list .key_229, .partners_list .key_2211, .partners_list .key_2213, .partners_list .key_2215').wrapAll('<div class="col-md-6 col-xs-12" />');
     }
 
 
