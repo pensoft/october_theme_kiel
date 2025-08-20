@@ -9,10 +9,30 @@ robot_follow = "follow"
 header_subtitle = "A Horizon Europe project exploring the values and dependence of society on pollinators"
 
 [siteSearchInclude]
+
+[jumbotron]
+jumbotron = "about"
+background = "transperant"
+templates = "template3"
+description_limit = 0
 ==
 {% component 'siteSearchInclude' %}
 
 <div class="container-fluid">
     <div class="container">
+        <div class="row about_intro">
+            <div class="col-md-4 col-xs-12">
+                <h1 class="underline">The Project</h1>
+            </div>
+            <div class="col-md-8 col-xs-12">
+                {% component 'jumbotron' %}
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-xs-12">
+                <img src="{{'about_image.png'|media}}" title="ABout Science comes to town" alt="Science Comes To Town features a diverse programme including science festivals, competitions, and outreach events across Kiel, Brest, and Split, three vibrant university cities with strong town-and-gown relations.">
+            </div>
+        </div>
+
     </div>
 </div>
