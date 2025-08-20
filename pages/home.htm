@@ -196,7 +196,7 @@ function onStart(){
                         <a class="events-title" href="/coming-soon">
                             <div class="events-date">
                                 {% if entries[0].start|date("j") != entries[0].end|date("j") %} {{entries[0].start|date("j")}}-{{entries[0].end|date("j")}}{% else %}{{entries[0].start|date("j")}}{% endif %}
-                                {{entries[0].start|date("M")}}
+                                {{entries[0].start|date("M Y")}}
                             </div>
                             <div class="title">
                                 <h3>{{ entries[0].title|raw}}</h3>
@@ -208,25 +208,41 @@ function onStart(){
             </div>
 
             <div class="col-md-4 col-xs-12 highlight-events">
-                {% for event in entries|slice(1, 2) %}
                 <div class="row events-card">
                     <div class="img-container">
                         <a href="/coming-soon">
-                            <img src="{{ event.cover_image.path }}" alt="{{ event.title }}">
+                            <img src="{{ entries[1].cover_image.path }}" alt="{{ entries[1].title }}">
                         </a>
 
                         <a class="events-title" href="/coming-soon">
                             <div class="events-date">
-                                {% if event.start|date("j") != event.end|date("j") %} {{event.start|date("j")}}-{{event.end|date("j")}}{% else %}{{event.start|date("j")}}{% endif %}
-                                {{event.start|date("M")}}
+<!--                                {% if entries[1].start|date("j") != entries[1].end|date("j") %} {{entries[1].start|date("j")}}-{{entries[1].end|date("j")}}{% else %}{{entries[1].start|date("j")}}{% endif %}-->
+                                AUTUMN {{entries[1].start|date("Y")}}
                             </div>
                             <div class="title">
-                                <h3>{{ event.title|raw}}</h3>
+                                <h3>{{ entries[1].title|raw}}</h3>
                             </div>
                         </a>
                     </div>
                 </div>
-                {% endfor %}
+
+                <div class="row events-card">
+                    <div class="img-container">
+                        <a href="/coming-soon">
+                            <img src="{{ entries[2].cover_image.path }}" alt="{{ entries[2].title }}">
+                        </a>
+
+                        <a class="events-title" href="/coming-soon">
+                            <div class="events-date">
+                                {% if entries[2].start|date("j") != entries[2].end|date("j") %} {{entries[2].start|date("j")}}-{{entries[2].end|date("j")}}{% else %}{{entries[2].start|date("j")}}{% endif %}
+                                {{entries[2].start|date("M Y")}}
+                            </div>
+                            <div class="title">
+                                <h3>{{ entries[2].title|raw}}</h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
