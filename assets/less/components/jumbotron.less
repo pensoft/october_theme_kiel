@@ -310,16 +310,24 @@
         text-align: center;
         white-space: nowrap;
         display: inline-block;
-        animation: marquee 15s linear infinite;
-        .breakpoint-large-down({
-            animation: none!important;
-        });
+        width: 100%;
+        //animation: marquee 15s linear infinite;
+        //.breakpoint-large-down({
+        //    animation: none!important;
+        //});
 
         span{
-            font-size: 240px;
-            line-height: 240px;
+            font-size: 229px;
+            line-height: 229px;
             display: inline-block;
-            padding-left: 5vw;
+            padding-left: 2%;
+            padding-right: 2%;
+            //padding-left: 5vw;
+
+            .breakpoint-laptop-down({
+                font-size: 200px;
+                line-height: 200px;
+            });
 
             .breakpoint-large-down({
                 font-size: 121px;
