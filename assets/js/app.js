@@ -396,6 +396,11 @@ $(document).ready(function() {
         $('.work_packages .key_1, .work_packages .key_4, .work_packages .key_7, .work_packages .key_10, .work_packages .key_13, .work_packages .key_16').wrapAll('<div class="col-md-4 col-xs-12" />');
         $('.work_packages .key_2, .work_packages .key_5, .work_packages .key_8, .work_packages .key_11, .work_packages .key_14, .work_packages .key_17').wrapAll('<div class="col-md-4 col-xs-12" />');
 
+
+
+        $('.advisory_board .key_0, .advisory_board .key_2, .advisory_board .key_4, .advisory_board .key_6, .advisory_board .key_8, .advisory_board .key_10, .advisory_board .key_12, .advisory_board .key_14, .advisory_board .key_16, .advisory_board .key_18, .advisory_board .key_20, .advisory_board .key_22').wrapAll('<div class="col-md-6 col-xs-12" />');
+        $('.advisory_board .key_1, .advisory_board .key_3, .advisory_board .key_5, .advisory_board .key_7, .advisory_board .key_9, .advisory_board .key_11, .advisory_board .key_13, .advisory_board .key_15, .advisory_board .key_17, .advisory_board .key_19, .advisory_board .key_21, .advisory_board .key_23').wrapAll('<div class="col-md-6 col-xs-12" />');
+
     }
 
 
@@ -480,6 +485,18 @@ $(document).ready(function() {
 
 });
 
+
+function expandBiography(el){
+    $el = $(el) // read-more link
+    $body  = $el.parent().parent().parent().find('.body');
+    if($body.is(':visible')){
+        $body.slideUp(300);
+        $el.addClass('expanded');
+    }else{
+        $body.slideDown(300);
+        $el.removeClass('expanded');
+    }
+}
 
 function animateNumbers() {
     if (isScrolledIntoView($(".numbers2")) && !viewed) {
