@@ -10,7 +10,7 @@ header_image = "about.jpg"
 use Pensoft\Partners\Models\Partners;
 
 function onStart(){
-	$this['coordination_partners'] =  Partners::where('type', 2)->get();
+	$this['coordination_partners'] =  Partners::where('type', 4)->get();
 	$this['croatian_partners'] =  Partners::whereRaw('country_code ILIKE \'%HR%\'')->where('type', 1)->get();
 	$this['french_partners'] =  Partners::whereRaw('country_code ILIKE \'%FR%\'')->where('type', 1)->get();
 	$this['german_partners'] =  Partners::whereRaw('country_code ILIKE \'%DE%\'')->where('type', 1)->get();
