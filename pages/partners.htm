@@ -10,7 +10,7 @@ header_image = "about.jpg"
 use Pensoft\Partners\Models\Partners;
 
 function onStart(){
-	$this['all_partners'] =  Partners::where('type', 1)->get();
+	$this['coordination_partners'] =  Partners::where('type', 2)->get();
 	$this['croatian_partners'] =  Partners::whereRaw('country_code ILIKE \'%HR%\'')->where('type', 1)->get();
 	$this['french_partners'] =  Partners::whereRaw('country_code ILIKE \'%FR%\'')->where('type', 1)->get();
 	$this['german_partners'] =  Partners::whereRaw('country_code ILIKE \'%DE%\'')->where('type', 1)->get();
@@ -21,7 +21,7 @@ function onStart(){
 
 <div class="container">
     <div class="tabs">
-        <a class="" href="#all">All partners</a>
+        <a class="" href="#coordination">Project coordination</a>
         <a class="" href="#croatian">Croatian partners</a>
         <a class="" href="#french">French partners</a>
         <a class="" href="#german">German partners</a>
@@ -30,8 +30,8 @@ function onStart(){
 </div>
 
 <div class="container partners_list">
-    <div class="row" id="all">
-        {% partial 'components/partners_list' partners = all_partners %}
+    <div class="row" id="coordination">
+        {% partial 'components/partners_list' partners = coordination_partners %}
     </div>
 
     <div class="row" id="croatian">
