@@ -1,6 +1,6 @@
 {% for k, partner in partners %}
 <div class="col-md-6 col-xs-12">
-    <div class="partner-item key_{{k}}" data-aos="fade-up">
+    <div class="partner-item key_{{k}} {{ partner.instituion|slug }} " data-aos="fade-up">
         <div class="partner_item_content">
             <div class="row middle-xs between-xs logo_and_flag">
                 <div class="col-xs-10 col-md-10 partner_logo">
