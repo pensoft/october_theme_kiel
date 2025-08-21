@@ -10,16 +10,13 @@
     width: 100%;
     .contact_info {
         border-radius: 20px;
-        margin-bottom: 40px;
-        padding: 10px;
-        width: 298px!important;
-        max-width: 100%;
-        text-align: center;
+        margin-bottom: 20px;
+        padding: 15px;
+        max-width: calc(~'100% - 30px');
         justify-content: center;
         justify-self: center;
         position: relative;
-
-
+        background: @secondary-color;
 
         .email_container{
             background: @link-color;
@@ -41,19 +38,6 @@
                 .breakpoint-large-down({
                     object-fit: unset;
                 });
-            }
-
-            .uni_label{
-                position: absolute;
-                top: 16px;
-                left: 14px;
-                content: '';
-                width: 89px;
-                height: 41px;
-                background: white url("../../assets/images/uni-reading.svg") center no-repeat;
-                background-size: 71px 24px;
-                border-radius: 9px;
-
             }
         }
         .coordinator_info{
@@ -322,5 +306,95 @@
         //    }
         }
         /* *** */
+    }
+}
+
+
+.advisory-board{
+    .contact_info{
+        border-radius: 20px;
+        margin-bottom: 20px;
+        padding: 15px;
+        width: calc(~'100% - 30px');
+
+        justify-content: center;
+        justify-self: center;
+        position: relative;
+        background: @secondary-color;
+        display: flex;
+        align-items: center;
+
+        h4{
+            color: @heading-text-color;
+            font-size: 18px;
+            font-family: Inter!important;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 1.7em;
+            text-align: left;
+            margin-bottom: 16px;
+            margin-top: 31px;
+        }
+
+
+        .read-more{
+            margin-bottom: 0;
+            color: @link-color;
+            display: flex;
+            width: fit-content;
+            position: relative;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            letter-spacing: -0.24px;
+            cursor: pointer;
+
+            &:after {
+                content: '';
+                position: absolute;
+                right: -15px;
+                top: 50%;
+                margin-top: -5px;
+                width: 10px;
+                height: 10px;
+                background: url('../../assets/images/arrow-down-light-blue.svg') no-repeat center center;
+                background-size: contain;
+                pointer-events: none;
+                transition: transform 0.3s ease;
+            }
+
+            &:hover:after {
+                transform: rotate(180deg);
+                margin-top: -5px;
+
+            }
+        }
+
+    }
+
+    .coordinator_image{
+        img{
+            width: 171px;
+            height: 138px;
+            border-radius: 16px;
+            object-fit: cover;
+        }
+    }
+
+    .coordinator_info{
+        text-align: left;
+        display: flex;
+        align-items: center;
+        h3{
+            color: @heading-text-color;
+            font-size: 18px;
+            font-family: Inter;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 1.7em;
+            text-align: left;
+            margin-bottom: 12px;
+        }
     }
 }
