@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Blocks_verlic" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1800 1200">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #dc2726;
+      }
+
+      .cls-1, .cls-2 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <polygon class="cls-1" points="1800 1200 1800 .4 0 .4 0 1200 1499.8 1200 1800 1200"/>
+  <polygon class="cls-2" points="789.2 231.5 789.2 489.4 531.3 489.4 531.3 711 789.2 711 789.2 968.9 1011.1 968.9 1011.1 711 1268.7 711 1268.7 489.4 1011.1 489.4 1011.1 231.5 789.2 231.5 789.2 231.5"/>
+</svg>

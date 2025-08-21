@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 800 532.9">
+  <defs>
+    <style>
+      .cls-1 {
+        clip-path: url(#clippath);
+      }
+
+      .cls-2 {
+        fill: none;
+      }
+
+      .cls-2, .cls-3, .cls-4, .cls-5 {
+        stroke-width: 0px;
+      }
+
+      .cls-3 {
+        fill: #ec1c24;
+      }
+
+      .cls-4 {
+        fill: #2b388f;
+      }
+
+      .cls-5 {
+        fill: #fff;
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="cls-2" width="800" height="532.9"/>
+    </clipPath>
+  </defs>
+  <g class="cls-1">
+    <rect class="cls-4" width="800" height="532.9"/>
+    <g>
+      <rect class="cls-5" x="348.6" y="-252" width="102.9" height="1036.8" transform="translate(-43.6 451.3) rotate(-56.3)"/>
+      <rect class="cls-3" x="165.1" y="-128.5" width="32.4" height="523.8" transform="translate(-30.3 210.1) rotate(-56.3)"/>
+      <rect class="cls-3" x="586.6" y="105.5" width="32.4" height="566" transform="translate(-54.9 674.3) rotate(-56.3)"/>
+    </g>
+    <g>
+      <rect class="cls-5" x="-118.4" y="215" width="1036.8" height="102.9" transform="translate(-80.6 259.9) rotate(-32.9)"/>
+      <rect class="cls-3" x="-70.9" y="398.1" width="523.8" height="32.4" transform="translate(-194.4 170.1) rotate(-32.9)"/>
+      <rect class="cls-3" x="309.5" y="112.6" width="566" height="32.4" transform="translate(25 342.3) rotate(-32.9)"/>
+    </g>
+    <rect class="cls-5" x="323.7" y="-.7" width="152.5" height="534.2"/>
+    <rect class="cls-5" y="183.5" width="800" height="165.9"/>
+    <rect class="cls-3" x="352.2" y="-.8" width="95.5" height="534.4"/>
+    <rect class="cls-3" y="218.7" width="800" height="95.5"/>
+  </g>
+</svg>

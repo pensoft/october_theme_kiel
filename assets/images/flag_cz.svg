@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Blocks_verlic" data-name="Blocks verlic" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1800 1200">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fefefe;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #26457d;
+        fill-rule: evenodd;
+      }
+
+      .cls-3 {
+        fill: #c8282f;
+      }
+    </style>
+  </defs>
+  <rect class="cls-3" y="601" width="1800" height="599.9"/>
+  <rect class="cls-1" width="1800" height="601"/>
+  <polygon class="cls-2" points="897.7 601 0 0 0 1200.9 897.7 601"/>
+</svg>

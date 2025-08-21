@@ -30,145 +30,24 @@ function onStart(){
 </div>
 
 <div class="container partners_list">
-
     <div class="row" id="all">
-        {% for k, partner in all_partners %}
-            <div class="col-md-6 col-xs-12">
-                <div class="partner-item key_{{k}}" data-aos="fade-up">
-                    <div class="row middle-xs logo_and_link">
-                        <div class="col-xs-10 col-md-10 partner_logo">
-                            <img alt="{{ partner.instituion }}" src="{{partner.cover.path}}" role="presentation" alt="{{ partner.instituion }} logo">
-                        </div>
-                        <div class="col-xs-2 col-md-2 partner_flag">
-                            <div class="flag"></div>
-                        </div>
-
-                        <div class="col-xs-12 col-md-12 partner_title">
-                            <h4>{{partner.instituion}}</h4>
-                        </div>
-                        <div class="col-xs-12 partner_description">
-                            <div class="partner_content">
-                                {{partner.content|raw}}
-                                <a href="{{partner.instituion_url}}" target="_blank" aria-label="Visit {{partner.instituion_url}}">Visit website</a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        {% endfor %}
+        {% partial 'components/partners_list' partners = all_partners %}
     </div>
 
     <div class="row" id="croatian">
-        {% for k, partner in croatian_partners %}
-        <div class="col-md-6 col-xs-12">
-            <div class="partner-item key_{{k}}" data-aos="fade-up">
-                <div class="row middle-xs logo_and_link">
-                    <div class="col-xs-10 col-md-10 partner_logo">
-                        <img alt="{{ partner.instituion }}" src="{{partner.cover.path}}" role="presentation" alt="{{ partner.instituion }} logo">
-                    </div>
-                    <div class="col-xs-2 col-md-2 partner_flag">
-                        <div class="flag"></div>
-                    </div>
-
-                    <div class="col-xs-12 col-md-12 partner_title">
-                        <h4>{{partner.instituion}}</h4>
-                    </div>
-                    <div class="col-xs-12 partner_description">
-                        <div class="partner_content">
-                            {{partner.content|raw}}
-                            <a href="{{partner.instituion_url}}" target="_blank" aria-label="Visit {{partner.instituion_url}}">Visit website</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        {% endfor %}
+        {% partial 'components/partners_list' partners = croatian_partners %}
     </div>
 
     <div class="row" id="german">
-        {% for k, partner in german_partners %}
-        <div class="col-md-6 col-xs-12">
-            <div class="partner-item key_{{k}}" data-aos="fade-up">
-                <div class="row middle-xs logo_and_link">
-                    <div class="col-xs-10 col-md-10 partner_logo">
-                        <img alt="{{ partner.instituion }}" src="{{partner.cover.path}}" role="presentation" alt="{{ partner.instituion }} logo">
-                    </div>
-                    <div class="col-xs-2 col-md-2 partner_flag">
-                        <div class="flag"></div>
-                    </div>
-
-                    <div class="col-xs-12 col-md-12 partner_title">
-                        <h4>{{partner.instituion}}</h4>
-                    </div>
-                    <div class="col-xs-12 partner_description">
-                        <div class="partner_content">
-                            {{partner.content|raw}}
-                            <a href="{{partner.instituion_url}}" target="_blank" aria-label="Visit {{partner.instituion_url}}">Visit website</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        {% endfor %}
+        {% partial 'components/partners_list' partners = german_partners %}
     </div>
 
     <div class="row" id="french">
-        {% for k, partner in french_partners %}
-        <div class="col-md-6 col-xs-12">
-            <div class="partner-item key_{{k}}" data-aos="fade-up">
-                <div class="row middle-xs logo_and_link">
-                    <div class="col-xs-10 col-md-10 partner_logo">
-                        <img alt="{{ partner.instituion }}" src="{{partner.cover.path}}" role="presentation" alt="{{ partner.instituion }} logo">
-                    </div>
-                    <div class="col-xs-2 col-md-2 partner_flag">
-                        <div class="flag"></div>
-                    </div>
-
-                    <div class="col-xs-12 col-md-12 partner_title">
-                        <h4>{{partner.instituion}}</h4>
-                    </div>
-                    <div class="col-xs-12 partner_description">
-                        <div class="partner_content">
-                            {{partner.content|raw}}
-                            <a href="{{partner.instituion_url}}" target="_blank" aria-label="Visit {{partner.instituion_url}}">Visit website</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        {% endfor %}
+        {% partial 'components/partners_list' partners = french_partners %}
     </div>
 
     <div class="row" id="international">
-        {% for k, partner in international_partners %}
-        <div class="col-md-6 col-xs-12">
-            <div class="partner-item key_{{k}}" data-aos="fade-up">
-                <div class="row middle-xs logo_and_link">
-                    <div class="col-xs-10 col-md-10 partner_logo">
-                        <img alt="{{ partner.instituion }}" src="{{partner.cover.path}}" role="presentation" alt="{{ partner.instituion }} logo">
-                    </div>
-                    <div class="col-xs-2 col-md-2 partner_flag">
-                        <div class="flag"></div>
-                    </div>
-
-                    <div class="col-xs-12 col-md-12 partner_title">
-                        <h4>{{partner.instituion}}</h4>
-                    </div>
-                    <div class="col-xs-12 partner_description">
-                        <div class="partner_content">
-                            {{partner.content|raw}}
-                            <a href="{{partner.instituion_url}}" target="_blank" aria-label="Visit {{partner.instituion_url}}">Visit website</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        {% endfor %}
+        {% partial 'components/partners_list' partners = international_partners %}
     </div>
 
 </div>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Blocks_verlic" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1800 1200">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #0055a4;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #ef4135;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <rect class="cls-1" width="600" height="1200"/>
+  <rect class="cls-3" x="600" width="600" height="1200"/>
+  <rect class="cls-2" x="1200" width="600" height="1200"/>
+</svg>
