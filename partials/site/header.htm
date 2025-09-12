@@ -58,29 +58,31 @@ numberOfLevels = 2
         <div class="funding-social-media">
 
             <div class="social_media">
-<!--                <span>Follow us on</span>-->
                 <div>
-                    {% if this.theme.bluesky_url %}
-                    <a href="{{this.theme.bluesky_url}}" target="_blank" rel="noopener noreferrer" class="pr p-bluesky normal" aria-label="Visit our Bluesky (opens in a new tab)"><span class="visually-hidden">Bluesky</span></a>
-                    {% endif %}
-                    {% if this.theme.facebook_url %}
-                    <a href="{{facebook_url}}" target="_blank" rel="noopener noreferrer" class="pr p-facebook normal" aria-label="Visit our Facebook (opens in a new tab)"><span class="visually-hidden">Facebook</span></a>
-                    {% endif %}
-                    {% if this.theme.linkedin_url %}
-                    <a  href="{{linkedin_url}}" target="_blank" rel="noopener noreferrer" class="pr p-linkedin normal" aria-label="Visit our LinkedIn (opens in a new tab)"><span class="visually-hidden">LinkedIn</span></a>
-                    {% endif %}
-                    {% if this.theme.youtube_url %}
-                    <a  href="{{youtube_url}}" target="_blank" rel="noopener noreferrer" class="pr p-youtube normal" aria-label="Visit our YouTube (opens in a new tab)"><span class="visually-hidden">YouTube</span></a>
-                    {% endif %}
-                    {% if this.theme.instagram_url %}
-                    <a  href="{{instagram_url}}" target="_blank" rel="noopener noreferrer" class="pr p-instagram normal" aria-label="Visit our Instagram (opens in a new tab)"><span class="visually-hidden">Instagram</span></a>
-                    {% endif %}
-                    {% if this.theme.twitter_url %}
-                    <a href="{{twitter_url}}" target="_blank" rel="noopener noreferrer" class="pr p-twitter normal" aria-label="Visit our X (Twitter) (opens in a new tab)"><span class="visually-hidden">X (Twitter)</span></a>
-                    {% endif %}
-                    {% if this.theme.threads_url %}
-                    <a href="{{this.theme.threads_url}}" target="_blank" rel="noopener noreferrer" class="pr p-threads normal" aria-label="Visit our Threads (opens in a new tab)"><span class="visually-hidden">Threads</span></a>
-                    {% endif %}
+                        {% if this.theme.twitter_url %}
+                        <a href="{{this.theme.twitter_url}}" target="_blank" class="pr p-twitter normal "></a>
+                        {% endif %}
+                        {% if this.theme.facebook_url %}
+                        <a href="{{this.theme.facebook_url}}" target="_blank" class="pr p-facebook normal "></a>
+                        {% endif %}
+                        {% if this.theme.linkedin_url %}
+                        <a href="{{this.theme.linkedin_url}}" target="_blank" class="pr p-linkedin normal "></a>
+                        {% endif %}
+                        {% if this.theme.youtube_url %}
+                        <a href="{{this.theme.youtube_url}}" target="_blank" class="pr p-youtube normal "></a>
+                        {% endif %}
+                        {% if this.theme.instagram_url %}
+                        <a href="{{this.theme.instagram_url}}" target="_blank" class="pr p-instagram normal "></a>
+                        {% endif %}
+                        {% if this.theme.researchgate_url %}
+                        <a href="{{this.theme.researchgate_url}}" target="_blank" class="pr p-researchgate normal "></a>
+                        {% endif %}
+                        {% if this.theme.bluesky_url %}
+                        <a href="{{this.theme.bluesky_url}}" target="_blank" class="pr p-secondary p-bluesky normal "></a>
+                        {% endif %}
+                        {% if this.theme.threads_url %}
+                        <a href="{{this.theme.threads_url}}" target="_blank" class="pr p-secondary p-threads normal "></a>
+                        {% endif %}
                 </div>
             </div>
 
