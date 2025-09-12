@@ -24,6 +24,7 @@ $this['advisory_board'] = Profiles::where('category_id', 2)->get();
 <div class="container">
     <div class="row start-md around-xs advisory_board">
         {% for k, profile in advisory_board %}
+        <div class="col-md-6 col-xs-12">
             <div class="contact_info key_{{k}}">
                 <div class="row">
                     <div class="col-md-4 col-xs-12 coordinator_image">
@@ -36,18 +37,18 @@ $this['advisory_board'] = Profiles::where('category_id', 2)->get();
                     <div class="col-md-8 col-xs-12 coordinator_info">
                         <div class="">
                             <h3>{{ profile.names }}</h3>
-                            <p class="read-more expanded" onclick="expandBiography(this);" data-uw-rm-kbnav="click">Read biography</p>
+<!--                            <p class="read-more expanded" onclick="expandBiography(this);" data-uw-rm-kbnav="click">Read biography</p>-->
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="body" style="display: none;">
-                            <h4>Biography</h4>
+                        <div class="body">
+<!--                            <h4>Biography</h4>-->
                             {{ profile.content|raw }}
                         </div>
                     </div>
                 </div>
             </div>
-
+        </div>
         {% endfor %}
     </div>
 </div>

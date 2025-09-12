@@ -398,8 +398,8 @@ $(document).ready(function() {
 
 
 
-        $('.advisory_board .key_0, .advisory_board .key_2, .advisory_board .key_4, .advisory_board .key_6, .advisory_board .key_8, .advisory_board .key_10, .advisory_board .key_12, .advisory_board .key_14, .advisory_board .key_16, .advisory_board .key_18, .advisory_board .key_20, .advisory_board .key_22').wrapAll('<div class="col-md-6 col-xs-12" />');
-        $('.advisory_board .key_1, .advisory_board .key_3, .advisory_board .key_5, .advisory_board .key_7, .advisory_board .key_9, .advisory_board .key_11, .advisory_board .key_13, .advisory_board .key_15, .advisory_board .key_17, .advisory_board .key_19, .advisory_board .key_21, .advisory_board .key_23').wrapAll('<div class="col-md-6 col-xs-12" />');
+        // $('.advisory_board .key_0, .advisory_board .key_2, .advisory_board .key_4, .advisory_board .key_6, .advisory_board .key_8, .advisory_board .key_10, .advisory_board .key_12, .advisory_board .key_14, .advisory_board .key_16, .advisory_board .key_18, .advisory_board .key_20, .advisory_board .key_22').wrapAll('<div class="col-md-6 col-xs-12" />');
+        // $('.advisory_board .key_1, .advisory_board .key_3, .advisory_board .key_5, .advisory_board .key_7, .advisory_board .key_9, .advisory_board .key_11, .advisory_board .key_13, .advisory_board .key_15, .advisory_board .key_17, .advisory_board .key_19, .advisory_board .key_21, .advisory_board .key_23').wrapAll('<div class="col-md-6 col-xs-12" />');
 
     }
 
