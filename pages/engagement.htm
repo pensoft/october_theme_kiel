@@ -1,0 +1,44 @@
+url = "/engagement"
+layout = "default"
+title = "Engagement"
+
+[siteSearchInclude]
+
+[jumbotron engagement]
+jumbotron = "engagement"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron cocreation]
+jumbotron = "co-creation"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+==
+{% component 'siteSearchInclude' %}
+
+<div class="container700">
+    <div class="tabs">
+        <a class="" href="#Engagement">Engagement</a>
+        <a class="" href="#Co-creation">Co-creation</a>
+        <a class="" href="#JointCitizenScience">Joint Citizen Science</a>
+        <a class="" href="#ScienceBattle">Science Battle</a>
+    </div>
+</div>
+
+<div class="container700">
+    <div class="row" id="Engagement">
+        {% component 'engagement' %}
+    </div>
+
+    <div class="row" id="Co-creation">
+    {% component 'cocreation' %}
+    </div>
+
+    <div class="row" id="JointCitizenScience">
+    </div>
+
+    <div class="row" id="ScienceBattle">
+    </div>
+</div>

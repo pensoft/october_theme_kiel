@@ -210,7 +210,7 @@ $(document).ready(function() {
         }
     });
 
-    $('.events .tabs, .partners .tabs').each(function(){
+    $('.events .tabs, .partners .tabs, .engagement .tabs').each(function(){
         // For each set of tabs, we want to keep track of
         // which tab is active and its associated content
         var $active, $content, $links = $(this).find('a');
@@ -229,6 +229,10 @@ $(document).ready(function() {
         }
 
         if($(this).parent().parent().hasClass('partners')){
+            $active.addClass('active');
+        }
+
+        if($(this).parent().parent().hasClass('engagement')){
             $active.addClass('active');
         }
 
