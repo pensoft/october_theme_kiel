@@ -7,6 +7,10 @@ robot_follow = "follow"
 
 [siteSearchInclude]
 
+[SimpleContactFormComponent]
+templates = "template3"
+recaptcha_key = "6Lfc3NQrAAAAAAQewxjb0-llpm4_KoKygGnCLgok"
+message_label = "Message"
 ==
 <?php
 use Pensoft\Cardprofiles\Models\Profiles;
@@ -17,31 +21,9 @@ function onStart(){
 ?>
 ==
 {% component 'siteSearchInclude' %}
-<div class="container800">
+<div class="container1000 mt-4 mb-4 ">
     <div class="row center-xs">
-        {% for profile in profiles %}
-        <div class="col-md-5 col-xs-12 profile-item">
-            <div class="row contact_info">
-                <div class="coordinator_image">
-                    <img src="{{profile.avatar.thumb(298, 312, {'mode' : 'crop' })}}">
-                    <div class="uni_label"></div>
-                </div>
-                <div class="coordinator_info">
-                    <div>
-                        <h3>{{profile.names}}</h3>
-                        <div class="position">{% if profile.position %} {{profile.position}} {% endif %}</div>
-                    </div>
-                    <div>
-                        {% if profile.email %}
-                        <a href="mailto:{{profile.email}}" class="btn btn-primary mail">
-                            <i></i>{{profile.email}}
-                        </a>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
+        <h1>HAVE QUESTIONS?<br>CONTACT US</h1>
+        {% component 'SimpleContactFormComponent' %}
     </div>
-
 </div>

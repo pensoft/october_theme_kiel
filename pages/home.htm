@@ -44,15 +44,21 @@ description_limit = 0
 <?php
 use Pensoft\Calendar\Models\Entry;
 use Spatie\GoogleCalendar\Event;
+use Pensoft\Articles\Models\Article;
 use Carbon\Carbon;
 
 function onStart(){
     $this['entries'] = Entry::where('end', '>', Carbon::now())->where('show_on_timeline', true)->where('is_internal', false)->orderBy('start', 'asc')->take(3)->get();
     $this['google_calendar_events'] = Event::get();
+    $this['highlights'] = Article::news()->where('published', 'true')->descPublished()->take(3)->get()->map(function($item){
+        $item->content = str_limit(strip_tags($item->content), 90);
+        $item->href = $item->slug;
+        return $item;
+    });
 }
 ?>
 ==
-<div class="container intro">
+<div class="container1000 intro">
     <div class="row between-md around-xs">
         <div class="col-md-12 col-xs-12">
             <div class="intro_icons">
@@ -65,7 +71,7 @@ function onStart(){
     </div>
 </div>
 
-<div class="container main_towns">
+<div class="container1000 main_towns">
     <div class="row between-md around-xs">
         <div class="col-md-4 col-xs-12">
             <div class="town_item">
@@ -109,10 +115,44 @@ function onStart(){
 </div>
 
 
+<!-- news-->
+<div class="container1000 highlights-news">
+    <div class="row nav-row">
+        <div class="col-md-9 col-xs-12 start-md center-xs">
+            <h1>RECENT NEWS</h1>
+        </div>
+        <div class="col-md-3 col-xs-12 view-all-button">
+            <a href="/news" class="btn btn-primary">All news</a>
+        </div>
+    </div>
+    <div class="row">
+        {% for highlight in highlights %}
+        <div class="col-md-4 col-xs-12">
+            <div class="news-item">
+                <div class="home-news-cover">
+                    <a href="/news/{{highlight.slug}}">
+                        <img src="{{ highlight.cover.path}}" alt="{{ highlight.title }}">
+                    </a>
+                </div>
+                <div class="news-content">
+                    <a href="/news/{{highlight.slug}}"><div class="news-title">{{ highlight.title|length > 100 ? highlight.title|slice(0, 100)|replace({"&nbsp;": " ", ".": ". "}) ~ '...' : highlight.title|replace({"&nbsp;": " ", ".": ". "})  }}</div></a>
+                    <p class="news-date">{{ highlight.published_at|date('d M Y') }}</p>
+                    <div class="row read-more-row">
+                        <a href="/news/{{highlight.slug}}" class="read-more">{{'Read more' |_}} &#10230;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+</div>
 
 
 
-<div class="container strarting">
+
+
+<div class="container1000 strarting">
     <div class="row between-md around-xs">
         <div class="col-md-4 col-xs12 col-xs-12 start-md center-xs title_and_btn">
             <h1>Starting 2026</h1>
@@ -125,7 +165,7 @@ function onStart(){
 </div>
 
 <div class="container-fluid numbers2">
-    <div class="container">
+    <div class="container1000">
         <div class="row">
             <div class="col-md-8 col-xs-12">
                 <div class="number_item_image"></div>
@@ -156,17 +196,10 @@ function onStart(){
         <span class="blue">KIEL</span>
         <span class="green">BREST</span>
         <span class="pink">SPLIT</span>
-<!--        <span class="blue">KIEL</span>-->
-<!--        <span class="green">BREST</span>-->
-<!--        <span class="pink">SPLIT</span>-->
-<!--        <span class="blue">KIEL</span>-->
-<!--        <span class="green">BREST</span>-->
-<!--        <span class="pink">SPLIT</span>-->
-<!--        <span class="blue">KIEL</span>-->
-<!--        <span class="green">BREST</span>-->
-<!--        <span class="pink">SPLIT</span>-->
     </div>
 </div>
+
+
 
 
 <!--upcoming events-->
