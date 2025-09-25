@@ -120,11 +120,14 @@ $this['related'] = $related;
 ?>
 ==
 {% if is_detail_page %}
+<div class="container">
+    <div class="go_back mt-2 mb-2">
+        <a href="/news">Back to news list</a>
+    </div>
+</div>
 <main class="container single-news-item" role="main">
     <div class="row">
-        <div class="go_back mt-2 mb-2">
-            <a href="/news">Back to news list</a>
-        </div>
+
 
         <div class="col-xs-12">
             <div class="news-date">{{article.published_at|date("j M Y")}}</div>
@@ -134,7 +137,7 @@ $this['related'] = $related;
         </div>
         <div class="col-xs-12">
             {% if article.cover %}
-            <img src="{{ article.cover|crop_image|resize(743, auto, { mode: 'crop' }) }}" />
+            <img src="{{ article.cover|crop_image|resize(743, auto, { mode: 'crop' }) }}" class="article_cover" />
             {% endif %}
             {% if article.caption %}
             <div class="caption">{{article.caption|raw}}</div>
