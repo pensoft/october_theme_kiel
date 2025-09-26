@@ -269,7 +269,6 @@ function onStart(){
                             <div class="events-date">
                                 {% if entries[2].start|date("j") != entries[2].end|date("j") %} {{entries[2].start|date("j")}}-{{entries[2].end|date("j")}}{% else %}{{entries[2].start|date("j")}}{% endif %}
                                 AUTUMN {{entries[2].start|date("Y")}}
-<!--                                {{entries[2].start|date("M Y")}}-->
                             </div>
                             <div class="title">
                                 <h3>{{ entries[2].title|raw}}</h3>
