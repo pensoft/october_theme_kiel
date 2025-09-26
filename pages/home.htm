@@ -249,8 +249,8 @@ function onStart(){
 
                         <a class="events-title" href="/coming-soon">
                             <div class="events-date">
-<!--                                {% if entries[1].start|date("j") != entries[1].end|date("j") %} {{entries[1].start|date("j")}}-{{entries[1].end|date("j")}}{% else %}{{entries[1].start|date("j")}}{% endif %}-->
-                                AUTUMN {{entries[1].start|date("Y")}}
+                                {% if entries[1].start|date("j") != entries[1].end|date("j") %} {{entries[1].start|date("j")}}-{{entries[1].end|date("j")}}{% else %}{{entries[1].start|date("j")}}{% endif %}
+                                {{entries[1].start|date("M Y")}}
                             </div>
                             <div class="title">
                                 <h3>{{ entries[1].title|raw}}</h3>
@@ -268,7 +268,8 @@ function onStart(){
                         <a class="events-title" href="/coming-soon">
                             <div class="events-date">
                                 {% if entries[2].start|date("j") != entries[2].end|date("j") %} {{entries[2].start|date("j")}}-{{entries[2].end|date("j")}}{% else %}{{entries[2].start|date("j")}}{% endif %}
-                                {{entries[2].start|date("M Y")}}
+                                AUTUMN {{entries[2].start|date("Y")}}
+<!--                                {{entries[2].start|date("M Y")}}-->
                             </div>
                             <div class="title">
                                 <h3>{{ entries[2].title|raw}}</h3>
