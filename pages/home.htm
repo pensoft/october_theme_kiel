@@ -71,7 +71,7 @@ function onStart(){
     </div>
 </div>
 
-<div class="container1000 main_towns">
+<div class="container main_towns">
     <div class="row between-md around-xs">
         <div class="col-md-4 col-xs-12">
             <div class="town_item">
@@ -138,7 +138,7 @@ function onStart(){
                     <a href="/news/{{highlight.slug}}"><div class="news-title">{{ highlight.title|length > 100 ? highlight.title|slice(0, 100)|replace({"&nbsp;": " ", ".": ". "}) ~ '...' : highlight.title|replace({"&nbsp;": " ", ".": ". "})  }}</div></a>
                     <p class="news-date">{{ highlight.published_at|date('d M Y') }}</p>
                     <div class="row read-more-row">
-                        <a href="/news/{{highlight.slug}}" class="read-more">{{'Read more' |_}} &#10230;</a>
+                        <a href="/news/{{highlight.slug}}" class="read-more"><span>{{'Read more' |_}}</span> <span>&#10230;</span></a>
                     </div>
                 </div>
             </div>

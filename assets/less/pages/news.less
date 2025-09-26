@@ -401,6 +401,11 @@ nav:not(.navbar){
 .highlights-news{
     position: relative;
     margin-bottom: 50px;
+
+    .row + .row {
+        margin-top: 15px;
+    }
+
     .container:first-of-type{
         padding-bottom: 0;
     }
@@ -423,8 +428,8 @@ nav:not(.navbar){
 
         .news-date{
             position: absolute;
-            top: 27px;
-            left: 27px;
+            top: 12px;
+            left: 12px;
             background: #FFEDF8;
             border-radius: 10px;
             opacity: 1;
@@ -449,8 +454,13 @@ nav:not(.navbar){
             letter-spacing: -0.24px;
             color: #3268FF;
             opacity: 1;
+            display: flex;
+            justify-content: space-between;
+            width: 105px;
+            transition: all 0.3s ease-in-out;
             &:hover{
-                color: #05133A;
+                opacity: 0.8!important;
+                width: 110px;
             }
         }
 
