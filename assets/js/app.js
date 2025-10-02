@@ -28,6 +28,12 @@ window.addEventListener('scroll', function (e) {
     }else{
         headernavbar.classList.remove('scrolled');
     }
+    var headernavbar2 = document.getElementById("headernavbar2");
+    if (window.scrollY > headernavbar.offsetHeight){
+        headernavbar2.classList.add('scrolled');
+    }else{
+        headernavbar2.classList.remove('scrolled');
+    }
 
 });
 //
