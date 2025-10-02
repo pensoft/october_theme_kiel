@@ -1,4 +1,4 @@
-title = "Password reset"
+title = "Forgot"
 url = "/forgot"
 layout = "default"
 is_hidden = 0
@@ -9,18 +9,17 @@ robot_follow = "follow"
 paramCode = "code"
 ==
 {% if not user %}
-
+<h1 class="underline">Password reset</h1>
 <div class="container">
-    <div class="login_form_container">
-        <div class="login_form_content">
-            <h3>Password reset</h3>
+	<div class="row">
+		<div class="col-md-10 col-xs-12 login_form_container">
             {% if resetPassword.code == null %}
             {% partial 'components/resetpassword/restore' %}
             {% else %}
             {% partial 'components/resetpassword/reset' %}
             {% endif %}
-        </div>
-    </div>
+		</div>
+	</div>
 </div>
 
 {% endif %}

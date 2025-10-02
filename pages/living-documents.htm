@@ -9,42 +9,39 @@ allowedUserGroups[] = "registered"
 allowedUserGroups[] = "guest"
 redirect = "home"
 ==
-<?php
-use Pensoft\Icp\Models\Subfolders;
-use System\Models\File;
-
-function onStart(){
-
-    $this['folders'] = Subfolders::where('pensoft_icp_subfolders.parent_id', null)->get();
-
-}
-?>
-==
 {% component 'session' %}
+<h1 class="underline">Internal repository</h1>
+<div class="container">
 
-<div class="row middle-xs between-xs internal-documents">
+	<div class="row middle-xs between-xs">
+		<div class="col-xs-12 col-md-5 mt-1 mb-1">
 
-    <div class="col-xs-12">
+		</div>
 
-        <div class="row icp_main_page">
-            {% partial 'components/icp_folders_list' folders=folders %}
+		<div class="col-xs-12 col-md-3 end-xs">
+			<a href="{{url('internal-repository')}}" class="back"> <div class="arrow-left end-xs"></div> &nbsp;Back to documents</a>
+		</div>
 
-
-            <div class="col-md-10 col-xs-12 folders_container">
-
-                <div class="row middle-xs between-xs mb-4">
-                    <div class="col-md-6 start-md col-xs-12 center-xs">{% partial 'components/search-documents-search-form' %}</div>
-                </div>
-
-<!--                <p><iframe src="https://drive.google.com/embeddedfolderview?id=1cbLNaBKRceYhAJp36j0gYoidWS_A3NdA#list" width="100%" height="352" frameborder="0" marginheight="0" marginwidth="0"></iframe></p>-->
-
-                <p><em>This folder contains a view-only copy of important project forms and tables (including&nbsp;dissemination reports). You can view and consult these documents at any time to receive an up-to-date overview on their status. </em></p>
-
-                <p><em>If you wish to change or add content to the dissemination tables or if you have questions regarding the project's contact lists, please contact <strong>Carla Stoyanova</strong>&nbsp;at <a href="mailto:c.stoyanova@pensoft.net">c.stoyanova@pensoft.net</a></em></p>
+		<div class="col-xs-12 col-md-12 end-xs">
+			<h1 class="base_heading inner-page">Living documents</h1>
+		</div>
 
 
-            </div>
+		<div class="col-xs-12 mt-2">
 
-        </div>
-    </div>
+
+			<p><iframe src="https://drive.google.com/embeddedfolderview?id=1cbqofK37HeROaAvnu27qiIWU4y2IB2Dm#list" width="100%" height="352" frameborder="0" marginheight="0" marginwidth="0"></iframe></p>
+
+			<p><em>This folder contains a view-only copy of important project forms and tables (including&nbsp;dissemination reports). You can view and consult these documents at any time to receive an up-to-date overview on their status. </em></p>
+
+			<p><em>If you wish to change or add contents to the dissemination tables, please send your request to <strong>Margarita Grudova</strong>&nbsp;at <a href="mailto:m.grudova@pensoft.net">m.grudova@pensoft.net</a></em></p>
+
+			<p><em>Should you wish to adapt or have questions concerning the project's contact lists, please contact <strong>Gabriela Popova</strong> at <a href="mailto:g.popova@pensoft.net">g.popova@pensoft.net<!--а--></a></em><a href="mailto:g.popova@pensoft.net">.</a></p>
+		</div>
+
+
+
+	</div>
+
+
 </div>

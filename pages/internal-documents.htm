@@ -1,4 +1,4 @@
-url = "/internal-repository/:slug?administrative-documents|[a-zA-Z\-0-9]/:parent_id?|[0-9]"
+url = "/internal-repository/:slug?|[a-zA-Z\-0-9]/:parent_id?|[0-9]"
 layout = "default"
 title = "Internal repository"
 is_hidden = 0
@@ -15,16 +15,16 @@ redirect = "home"
 [internalrepository]
 ==
 <?php
-use Pensoft\Icp\Models\Subfolders;
+use Pensoft\Internaldocuments\Models\Subfolders;
 use System\Models\File;
 
 function onStart(){
-$this['slug'] = $this->param('slug') ?: 'administrative-documents';
+
 if(get('download')){
 $file = File::find((int)get('download'));
 $file_name = $file->getLocalPath();
 $ext= $file->getExtension();
-$recordName = $file->file_name ? $file->file_name : 'Kiel_file.'.$ext;
+$recordName = $file->file_name ? $file->file_name : 'PollinERA_file.'.$ext;
 
 
 if (file_exists($file_name)) {
@@ -50,5 +50,9 @@ return Redirect::back();
 ?>
 ==
 {% component 'session' %}
-{% component 'internalrepository' slug=slug %}
+<div class="container">
 
+	{% component 'internalrepository' %}
+
+
+</div>
