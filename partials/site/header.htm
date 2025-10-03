@@ -81,6 +81,8 @@ numberOfLevels = 2
                         {% if this.theme.threads_url %}
                         <a href="{{this.theme.threads_url}}" target="_blank" class="pr p-secondary p-threads normal "></a>
                         {% endif %}
+
+                        <div id="google_translate_element" aria-label="Google Translate"></div>
                 </div>
             </div>
 
@@ -96,7 +98,7 @@ numberOfLevels = 2
         </div>
 
 
-        <div id="google_translate_element" aria-label="Google Translate"></div>
+
 
 
     </div>
@@ -115,12 +117,4 @@ numberOfLevels = 2
     </div>
     {% endif %}
 </div>
-{% endif %}
-
-
-{% if user %}
-<script>$(document).trigger('profile')</script>
-<script>$(document).trigger('signout')</script>
-{% else %}
-<script>$(document).trigger('signin')</script>
 {% endif %}

@@ -3,10 +3,14 @@
     <div class="partner-item key_{{k}} {{ partner.instituion|slug }} ">
         <div class="partner_item_content">
             <div class="row middle-xs between-xs logo_and_flag">
-                <div class="col-xs-10 col-md-10 partner_logo">
+                <div class="col-xs-8 col-md-8 partner_logo">
                     <img alt="{{ partner.instituion }}" src="{{partner.cover.path}}" role="presentation" alt="{{ partner.instituion }} logo">
                 </div>
-                <div class="col-xs-2 col-md-2 end-md start-xs partner_country"><span class="country_{{partner.country_code[0]}}"></span></div>
+                <div class="col-xs-4 col-md-4 end-md start-xs partner_country">
+                    {% if partner.add_description %}
+                    <span class="add_label">{{partner.add_description|raw|striptags}}</span>
+                    {% endif %}
+                    <span class="flag country_{{partner.country_code[0]}}"></span></div>
             </div>
             <div class="partner_description">
                 <div class="partner_title">

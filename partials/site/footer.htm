@@ -31,7 +31,7 @@ theme = "light-bottom"
                 </div>
             </div>
             <div class="col-md-6 col-xs-12"></div>
-            <div class="col-md-4 col-xs-12 end-md center-xs navigation">
+            <div class="col-md-4 col-xs-12 end-md center-xs navigation" id="footerNavbarNav">
                 <div class="heading-text">Navigation</div>
                 {% component 'footer_menu' %}
             </div>
@@ -103,3 +103,11 @@ theme = "light-bottom"
 
     </div>
 </div>
+
+
+{% if user %}
+<script>$(document).trigger('profile')</script>
+<script>$(document).trigger('signout')</script>
+{% else %}
+<script>$(document).trigger('signin')</script>
+{% endif %}

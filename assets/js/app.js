@@ -29,11 +29,14 @@ window.addEventListener('scroll', function (e) {
         headernavbar.classList.remove('scrolled');
     }
     var headernavbar2 = document.getElementById("headernavbar2");
-    if (window.scrollY > headernavbar.offsetHeight){
-        headernavbar2.classList.add('scrolled');
-    }else{
-        headernavbar2.classList.remove('scrolled');
+    if(headernavbar2){
+        if (window.scrollY > headernavbar.offsetHeight){
+            headernavbar2.classList.add('scrolled');
+        }else{
+            headernavbar2.classList.remove('scrolled');
+        }
     }
+
 
 });
 //
@@ -697,6 +700,25 @@ function appendSignOut() {
 		menu.find('>ul').append(li);
     });
 }
+function appendSignInFooter(){
+    $(document).on('signin', function (e) {
+        var footerNavbarLogin = $('#footerNavbarNav');
+        var li = '<li class="item sign-in"><a href="/login" target = "_self">Log in</a></li >';
+        footerNavbarLogin.find('>ul').append(li);
+		// var menu = $('#menuToggle');
+		// menu.find('>ul').append(li);
+    });
+}
+
+function appendSignOutFooter() {
+    $(document).on('signout', function (e) {
+        var footerNavbarLogin = $('#footerNavbarNav');
+        var li = '<li class="item sign-in"><a data-request="onLogout" data-request-data="redirect: \'/\'">Log out</a></li >';
+        footerNavbarLogin.find('>ul').append(li);
+		// var menu = $('#menuToggle');
+		// menu.find('>ul').append(li);
+    });
+}
 
 
 function redirectAndRefresh(url){
@@ -879,9 +901,8 @@ function init() {
         // keepFooter(documentHasScroll());
 
     });
-    // appendProfile()
-    appendSignIn()
-    appendSignOut()
+    appendSignInFooter()
+    appendSignOutFooter()
 }
 
 init()

@@ -803,7 +803,7 @@
 
 
 #google_translate_element {
-    position: absolute;
+    //position: absolute;
     min-height: 40px;
     //display: block !important;
     //margin-bottom: 15px;
@@ -832,13 +832,13 @@
         .selected-language {
             display: flex;
             width: 47px;
-            height: 32px;
+            height: 34px;
             padding: 0 10px;
             //padding: 10px 11.559px 11px 11px;
             justify-content: center;
             align-items: center;
             flex-shrink: 0;
-            border-radius: 11px;
+            border-radius: 8px;
             //border: 1px solid rgba(255, 255, 255, 0.20);
             background: @text-color-default;
             //backdrop-filter: blur(2px);
@@ -867,6 +867,12 @@
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                color: white!important;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                font-family: Inter!important;
             }
 
             .dropdown-arrow {
@@ -918,6 +924,13 @@
             margin-top: 5px;
             border-radius: 10px;
             padding: 10px 12px;
+            color: white!important;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            white-space: nowrap;
+            font-family: Inter!important;
 
             /* Enhanced scrollbar styling */
             &::-webkit-scrollbar {
@@ -943,7 +956,7 @@
             .language-option {
                 padding: 8px 10px;
                 cursor: pointer;
-                color: white;
+                color: white!important;
                 font-size: 12px;
                 font-style: normal;
                 font-weight: 400;
