@@ -131,7 +131,7 @@ function onStart(){
             <div class="news-item">
                 <div class="home-news-cover">
                     <a href="/news/{{highlight.slug}}">
-                        <img src="{{ highlight.cover.path}}" alt="{{ highlight.title }}">
+                        <img src="{{highlight.cover.thumb(331, 196,{'mode':'crop'})}}" alt="{{ highlight.title }}">
                     </a>
                 </div>
                 <div class="news-content">
