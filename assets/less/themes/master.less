@@ -574,6 +574,12 @@ ul.pagination{
             width: 100%;
             align-items: flex-start;
 
+            .breakpoint-huge-down({
+                align-items: flex-start;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+            });
+
             .breakpoint-large-down({
                 align-items: center;
             });
@@ -581,6 +587,11 @@ ul.pagination{
             .item{
                 width: fit-content;
                 text-align: left;
+                .breakpoint-huge-down({
+                    white-space: nowrap;
+                    margin-right: 15px;
+                    margin-bottom: 2px;
+                });
             }
 
             li{
