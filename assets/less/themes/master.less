@@ -574,6 +574,12 @@ ul.pagination{
             width: 100%;
             align-items: flex-start;
 
+            .breakpoint-huge-down({
+                align-items: flex-start;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+            });
+
             .breakpoint-large-down({
                 align-items: center;
             });
@@ -581,6 +587,11 @@ ul.pagination{
             .item{
                 width: fit-content;
                 text-align: left;
+                .breakpoint-huge-down({
+                    white-space: nowrap;
+                    margin-right: 15px;
+                    margin-bottom: 2px;
+                });
             }
 
             li{
@@ -967,6 +978,10 @@ ul.pagination{
     flex-direction: row;
     z-index: 2;
 
+    .breakpoint-huge-down({
+        top: 11px;
+    });
+
     .social_media{
         display: flex;
         flex-direction: column;
@@ -1023,6 +1038,9 @@ ul.pagination{
 .home{
     .funding-social-media{
         top: 50px;
+        .breakpoint-huge-down({
+            top: 95px;
+        });
     }
 }
 

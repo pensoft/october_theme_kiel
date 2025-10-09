@@ -92,6 +92,11 @@
             //transition: all 0.1s ease-in-out;
             //visibility: visible;
 
+
+            .breakpoint-huge-down({
+                font-size: 130px;
+            });
+
             .breakpoint-large-down({
                 font-size: 150px;
             });
@@ -124,8 +129,18 @@
                 justify-content: space-between;
                 height: calc(~'100% - 50px');
                 //height: 100%;
+
+                h1{
+                    .breakpoint-huge-down({
+                        font-size: 2vw;
+                    });
+                }
                 p{
                     color: white;
+                    .breakpoint-huge-down({
+                        line-height: 21px;
+                        font-size: 17px;
+                    });
                 }
                 h1{
                     color: white;
