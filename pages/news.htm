@@ -122,7 +122,7 @@ $this['related'] = $related;
 {% if is_detail_page %}
 <div class="container">
     <div class="go_back mt-2 mb-2">
-        <a href="/news">Back to news list</a>
+        <a href="/news">{{ 'Back to news list'|_ }}</a>
     </div>
 </div>
 <main class="container single-news-item" role="main">
@@ -156,7 +156,7 @@ $this['related'] = $related;
 
             <div class="row middle-xs">
                 <div class="col-xs col-md start-md center-xs share_container">
-                    <span class="share_label">Share</span>
+                    <span class="share_label">{{ 'Share'|_ }}</span>
                     <a href="https://www.linkedin.com/sharing/share-offsite/?url={{page_url}}" target="_blank" class="pr p-linkedin normal"></a>
                     <a href="https://bsky.app/intent/compose?text={{page_url}}" class="pr p-bluesky small"  target="_blank"></a>
                 </div>
@@ -176,7 +176,7 @@ $this['related'] = $related;
                class="{{ 'all' == categoryId ? 'active' : '' }}"
                role="tab"
                aria-selected="{{ 'all' == categoryId ? 'true' : 'false' }}"
-               aria-controls="news-content">All News</a>
+               aria-controls="news-content">{{ 'All News'|_ }}</a>
             {% for category in categories %}
             <a href="{{ 'news'|page }}?categoryId={{ category.id }}"
                class="{{ category.id == categoryId ? 'active' : '' }}"

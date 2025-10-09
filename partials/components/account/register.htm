@@ -1,49 +1,49 @@
 {% if canRegister %}
-    <h3>Create your account</h3>
+    <h3>{{ 'Create your account'|_ }}</h3>
 
     {{ form_ajax('onRegister') }}
         <div class="ui form">
             <div class="fields">
                 <div class="field">
-                    <label for="registerName">Full Name</label>
+                    <label for="registerName">{{ 'Full Name'|_ }}</label>
                     <input
                         name="name"
                         type="text"
                         id="registerName"
-                        placeholder="Enter your full name" />
+                        placeholder="{{ 'Enter your full name'|_ }}" />
                 </div>
                 <div class="field">
-                    <label for="registerEmail">Email</label>
+                    <label for="registerEmail">{{ 'Email'|_ }}</label>
                     <input
                         name="email"
                         type="email"
                         id="registerEmail"
-                        placeholder="Enter your email" />
+                        placeholder="{{ 'Enter your email'|_ }}" />
                 </div>
                 {% if loginAttribute == "username" %}
                     <div class="field">
-                        <label for="registerUsername">Username</label>
+                        <label for="registerUsername">{{ 'Username'|_ }}</label>
                         <input
                             name="username"
                             type="text"
                             id="registerUsername"
-                            placeholder="Enter your username" />
+                            placeholder="{{ 'Enter your username'|_ }}" />
                     </div>
                 {% endif %}
                 <div class="field">
-                    <label for="registerPassword">Password</label>
+                    <label for="registerPassword">{{ 'Password'|_ }}</label>
                     <input
                         name="password"
                         type="password"
                         id="registerPassword"
-                        placeholder="Choose a password" />
+                        placeholder="{{ 'Choose a password'|_ }}" />
                 </div>
             </div>
         </div>
         <div class="row middle-xs mt-1">
-			<div class="col-xs-2">            <button type="submit" class="btn btn-primary fluid">Register</button>
+			<div class="col-xs-2">            <button type="submit" class="btn btn-primary fluid">{{ 'Register'|_ }}</button>
 			</div>
-			<div class="col-xs-3">            <a type="submit" class="btn btn-link" href="/login">I already have an account</a>
+			<div class="col-xs-3">            <a type="submit" class="btn btn-link" href="/login">{{ 'I already have an account'|_ }}</a>
 			</div>
         </div>
     {{ form_close() }}

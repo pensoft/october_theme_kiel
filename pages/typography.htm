@@ -12,21 +12,21 @@ robot_follow = "follow"
 {% component 'siteSearchInclude' %}
 <div class="container">
 
-    <h1>Typography page</h1>
+    <h1>{{ 'Typography page'|_ }}</h1>
 
     {% if this.theme.site_name == 'Pensoft projects1' %}
         <div class="bd-example">
-        <h1>This is changes only for project1</h1>
+        <h1>{{ 'This is changes only for project1'|_ }}</h1>
         </div>
         {% endif %}
 
-    <h2 class="my-3">Typography</h2>
+    <h2 class="my-3">{{ 'Typography'|_ }}</h2>
     {% content "typography.htm" %}
 
-    <h2 class="my-3">Form</h2>
+    <h2 class="my-3">{{ 'Form'|_ }}</h2>
     {% content "form.htm" %}
 
-    <h2 class="my-3">Buttons</h2>
+    <h2 class="my-3">{{ 'Buttons'|_ }}</h2>
     <div class="bd-example">
         {% content "buttons.htm" %}
     </div>
