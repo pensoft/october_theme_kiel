@@ -81,7 +81,7 @@ return Response::download($pathToFile, $fileName, $headers);
     {% if records.count() %}
     <div class="row">
         <div class="col-md-12 col-xs-12 mb-2">
-            <a href="/media-center" class="go-back-link">Back</a>
+            <a href="/media-center" class="go-back-link">{{ 'Back'|_ }}</a>
         </div>
 
             <div class="row">
@@ -104,7 +104,7 @@ return Response::download($pathToFile, $fileName, $headers);
                     {% if record.file %}
                     <div class="links">
                             <!--<video controls="" width="100%" height="353"><source src="{{record.file.path}}" type="video/mp4"></video>-->
-                            <a class="btn btn-primary download" href="{{ ''| page }}?{{queries}}&download={{record.file.id}}&file_name={{record.name|replace({' ': '_'})}}">Download</a>
+                            <a class="btn btn-primary download" href="{{ ''| page }}?{{queries}}&download={{record.file.id}}&file_name={{record.name|replace({' ': '_'})}}">{{ 'Download'|_ }}</a>
                         </div>
                     </div>
                     {% endif %}
@@ -113,7 +113,7 @@ return Response::download($pathToFile, $fileName, $headers);
                 {% endfor %}
         {% else %}
         <div class="commig_soon">
-            Coming soon...
+            {{ 'Coming soon...'|_ }}
         </div>
     </div>
     {% endif %}

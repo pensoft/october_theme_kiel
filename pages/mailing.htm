@@ -40,7 +40,7 @@ $this['item']  = DB::table('users')->whereRaw('(TRIM(CONCAT(users.name, \' \', u
 ?>
 ==
 <div class="container">
-    &nbsp; &nbsp; &nbsp;<a class="btn btn-primary" href="{{'my-sent-messages'|page}}">My sent messages</a>
+    &nbsp; &nbsp; &nbsp;<a class="btn btn-primary" href="{{'my-sent-messages'|page}}">{{ 'My sent messages'|_ }}</a>
     <p>&nbsp;</p>
     {% component 'MailingForm' %}
     <script>initMailingTooltip();</script>

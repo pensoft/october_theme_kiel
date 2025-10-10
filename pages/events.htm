@@ -102,7 +102,7 @@ $this['slug'] = $this->param('slug');
                                 </a>
                             </div>
                             <div class="col-md-1 col-xs-12 read-more-events end-md center-xs">
-                                <a href="{{google_cal.googleEvent.htmlLink}}" class="read-more" target="_blank">Read more</a>
+                                <a href="{{google_cal.googleEvent.htmlLink}}" class="read-more" target="_blank">{{ 'Read more'|_ }}</a>
                             </div>
                         </div>
                     {% endfor %}
@@ -129,7 +129,7 @@ $this['slug'] = $this->param('slug');
     <div class="container">
         <div class="row single-news-item">
             <div class="col-md-12 col-xs-12 mb-2">
-                <a href="/events" class="go-back-link">Back</a>
+                <a href="/events" class="go-back-link">{{ 'Back'|_ }}</a>
             </div>
             <div class="col-md-5 col-xs-12">
                 <div class="fixed_image">
@@ -138,7 +138,7 @@ $this['slug'] = $this->param('slug');
                     {% endif %}
 
                     {% if entry.url %}
-                    <a href="{{entry.url}}" class="read_more" target="_blank">View event <i></i></a>
+                    <a href="{{entry.url}}" class="read_more" target="_blank">{{ 'View event'|_ }} <i></i></a>
                     {% endif %}
                 </div>
             </div>
@@ -153,7 +153,7 @@ $this['slug'] = $this->param('slug');
                 </div>
 
                 <div class="share_container">
-                    <div class="share_label">Share</div>
+                    <div class="share_label">{{ 'Share'|_ }}</div>
                     <div class="share_icons">
                         <a href="https://www.linkedin.com/sharing/share-offsite/?url={{page_url}}" target="_blank" class="pr p-linkedin big"></a>
                         <a href="https://bsky.app/intent/compose?text={{page_url}}" class="pr p-bluesky big"  target="_blank"></a>
