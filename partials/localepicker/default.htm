@@ -1,8 +1,8 @@
 {{ form_open({ 'class': 'language-switcher-form' }) }}
-    <select name="locale" 
-            data-request="onSwitchLocale" 
+    <select name="locale"
+            data-request="onSwitchLocale"
             class="language-selector form-control"
-            aria-label="Select language">
+            aria-label="{{ 'Select language'|_ }}">
         {% for code, name in locales %}
             <option value="{{ code }}" {{ code == activeLocale ? 'selected' }} data-locale="{{ code }}">
                 {{ name }}

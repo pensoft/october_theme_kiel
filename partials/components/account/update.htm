@@ -3,19 +3,19 @@
         <div class="row fields">
             <div class="col-md-6 col-xs-12">
                 <div class="field">
-                    <label for="accountName">First Name</label>
+                    <label for="accountName">{{ 'First Name'|_ }}</label>
                     <input name="name" type="text" class="" id="accountName" value="{{ user.name }}">
                 </div>
             </div>
             <div class="col-md-6 col-xs-12">
                 <div class="field">
-                    <label for="accountLastName">Last Name</label>
+                    <label for="accountLastName">{{ 'Last Name'|_ }}</label>
                     <input name="surname" type="text" class="" id="accountLastName" value="{{ user.surname }}">
                 </div>
             </div>
             <div class="col-md-6 col-xs-12">
                 <div class="field">
-                    <label for="accountEmail">Email</label>
+                    <label for="accountEmail">{{ 'Email'|_ }}</label>
                     <input name="email" type="email" class="" id="accountEmail" value="{{ user.email }}">
                 </div>
             </div>
@@ -25,38 +25,38 @@
 
                     <div id="userAvatar">
                         <img alt="{{ user.name }} {{ user.surname }}" src="{{user.avatar.getThumb(70,70, { mode : 'crop' } )}}" style="border-radius: 50%;" width="70" height="70">
-                        <a href="javascript:;" class="upload-remove-button" data-request="onRemoveAvatar" data-request-confirm="Are you sure?" data-request-data="file_id: {{user.avatar.id}}" style="color: #9D6A6A;" alt="Delete avatar">X</a>
+                        <a href="javascript:;" class="upload-remove-button" data-request="onRemoveAvatar" data-request-confirm="{{ 'Are you sure?'|_ }}" data-request-data="file_id: {{user.avatar.id}}" style="color: #9D6A6A;" alt="{{ 'Delete avatar'|_ }}">X</a>
                     </div>
                     {% endif %}
-                    <label for="accountAvatar">Avatar</label>
+                    <label for="accountAvatar">{{ 'Avatar'|_ }}</label>
                     <input name="avatar" type="file" class="" id="accountAvatar" value="{{ user.avatar.file_name }}" accept="image/*">
                 </div>
             </div>
             <div class="col-md-6 col-xs-12">
                 <div class="field">
-                    <label for="accountPassword">New Password</label>
+                    <label for="accountPassword">{{ 'New Password'|_ }}</label>
                     <input name="password" type="password" class="" id="accountPassword">
                 </div>
             </div>
             <div class="col-md-6 col-xs-12">
                 <div class="field">
-                    <label for="accountPasswordConfirm">Confirm New Password</label>
+                    <label for="accountPasswordConfirm">{{ 'Confirm New Password'|_ }}</label>
                     <input name="password_confirmation" type="password" class="" id="accountPasswordConfirm">
                 </div>
             </div>
 
             <div class="col-md-12 col-xs-12">
                 {% if updateRequiresPassword %}
-                <p>To change these details, please confirm your current password.</p>
+                <p>{{ 'To change these details, please confirm your current password.'|_ }}</p>
                 <div class="field">
-                    <label for="accountPasswordCurrent">Current Password <small class="text-danger">* required</small></label>
+                    <label for="accountPasswordCurrent">{{ 'Current Password'|_ }} <small class="text-danger">* {{ 'required'|_ }}</small></label>
                     <input name="password_current" type="password" class="" id="accountPasswordCurrent">
                 </div>
                 {% endif %}
             </div>
             <div class="row middle-xs">
                 <div class="col-md-2 col-xs-6 center-xs mt-2">
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary">{{ 'Save'|_ }}</button>
                 </div>
             </div>
     </div>
