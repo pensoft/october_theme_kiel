@@ -75,7 +75,7 @@ function elementScrolled(elem) {
 
 }
 
-$(document).ready(function() {
+    $(document).ready(function() {
     // $("nav").removeClass("no-transition");
 	/* MENU */
 	$('.navbar-nav').attr('id', 'menu'); // please don't remove this line
@@ -97,6 +97,42 @@ $(document).ready(function() {
             $(this).removeAttr('data-toggle')
         }
     });
+
+    // Language dropdown: toggle open/close and outside click handling
+    (function(){
+        var $dropdown = $('#language-switcher.language-dropdown');
+        if(!$dropdown.length){ return; }
+
+        var $toggle = $dropdown.find('.selected-language');
+        var $menu = $dropdown.find('.language-options');
+
+        function closeDropdown(){
+            $dropdown.removeClass('open');
+            $toggle.attr('aria-expanded', 'false');
+        }
+
+        function openDropdown(){
+            $dropdown.addClass('open');
+            $toggle.attr('aria-expanded', 'true');
+        }
+
+        $toggle.on('click', function(e){
+            e.preventDefault();
+            if($dropdown.hasClass('open')){ closeDropdown(); } else { openDropdown(); }
+        });
+
+        $(document).on('click', function(e){
+            if(!$dropdown.is(e.target) && $dropdown.has(e.target).length === 0){
+                closeDropdown();
+            }
+        });
+
+        $(document).on('keydown', function(e){
+            if(e.key === 'Escape'){
+                closeDropdown();
+            }
+        });
+    })();
 
     $("nav").removeClass("no-transition");
 

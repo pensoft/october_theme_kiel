@@ -160,8 +160,7 @@
                 text-align: center;
                 margin-bottom: 5px;
 
-                &:not(.social) a{
-                }
+                &:not(.social) a{ color: inherit; }
 
                 &>a {
                     padding-left: 0.5rem;
@@ -277,11 +276,7 @@
             color: white!important;
             margin-top: 15px;
 
-            &:hover{
-                //background: rgba(255, 255, 255, 0.35) url("../../assets/images/log-in-icon.svg") center no-repeat;
-                //background-size: 19px;
-                //background-position: 20px center;
-            }
+            &:hover{ opacity: .9; }
 
             .breakpoint-large-down({
                 max-width: fit-content;
@@ -813,48 +808,116 @@
         top: 31px;
     });
 
-    // Language selector styles
-    .language-selector {
-        width: auto;
-        min-width: 80px;
-        max-width: 150px;
-        height: 34px;
-        padding: 0 10px;
-        border-radius: 8px;
-        background: @text-color-default;
-        cursor: pointer;
-        color: #FFF;
-        font-size: 12px;
-        font-style: normal;
-        text-transform: uppercase;
-        font-weight: 400;
-        line-height: normal;
+    // Custom dropdown styles
+        .language-dropdown {
+        position: relative;
+        display: inline-block;
         font-family: Inter !important;
-        border: none;
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-        background-repeat: no-repeat;
-        background-position: right 8px center;
-        background-size: 14px;
-        padding-right: 30px;
 
-        &:hover {
-            opacity: 0.8;
+        .language-text{
+            color: white;
         }
-
-        &:focus {
-            outline: 2px solid rgba(255, 255, 255, 0.3);
-            outline-offset: 2px;
-        }
-
-        option {
+        .selected-language {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            height: 34px;
+            padding: 0 12px 0 10px;
+            border-radius: 8px;
             background: @text-color-default;
             color: #FFF;
-            padding: 8px 10px;
             font-size: 12px;
-            font-family: Inter !important;
+            font-weight: 400;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: opacity .2s ease;
+            line-height: 1;
+            box-shadow: none;
+
+            .flag {
+                width: 20px;
+                height: 14px;
+                border-radius: 2px;
+                box-shadow: 0 0 0 1px rgba(255,255,255,.15) inset;
+                object-fit: cover;
+            }
+
+            .dropdown-arrow {
+                width: 10px;
+                height: 10px;
+                margin-left: 2px;
+                background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: 12px;
+            }
+
+            &:hover { opacity: .85; }
+            &:focus { outline: 2px solid rgba(255,255,255,.3); outline-offset: 2px; }
+        }
+
+        .language-options {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0; // align under toggle like the reference
+            min-width: 120px;
+            padding: 12px;
+            border-radius: 10px;
+            background: @text-color-default;
+            box-shadow: 0 8px 24px rgba(0,0,0,.32);
+            display: none;
+            z-index: @zindex-dropdown;
+            box-sizing: border-box;
+            overflow: auto;
+
+            // Reset any inherited link styles within navbar
+            a { 
+                all: unset; 
+            }
+
+            .language-option {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 8px 14px;
+                width: 100%;
+                border-radius: 8px;
+                background: transparent;
+                border: 0;
+                color: #fff;
+                text-decoration: none;
+                font-size: 14px;
+                line-height: 1.6;
+                letter-spacing: 0;
+                box-shadow: none;
+                cursor: pointer;
+                transition: background .2s ease, opacity .2s ease;
+
+                .flag {
+                    width: 18px;
+                    height: 12px;
+                    border-radius: 2px;
+                    box-shadow: 0 0 0 1px rgba(255,255,255,.15) inset;
+                    object-fit: cover;
+                }
+
+                .option-label { color: #fff; text-align: left; display: inline-block; }
+
+                &:hover { background: fade(#ffffff, 8%); }
+                &.selected {
+                    background: fade(#ffffff, 14%);
+                    .option-label { font-weight: 600; }
+                }
+
+                // add vertical spacing between options
+                margin-bottom: 12px;
+                &:last-child { margin-bottom: 0; }
+            }
+        }
+
+        &.open {
+            .language-options { display: block; }
         }
     }
 }
