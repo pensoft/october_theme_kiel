@@ -15,11 +15,49 @@ jumbotron = "about"
 background = "transperant"
 templates = "template3"
 description_limit = 0
+
+[jumbotron about1]
+jumbotron = "about1"
+title = 1
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron about2]
+jumbotron = "about2"
+title = 1
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron about3]
+jumbotron = "about3"
+title = 1
+background = "transperant"
+templates = "template3"
+description_limit = 0
 ==
 {% component 'siteSearchInclude' %}
 
 <div class="container-fluid">
     <div class="container">
+        <div class="row about_top_items">
+            <div class="col-md-4 col-xs-12">
+                <div class="about1">
+                    {% component 'about1' %}
+                </div>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <div class="about1">
+                    {% component 'about2' %}
+                </div>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <div class="about1">
+                    {% component 'about3' %}
+                </div>
+            </div>
+        </div>
         <div class="row about_intro">
             <div class="col-md-4 col-xs-12">
                 <h1 class="underline">{{ 'The Project'|_ }}</h1>
@@ -30,7 +68,11 @@ description_limit = 0
         </div>
         <div class="row mt-4">
             <div class="col-xs-12">
-                <img src="{{'about_image.png'|media}}" title="ABout Science comes to town" alt="Science Comes To Town features a diverse programme including science festivals, competitions, and outreach events across Kiel, Brest, and Split, three vibrant university cities with strong town-and-gown relations.">
+                <iframe width="100%" height="644" src="https://www.youtube.com/embed/NhaaRr4LYvs?si=8J31SlIRRTRroEOd" title="ABout Science comes to town"
+                alt="Science Comes To Town features a diverse programme including science festivals, competitions, and outreach events across Kiel, Brest, and Split, three vibrant university cities with strong town-and-gown relations."
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <!--<img src="{{'about_image.png'|media}}" title="ABout Science comes to town" alt="Science Comes To Town features a diverse programme including science festivals, competitions, and outreach events across Kiel, Brest, and Split, three vibrant university cities with strong town-and-gown relations.">-->
             </div>
         </div>
 
