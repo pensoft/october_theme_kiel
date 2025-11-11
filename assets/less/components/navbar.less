@@ -59,7 +59,10 @@
         width: 77px;
         height: 72px;
         z-index: 4;
-        left: 0;
+        position: absolute;
+        left: 70px;
+        top: 10px;
+
         &:hover{
             scale: 1.05;
         }
@@ -80,6 +83,7 @@
     .navbar-nav{
         display: flex;
         list-style-type: none;
+        margin: 0 auto;
         .breakpoint-large-down({
             visibility: hidden;
         });
