@@ -128,11 +128,11 @@ $this['slug'] = $this->param('slug');
                             {% if highlights|length %}
                             <div class="events-card">
                                 <div class="img-container">
-                                    <a href="/coming-soon">
+                                    <a href="/events/{{highlights[0].slug}}">
                                         <img src="{{highlights[0].cover_image.thumb(868, 521,{'mode':'crop'})}}" alt="{{ highlights[0].title }}">
                                     </a>
 
-                                    <a class="events-title" href="/coming-soon">
+                                    <a class="events-title" href="/events/{{highlights[0].slug}}">
                                         <div class="events-date">
                                             {% if highlights[0].start|date("j") != highlights[0].end|date("j") %} {{highlights[0].start|date("j")}}-{{highlights[0].end|date("j")}}{% else %}{{highlights[0].start|date("j")}}{% endif %}
                                             {{highlights[0].start|date("M Y")}}
@@ -150,11 +150,11 @@ $this['slug'] = $this->param('slug');
                             {% for entry in highlights|slice(1, 2) %}
                             <div class="row events-card">
                                 <div class="img-container">
-                                    <a href="/coming-soon">
+                                    <a href="/events/{{entry.slug}}">
                                         <img src="{{entry.cover_image.thumb(426, 246,{'mode':'crop'})}}" alt="{{ entry.title }}">
                                     </a>
 
-                                    <a class="events-title" href="/coming-soon">
+                                    <a class="events-title" href="/events/{{entry.slug}}">
                                         <div class="events-date">
 
                                             {% if entry.start == '2026-09-25T09:07:29' %} autumn {{entry.start|date("Y")}} {% else %}
@@ -211,42 +211,41 @@ $this['slug'] = $this->param('slug');
 {% else %}
 
     {% if entry %}
-    <div class="container">
-        <div class="row single-news-item">
-            <div class="col-md-12 col-xs-12 mb-2">
-                <a href="/events" class="go-back-link">Back</a>
+<main class="container single-news-item" role="main">
+    <div class="row">
+
+
+        <div class="col-xs-12">
+            <div class="news-date">{% if entry.start|date("j") == entry.end|date("j") %} {{entry.start|date("j M Y")}} {% elseif entry.start|date("M") == entry.end|date("M") %} {{entry.start|date("j")}}-{{entry.end|date("j M Y")}} {% else %} {{entry.start|date("d M Y")}} - {{entry.end|date("d M Y")}}{% endif %}<br><br>{{entry.place}}</div>
+        </div>
+        <div class="col-xs-12 news-title">
+            <h1 class="single-new-title">{{entry.title}}</h1>
+        </div>
+        <div class="col-xs-12">
+            {% if entry.cover_image %}
+            <img src="{{ entry.cover_image|crop_image|resize(743, auto, { mode: 'crop' }) }}" class="article_cover" />
+            {% endif %}
+        </div>
+
+
+        <div class="col-xs-12">
+            <div class="content">
+                {{entry.description|raw}}
             </div>
-            <div class="col-md-5 col-xs-12">
-                <div class="fixed_image">
-                    {% if entry.cover_image %}
-                    <img class="content" src="{{ entry.cover_image|crop_image|resize(387, auto, { mode: 'crop' }) }}" />
-                    {% endif %}
 
-                    {% if entry.url %}
-                    <a href="{{entry.url}}" class="read_more" target="_blank">View event <i></i></a>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col-md-7 col-xs-12">
-                <div class="text-published">{% if entry.start|date("j") == entry.end|date("j") %} {{entry.start|date("j M Y")}} {% elseif entry.start|date("M") == entry.end|date("M") %} {{entry.start|date("j")}}-{{entry.end|date("j M Y")}} {% else %} {{entry.start|date("d M Y")}} - {{entry.end|date("d M Y")}}{% endif %}<br>{{entry.place}}</div>
-                <div class="news-title">
-                    <h1 class="single-new-title">{{entry.title}}</h1>
-                </div>
-
-                <div class="content">
-                    {{entry.description|raw}}
-                </div>
-
-                <div class="share_container">
-                    <div class="share_label">Share</div>
-                    <div class="share_icons">
-                        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{page_url}}" target="_blank" class="pr p-linkedin big"></a>
-                        <a href="https://bsky.app/intent/compose?text={{page_url}}" class="pr p-bluesky big"  target="_blank"></a>
-                    </div>
+            <div class="row middle-xs">
+                <div class="col-xs col-md start-md center-xs share_container">
+                    <span class="share_label">Share</span>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{page_url}}" target="_blank" class="pr p-linkedin normal"></a>
+                    <a href="https://bsky.app/intent/compose?text={{page_url}}" class="pr p-bluesky small"  target="_blank"></a>
                 </div>
             </div>
+
         </div>
     </div>
+</main>
+
+
 
     {% endif %}
 
