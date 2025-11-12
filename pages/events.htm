@@ -24,51 +24,54 @@ use Spatie\GoogleCalendar\Event;
 function onStart(){
 
     if($this->param('slug')){
-$this['entry'] =  Entry::select(
-'*',
-'title',
-'place',
-'description',
-'url',
+        $this['entry'] =  Entry::select(
+        '*',
+        'title',
+        'place',
+        'description',
+        'url',
 
-DB::raw("to_char(\"start\", 'DD') as start_day"),
-DB::raw("to_char(\"start\", 'YYYY') as start_year"),
-DB::raw("to_char(\"end\", 'DD') as end_day"),
-DB::raw("to_char(\"end\", 'YYYY') as end_year"),
-DB::raw("to_char(\"start\", 'month') as start_month"),
-DB::raw("to_char(\"end\", 'month') as end_month"),
-DB::raw("
-\"end\" is not null as has_end
-")
-
-
-)->where('slug', $this->param('slug'))->first();
-
-\BennoThommo\Meta\Meta::set('twitter:card', 'summary_large_image');
-\BennoThommo\Meta\Meta::set('twitter:title', $this['entry']['title']);
-\BennoThommo\Meta\Meta::set('twitter:description', str_limit(Html::strip($this['entry']['description']), 255));
-\BennoThommo\Meta\Meta::set('og:title', $this['entry']['title']);
-\BennoThommo\Meta\Meta::set('og:description', str_limit(Html::strip($this['entry']['description']), 255) );
-\BennoThommo\Meta\Meta::set('og:type', 'article');
-\BennoThommo\Meta\Meta::set('og:url', $this->pageUrl(''));
-if($this['entry']['cover_image']){
-\BennoThommo\Meta\Meta::set('twitter:image', $this['entry']['cover_image']->getThumb(600, null, ['mode' => 'auto']));
+        DB::raw("to_char(\"start\", 'DD') as start_day"),
+        DB::raw("to_char(\"start\", 'YYYY') as start_year"),
+        DB::raw("to_char(\"end\", 'DD') as end_day"),
+        DB::raw("to_char(\"end\", 'YYYY') as end_year"),
+        DB::raw("to_char(\"start\", 'month') as start_month"),
+        DB::raw("to_char(\"end\", 'month') as end_month"),
+        DB::raw("
+        \"end\" is not null as has_end
+        ")
 
 
-\BennoThommo\Meta\Meta::set('og:image', $this['entry']['cover_image']->getThumb(600, 314, ['mode' => 'crop']));
-\BennoThommo\Meta\Meta::set('og:image:width', 600);
-\BennoThommo\Meta\Meta::set('og:image:height', 314);
-}
+        )->where('slug', $this->param('slug'))->first();
+
+        \BennoThommo\Meta\Meta::set('twitter:card', 'summary_large_image');
+        \BennoThommo\Meta\Meta::set('twitter:title', $this['entry']['title']);
+        \BennoThommo\Meta\Meta::set('twitter:description', str_limit(Html::strip($this['entry']['description']), 255));
+        \BennoThommo\Meta\Meta::set('og:title', $this['entry']['title']);
+        \BennoThommo\Meta\Meta::set('og:description', str_limit(Html::strip($this['entry']['description']), 255) );
+        \BennoThommo\Meta\Meta::set('og:type', 'article');
+        \BennoThommo\Meta\Meta::set('og:url', $this->pageUrl(''));
+        if($this['entry']['cover_image']){
+        \BennoThommo\Meta\Meta::set('twitter:image', $this['entry']['cover_image']->getThumb(600, null, ['mode' => 'auto']));
+
+
+        \BennoThommo\Meta\Meta::set('og:image', $this['entry']['cover_image']->getThumb(600, 314, ['mode' => 'crop']));
+        \BennoThommo\Meta\Meta::set('og:image:width', 600);
+        \BennoThommo\Meta\Meta::set('og:image:height', 314);
+        }
 
 }
 $this['page_url'] = $this->pageUrl('');
 $this['google_calendar_events'] = Event::get();
 //$this['google_calendar_events_test'] = Event::get(null, null, [], getenv('GOOGLE_CALENDAR_TEST_ID'));
 
-$this['entries'] = Entry::orderBy('start', 'asc')->paginate(20);
 
-//$this['entries2025'] = Entry::whereYear('start', Carbon::now()->year)->orderBy('start', 'asc')->paginate(20);
-//$this['entries2026'] = Entry::whereYear('start', '2026')->orderBy('start', 'asc')->paginate(20);
+$highlights = Entry::where('end', '>', Carbon::now())->where('is_internal', false)->orderBy('start', 'asc')->take(3);
+$this['highlights'] = $highlights->get();
+
+$entries = Entry::orderBy('start', 'asc')->paginate(20);
+
+$this['entries'] = $entries->diff($highlights->get());
 
 $this['slug'] = $this->param('slug');
 
@@ -80,16 +83,24 @@ $this['slug'] = $this->param('slug');
 
 <div class="container-fluid events">
 
-    <div class="container">
-        <div class="tabs">
-            <a class="" href="#listView"></a>
-            <a class="" href="#calendarView"></a>
+    <div class="container mb-0 pb-0">
+        <div class="row nav-row">
+            <div class="col-md-9 col-xs-12 start-md center-xs">
+                <h1>LATEST EVENTS</h1>
+            </div>
+            <div class="col-md-3 col-xs-12 view-all-button">
+                <div class="tabs">
+                    <a class="" href="#listView"></a>
+                    <a class="" href="#calendarView"></a>
+                </div>
+            </div>
         </div>
     </div>
 
+
     <div class="container events_container">
         <div class="row" id="listView">
-                    <div class="events_list_container">
+                    <!--<div class="events_list_container">
                     {% for google_cal in google_calendar_events %}
                         {% set start_date = google_cal.googleEvent.start.dateTime ?: google_cal.googleEvent.start.date %}
                         <div class="row entry_item middle-xs">
@@ -106,8 +117,82 @@ $this['slug'] = $this->param('slug');
                             </div>
                         </div>
                     {% endfor %}
+                    </div>-->
+            <!--upcoming events-->
+            {% if highlights.count %}
+            <div class="upcoming_events_container">
+
+
+                    <div class="row highligts-row">
+                        <div class="col-md-7 col-xs-12 latest-events">
+                            {% if highlights|length %}
+                            <div class="events-card">
+                                <div class="img-container">
+                                    <a href="/coming-soon">
+                                        <img src="{{highlights[0].cover_image.thumb(868, 521,{'mode':'crop'})}}" alt="{{ highlights[0].title }}">
+                                    </a>
+
+                                    <a class="events-title" href="/coming-soon">
+                                        <div class="events-date">
+                                            {% if highlights[0].start|date("j") != highlights[0].end|date("j") %} {{highlights[0].start|date("j")}}-{{highlights[0].end|date("j")}}{% else %}{{highlights[0].start|date("j")}}{% endif %}
+                                            {{highlights[0].start|date("M Y")}}
+                                        </div>
+                                        <div class="title">
+                                            <h3>{{ highlights[0].title|raw}}</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-5 col-xs-12 highlight-events">
+                            {% for entry in highlights|slice(1, 2) %}
+                            <div class="row events-card">
+                                <div class="img-container">
+                                    <a href="/coming-soon">
+                                        <img src="{{entry.cover_image.thumb(426, 246,{'mode':'crop'})}}" alt="{{ entry.title }}">
+                                    </a>
+
+                                    <a class="events-title" href="/coming-soon">
+                                        <div class="events-date">
+
+                                            {% if entry.start == '2026-09-25T09:07:29' %} autumn {{entry.start|date("Y")}} {% else %}
+
+                                            {% if entry.start|date("j") != entry.end|date("j") %} {{entry.start|date("j")}}-{{entry.end|date("j")}}{% else %}{{entry.start|date("j")}}{% endif %}
+
+
+                                            {{entry.start|date("M Y")}}
+
+
+                                            {% endif %}
+
+                                        </div>
+                                        <div class="title">
+                                            <h3>{{ entry.title|raw}}</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                </div>
+            </div>
+            {% endif %}
+
+
+            <div class="mt-4 no-padding">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h1>All EVENTS</h1>
                     </div>
+                </div>
+
+            </div>
+
                     {% partial 'eventslist' records=entries %}
+
+
                     {% if entries.count > 20 %}
                     <div class="row container">
                         {{ entries.fragment('listView').render|raw }}
