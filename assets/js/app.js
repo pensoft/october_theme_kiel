@@ -269,7 +269,8 @@ function elementScrolled(elem) {
             $active.addClass('active');
         }
 
-        if($(this).parent().parent().hasClass('events')){
+
+        if($(this).parent().parent().parent().parent().hasClass('events')){
             $active.addClass('active');
         }
 

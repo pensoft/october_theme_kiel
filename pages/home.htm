@@ -211,7 +211,7 @@ function onStart(){
                 <h1>{{ 'HIGHLIGHTS 2026'|_ }}</h1>
             </div>
             <div class="col-md-3 col-xs-12 view-all-button">
-                <a href="/coming-soon" class="btn btn-primary">{{ 'All events'|_ }}</a>
+                <a href="/events" class="btn btn-primary">{{ 'All events'|_ }}</a>
             </div>
         </div>
     </div>
@@ -222,11 +222,11 @@ function onStart(){
                 {% if entries|length %}
                 <div class="events-card">
                     <div class="img-container">
-                        <a href="/coming-soon">
+                        <a href="/events/{{entries[0].slug}}">
                             <img src="{{entries[0].cover_image.thumb(868, 521,{'mode':'crop'})}}" alt="{{ entries[0].title }}">
                         </a>
 
-                        <a class="events-title" href="/coming-soon">
+                        <a class="events-title" href="/events/{{entries[0].slug}}">
                             <div class="events-date">
                                 {% if entries[0].start|date("j") != entries[0].end|date("j") %} {{entries[0].start|date("j")}}-{{entries[0].end|date("j")}}{% else %}{{entries[0].start|date("j")}}{% endif %}
                                 {{entries[0].start|date("M Y")}}
@@ -241,41 +241,34 @@ function onStart(){
             </div>
 
             <div class="col-md-4 col-xs-12 highlight-events">
+                {% for entry in entries|slice(1, 2) %}
                 <div class="row events-card">
                     <div class="img-container">
-                        <a href="/coming-soon">
-                            <img src="{{entries[1].cover_image.thumb(426, 246,{'mode':'crop'})}}" alt="{{ entries[1].title }}">
+                        <a href="/events/{{entry.slug}}">
+                            <img src="{{entry.cover_image.thumb(426, 246,{'mode':'crop'})}}" alt="{{ entry.title }}">
                         </a>
 
-                        <a class="events-title" href="/coming-soon">
+                        <a class="events-title" href="/events/{{entry.slug}}">
                             <div class="events-date">
-                                {% if entries[1].start|date("j") != entries[1].end|date("j") %} {{entries[1].start|date("j")}}-{{entries[1].end|date("j")}}{% else %}{{entries[1].start|date("j")}}{% endif %}
-                                {{entries[1].start|date("M Y")}}
+
+                                {% if entry.start == '2026-09-25T09:07:29' %} {{ 'autumn'|_}} {{entry.start|date("Y")}} {% else %}
+
+                                    {% if entry.start|date("j") != entry.end|date("j") %} {{entry.start|date("j")}}-{{entry.end|date("j")}}{% else %}{{entry.start|date("j")}}{% endif %}
+
+
+                                {{entry.start|date("M Y")}}
+
+
+                                {% endif %}
+
                             </div>
                             <div class="title">
-                                <h3>{{ entries[1].title|raw}}</h3>
+                                <h3>{{ entry.title|raw}}</h3>
                             </div>
                         </a>
                     </div>
                 </div>
-
-                <div class="row events-card">
-                    <div class="img-container">
-                        <a href="/coming-soon">
-                            <img src="{{entries[2].cover_image.thumb(426, 246,{'mode':'crop'})}}" alt="{{ entries[2].title }}">
-                        </a>
-
-                        <a class="events-title" href="/coming-soon">
-                            <div class="events-date">
-<!--                                {% if entries[2].start|date("j") != entries[2].end|date("j") %} {{entries[2].start|date("j")}}-{{entries[2].end|date("j")}}{% else %}{{entries[2].start|date("j")}}{% endif %}-->
-                                {{ 'AUTUMN'|_ }} {{entries[2].start|date("Y")}}
-                            </div>
-                            <div class="title">
-                                <h3>{{ entries[2].title|raw}}</h3>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>

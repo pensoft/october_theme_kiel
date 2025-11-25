@@ -1,18 +1,19 @@
-<div class="events_list_container">
-    {% for entry in records %}
-    {% set url = '/events/' ~ entry.slug %}
-    <div class="row entry_item middle-xs">
 
-        <div class="col-md-11 col-xs-12 body_container">
-            {% if entry.cover_image %}
-            <a href="{{url}}">
-                <img src="{{entry.cover_image.getThumb(auto, auto, {'mode': 'crop'})}}">
+<div class="events_list_container row">
+    {% for entry in records %}
+    <div class="col-md-6 col-xs-12 highlight-events">
+        <div class="img-container">
+            <a href="/events/{{entry.slug}}">
+                <img src="{{entry.cover_image.thumb(868, 521,{'mode':'crop'})}}" alt="{{ entry.title }}">
             </a>
-            {% endif %}
-            <a href="{{url}}">
-                <div class="entry_content">
-                    <div class="date_container">{{entry.start|date("j M")}}</div>
-                    <div class="entry_title">{{entry.title|raw}}</div>
+
+            <a class="events-title" href="/events/{{entry.slug}}">
+                <div class="events-date">
+                    {% if entry.start|date("j") != entry.end|date("j") %} {{entry.start|date("j")}}-{{entry.end|date("j")}}{% else %}{{entry.start|date("j")}}{% endif %}
+                    {{entry.start|date("M Y")}}
+                </div>
+                <div class="title">
+                    <h3>{{ entry.title|raw}}</h3>
                 </div>
             </a>
 
