@@ -15,6 +15,12 @@ jumbotron = "co-creation"
 background = "transperant"
 templates = "template3"
 description_limit = 0
+
+[jumbotron joint]
+jumbotron = "joint-citizen-science"
+background = "transperant"
+templates = "template3"
+description_limit = 0
 ==
 {% component 'siteSearchInclude' %}
 
@@ -37,7 +43,7 @@ description_limit = 0
     </div>
 
     <div class="row center-xs " id="JointCitizenScience">
-        <h1 class="mt-4 mb-4">Coming soon...</h1>
+        {% component 'joint' %}
     </div>
 
     <div class="row center-xs" id="ScienceBattle">

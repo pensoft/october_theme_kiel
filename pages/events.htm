@@ -216,7 +216,20 @@ $this['slug'] = $this->param('slug');
 
 
         <div class="col-xs-12">
-            <div class="news-date">{% if entry.start|date("j") == entry.end|date("j") %} {{entry.start|date("j M Y")}} {% elseif entry.start|date("M") == entry.end|date("M") %} {{entry.start|date("j")}}-{{entry.end|date("j M Y")}} {% else %} {{entry.start|date("d M Y")}} - {{entry.end|date("d M Y")}}{% endif %}<br><br>{{entry.place}}</div>
+            <div class="news-date">
+            
+            {% if entry.start == '2026-09-25T09:07:29' %} autumn {{entry.start|date("Y")}} {% else %}
+
+                                    {% if entry.start|date("j") != entry.end|date("j") %} {{entry.start|date("j")}}-{{entry.end|date("j")}}{% else %}{{entry.start|date("j")}}{% endif %}
+
+
+                                {{entry.start|date("M Y")}}
+
+
+                                {% endif %}
+
+            
+            <br><br>{{entry.place}}</div>
         </div>
         <div class="col-xs-12 news-title">
             <h1 class="single-new-title">{{entry.title}}</h1>
@@ -231,6 +244,12 @@ $this['slug'] = $this->param('slug');
         <div class="col-xs-12">
             <div class="content">
                 {{entry.description|raw}}
+
+
+                {% if entry.url %}
+                <a href="{{entry.url}}" class="btn btn-primary" target="_blank" aria-label="Opens the event website in new tab">Go to event website</a>
+                {% endif %}
+
             </div>
 
             <div class="row middle-xs">
