@@ -66,12 +66,36 @@ $this['google_calendar_events'] = Event::get();
 //$this['google_calendar_events_test'] = Event::get(null, null, [], getenv('GOOGLE_CALENDAR_TEST_ID'));
 
 
-$highlights = Entry::where('end', '>', Carbon::now())->where('is_internal', false)->orderBy('start', 'asc')->take(3);
-$this['highlights'] = $highlights->get();
+// Long-term exhibitions (>= 100 days duration)
+$exhibitions = Entry::where('end', '>', Carbon::now())
+                    ->where('is_internal', false)
+                    ->orderBy('start', 'asc')
+                    ->get()
+                    ->filter(function ($item) {
+                        return Carbon::parse($item->start)->diffInDays(Carbon::parse($item->end)) >= 100;
+                    })
+                ->take(3);
 
-$entries = Entry::orderBy('start', 'asc')->paginate(20);
+$this['exhibitions'] = $exhibitions;
 
-$this['entries'] = $entries->diff($highlights->get());
+// Highlights (upcoming, exclude exhibitions)
+$exhibitionIds = $exhibitions->pluck('id')->toArray();
+
+$highlights = Entry::where('end', '>', Carbon::now())
+            ->where('is_internal', false)
+            ->whereNotIn('id', $exhibitionIds)
+            ->orderBy('start', 'asc')
+            ->take(3)
+            ->get();
+
+$this['highlights'] = $highlights;
+
+// All entries (exclude highlights)
+$excludeIds = array_merge($exhibitionIds, $highlights->pluck('id')->toArray());
+
+$this['entries'] = Entry::whereNotIn('id', $excludeIds)
+        ->orderBy('start', 'asc')
+        ->paginate(20);
 
 $this['slug'] = $this->param('slug');
 
@@ -86,7 +110,7 @@ $this['slug'] = $this->param('slug');
     <div class="container mb-0 pb-0">
         <div class="row nav-row">
             <div class="col-md-9 col-xs-12 start-md center-xs">
-                <h1>LATEST EVENTS</h1>
+                <h1>{{'LATEST EVENTS'|_}}</h1>
             </div>
             <div class="col-md-3 col-xs-12 view-all-button">
                 <div class="tabs">
@@ -100,25 +124,6 @@ $this['slug'] = $this->param('slug');
 
     <div class="container events_container">
         <div class="row" id="listView">
-                    <!--<div class="events_list_container">
-                    {% for google_cal in google_calendar_events %}
-                        {% set start_date = google_cal.googleEvent.start.dateTime ?: google_cal.googleEvent.start.date %}
-                        <div class="row entry_item middle-xs">
-                            <div class="col-md-11 col-xs-12 body_container">
-                                <a href="{{google_cal.googleEvent.htmlLink}}" target="_blank">
-                                    <div class="entry_content">
-                                        <div class="date_container">{{start_date|date("j M")}}</div>
-                                        <div class="entry_title">{{google_cal.googleEvent.summary}}</div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-md-1 col-xs-12 read-more-events end-md center-xs">
-                                <a href="{{google_cal.googleEvent.htmlLink}}" class="read-more" target="_blank">Read more</a>
-                            </div>
-                        </div>
-                    {% endfor %}
-                    </div>-->
-            <!--upcoming events-->
             {% if highlights.count %}
             <div class="upcoming_events_container">
 
@@ -181,10 +186,82 @@ $this['slug'] = $this->param('slug');
             {% endif %}
 
 
+            {% if exhibitions.count %}
+
             <div class="mt-4 no-padding">
                 <div class="row">
                     <div class="col-xs-12">
-                        <h1>All EVENTS</h1>
+                        <h1>{{'Exhibitions'|_}}</h1>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="upcoming_events_container">
+                <div class="row highligts-row">
+                    <div class="col-md-7 col-xs-12 latest-events">
+                        {% if exhibitions|length %}
+                        <div class="events-card">
+                            <div class="img-container">
+                                <a href="/events/{{exhibitions.first.slug}}">
+                                    <img src="{{exhibitions.first.cover_image.thumb(868, 521,{'mode':'crop'})}}" alt="{{ exhibitions.first.title }}">
+                                </a>
+
+                                <a class="events-title" href="/events/{{exhibitions.first.slug}}">
+                                    <div class="events-date">
+                                        {% if exhibitions.first.start|date("j") != exhibitions.first.end|date("j") %} {{exhibitions.first.start|date("j")}}-{{exhibitions.first.end|date("j")}}{% else %}{{exhibitions.first.start|date("j")}}{% endif %}
+                                        {{exhibitions.first.start|date("M Y")}}
+                                    </div>
+                                    <div class="title">
+                                        <h3>{{ exhibitions.first.title|raw}}</h3>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-5 col-xs-12 highlight-events">
+                        {% for entry in exhibitions|slice(1, 2) %}
+                        <div class="row events-card">
+                            <div class="img-container">
+                                <a href="/events/{{entry.slug}}">
+                                    <img src="{{entry.cover_image.thumb(426, 246,{'mode':'crop'})}}" alt="{{ entry.title }}">
+                                </a>
+
+                                <a class="events-title" href="/events/{{entry.slug}}">
+                                    <div class="events-date">
+
+                                        {% if entry.start == '2026-09-25T09:07:29' %} autumn {{entry.start|date("Y")}} {% else %}
+
+                                        {% if entry.start|date("j") != entry.end|date("j") %} {{entry.start|date("j")}}-{{entry.end|date("j")}}{% else %}{{entry.start|date("j")}}{% endif %}
+
+
+                                        {{entry.start|date("M Y")}}
+
+
+                                        {% endif %}
+
+                                    </div>
+                                    <div class="title">
+                                        <h3>{{ entry.title|raw}}</h3>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+
+            {% if entries.count %}
+
+            <div class="mt-4 no-padding">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h1>{{'All EVENTS'|_}}</h1>
                     </div>
                 </div>
 
@@ -198,6 +275,8 @@ $this['slug'] = $this->param('slug');
                         {{ entries.fragment('listView').render|raw }}
                     </div>
                     {% endif %}
+
+            {% endif %}
         </div>
         <div class="row" id="calendarView">
             <!--<iframe src="https://calendar.google.com/calendar/embed?src=motive.project.stat%40gmail.com&ctz=Europe%2FSofia" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>-->
@@ -217,7 +296,7 @@ $this['slug'] = $this->param('slug');
 
         <div class="col-xs-12">
             <div class="news-date">
-            
+
             {% if entry.start == '2026-09-25T09:07:29' %} autumn {{entry.start|date("Y")}} {% else %}
 
                                     {% if entry.start|date("j") != entry.end|date("j") %} {{entry.start|date("j")}}-{{entry.end|date("j")}}{% else %}{{entry.start|date("j")}}{% endif %}
@@ -228,7 +307,7 @@ $this['slug'] = $this->param('slug');
 
                                 {% endif %}
 
-            
+
             <br><br>{{entry.place}}</div>
         </div>
         <div class="col-xs-12 news-title">
@@ -247,14 +326,14 @@ $this['slug'] = $this->param('slug');
 
 
                 {% if entry.url %}
-                <a href="{{entry.url}}" class="btn btn-primary" target="_blank" aria-label="Opens the event website in new tab">Go to event website</a>
+                <a href="{{entry.url}}" class="btn btn-primary" target="_blank" aria-label="Opens the event website in new tab">{{'Go to event website'|_}}</a>
                 {% endif %}
 
             </div>
 
             <div class="row middle-xs">
                 <div class="col-xs col-md start-md center-xs share_container">
-                    <span class="share_label">Share</span>
+                    <span class="share_label">{{'Share'|_}}</span>
                     <a href="https://www.linkedin.com/sharing/share-offsite/?url={{page_url}}" target="_blank" class="pr p-linkedin normal"></a>
                     <a href="https://bsky.app/intent/compose?text={{page_url}}" class="pr p-bluesky small"  target="_blank"></a>
                 </div>
