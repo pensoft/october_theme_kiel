@@ -209,7 +209,7 @@ $this['slug'] = $this->param('slug');
 
                                 <a class="events-title" href="/events/{{exhibitions.first.slug}}">
                                     <div class="events-date">
-                                        {{exhibitions.first.start|date("j M Y")}} - {{exhibitions.first.end|date("j M Y")}}
+                                        {{exhibitions.first.start|date("j M")}} - {{exhibitions.first.end|date("j M Y")}}
 
                                         <!--{% if exhibitions.first.start|date("j") != exhibitions.first.end|date("j") %} {{exhibitions.first.start|date("j")}}-{{exhibitions.first.end|date("j")}}{% else %}{{exhibitions.first.start|date("j")}}{% endif %}
                                         {{exhibitions.first.start|date("M Y")}}-->
