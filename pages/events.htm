@@ -67,8 +67,7 @@ $this['google_calendar_events'] = Event::get();
 
 
 // Long-term exhibitions (>= 100 days duration)
-$exhibitions = Entry::where('end', '>', Carbon::now())
-                    ->where('is_internal', false)
+$exhibitions = Entry::where('is_internal', false)
                     ->orderBy('start', 'asc')
                     ->get()
                     ->filter(function ($item) {
