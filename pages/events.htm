@@ -296,8 +296,11 @@ $this['slug'] = $this->param('slug');
             <div class="news-date">
 
             {% if entry.start == '2026-09-25T09:07:29' %} autumn {{entry.start|date("Y")}} {% else %}
-
+                {% if entry.start|date("Y") == entry.end|date("Y") %}
                 {{entry.start|date("j M")}} - {{entry.end|date("j M Y")}}
+                {% else %}
+                {{entry.start|date("j M Y")}} - {{entry.end|date("j M Y")}}
+                {% endif %}
 
                                    <!-- {% if entry.start|date("j") != entry.end|date("j") %} {{entry.start|date("j")}}-{{entry.end|date("j")}}{% else %}{{entry.start|date("j")}}{% endif %}
 
