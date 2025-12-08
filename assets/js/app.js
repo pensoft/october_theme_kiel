@@ -543,16 +543,11 @@ function elementScrolled(elem) {
         select.parentNode.insertBefore(wrapper, select);
         wrapper.appendChild(select);
 
-
-
         var selected = select.options[select.selectedIndex];
 
         var trigger = document.createElement('div');
 
         var selectedCode = selected.value.split('/')[1] || selected.value.split('/')[0];
-
-        var regex = new RegExp('^(\/' + selectedCode + ')(\/|$)');
-        var hash = window.location.hash;
 
         trigger.className = 'custom-select__trigger';
         trigger.innerHTML = '<span class="flag-icon flag-icon-' + selectedCode + '"></span> <span>' + selectedCode + '</span>';
@@ -563,19 +558,12 @@ function elementScrolled(elem) {
 
         for (var i = 0; i < select.options.length; i++) {
             var opt = select.options[i];
-
-            var localeCode = opt.value.split('/')[1] || opt.value.split('/')[0];
-            var newPath = window.location.pathname.replace(regex, '/' + localeCode + '/');
-
             var item = document.createElement('div');
             item.className = 'custom-select__option' + (opt.selected ? ' is-selected' : '');
-            // item.dataset.value = opt.value;
-            item.dataset.value = newPath;
-
-
+            item.dataset.value = opt.value;
 
             // Extract locale code from option value for display
-
+            var localeCode = opt.value.split('/')[1] || opt.value.split('/')[0];
             item.innerHTML = '<span class="flag-icon flag-icon-' + localeCode + '"></span> ' + opt.text ;
             list.appendChild(item);
         }
