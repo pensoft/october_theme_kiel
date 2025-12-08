@@ -8,20 +8,20 @@
                         name="login"
                         type="text"
                         id="userSigninLogin"
-                        placeholder="Enter your {{ loginAttributeLabel|lower }}" />
+                        placeholder="{{ 'Enter your'|_ }} {{ loginAttributeLabel|lower }}" />
                 </div>
                 <div class="field">
                     <input
                         name="password"
                         type="password"
                         id="userSigninPassword"
-                        placeholder="Enter your password" />
+                        placeholder="{{ 'Enter your password'|_ }}" />
                 </div>
             </div>
         </div>
 
         <div class="mt-1 center-xs">
-            <button type="submit" class="btn btn-primary">Sign in</button>
+            <button type="submit" class="btn btn-primary">{{ 'Sign in'|_ }}</button>
         </div>
 
         <div class="row mt-1">
@@ -31,13 +31,13 @@
 <!--                    <div class="field inline align-items-baseline">-->
 <!--                        <input id="remember" name="remember" type="checkbox" value="1" />-->
 <!--                        <span class="mark"></span>-->
-<!--                        <label for="remember">Remember me</label>-->
+<!--                        <label for="remember">{{ 'Remember me'|_ }}</label>-->
 <!--                    </div>-->
 <!--                </div>-->
 <!--                {% endif %}-->
 <!--            </div>-->
             <div class="col-xs-12 col-sm center-xs">
-                <a class="no-padding btn-bold" href="/forgot">Forgot your password?</a>
+                <a class="no-padding btn-bold" href="/forgot">{{ 'Forgot your password?'|_ }}</a>
             </div>
         </div>
 

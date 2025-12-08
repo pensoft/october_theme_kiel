@@ -363,10 +363,9 @@ $this['slug'] = $this->param('slug');
 {% else %}
 
     {% if entry %}
+
 <main class="container single-news-item" role="main">
     <div class="row">
-
-
         <div class="col-xs-12">
             <div class="news-date">
 
@@ -412,7 +411,7 @@ $this['slug'] = $this->param('slug');
 
 
                 {% if entry.url %}
-                <a href="{{entry.url}}" class="btn btn-primary" target="_blank" aria-label="Opens the event website in new tab">{{'Go to event website'|_}}</a>
+                <a href="{{entry.url}}" class="btn btn-primary" target="_blank" aria-label="Opens the event website in new tab">{{ 'Go to event website'|_ }}</a>
                 {% endif %}
 
             </div>

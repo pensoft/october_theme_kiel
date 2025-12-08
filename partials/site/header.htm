@@ -19,6 +19,9 @@ listItemClasses = "item"
 primaryClasses = "nav nav-pills"
 secondaryClasses = "dropdown-menu"
 numberOfLevels = 2
+
+[localePicker]
+forceUrl = 0
 ==
 {% if user %}
 <nav class="fixed navbar-loggedin-user " id="headernavbar2" role="navigation" aria-label="Logged in users navigation">
@@ -45,6 +48,8 @@ numberOfLevels = 2
         {% component 'menu' %}
     </div>
 
+    <a href="{{'home'|page}}" class="navbar-brand" id="navbar-brand"
+       style="background: url('{{ this.theme.site_logo.getPath() }}') center no-repeat; background-size: contain;" aria-label="Home" title="Home"></a>
 
     <a href="{{'home'|page}}" class="navbar-brand" id="navbar-brand"
        style="background: url('{{ this.theme.site_logo.getPath() }}') center no-repeat; background-size: contain;" aria-label="Home" title="Home"></a>
@@ -63,28 +68,35 @@ numberOfLevels = 2
         <div class="social_media">
             <div>
                 {% if this.theme.bluesky_url %}
-                <a href="{{this.theme.bluesky_url}}" target="_blank" rel="noopener noreferrer" class="pr p-secondary p-bluesky normal" aria-label="Visit our Bluesky (opens in a new tab)"><span class="visually-hidden">Bluesky</span></a>
+                <a href="{{this.theme.bluesky_url}}" target="_blank" rel="noopener noreferrer" class="pr p-secondary p-bluesky normal" aria-label="visit our bluesky (opens in a new tab)"><span class="visually-hidden">bluesky</span></a>
                 {% endif %}
                 {% if this.theme.facebook_url %}
-                <a href="{{this.theme.facebook_url}}" target="_blank" rel="noopener noreferrer" class="pr p-secondary p-facebook normal" aria-label="Visit our Facebook (opens in a new tab)"><span class="visually-hidden">Facebook</span></a>
+                <a href="{{this.theme.facebook_url}}" target="_blank" rel="noopener noreferrer" class="pr p-secondary p-facebook normal" aria-label="visit our facebook (opens in a new tab)"><span class="visually-hidden">facebook</span></a>
                 {% endif %}
                 {% if this.theme.linkedin_url %}
-                <a  href="{{this.theme.linkedin_url}}" target="_blank" rel="noopener noreferrer" class="pr p-secondary p-linkedin normal" aria-label="Visit our LinkedIn (opens in a new tab)"><span class="visually-hidden">LinkedIn</span></a>
+                <a  href="{{this.theme.linkedin_url}}" target="_blank" rel="noopener noreferrer" class="pr p-secondary p-linkedin normal" aria-label="visit our linkedin (opens in a new tab)"><span class="visually-hidden">linkedin</span></a>
                 {% endif %}
                 {% if this.theme.youtube_url %}
-                <a  href="{{this.theme.youtube_url}}" target="_blank" rel="noopener noreferrer" class="pr p-secondary p-youtube normal" aria-label="Visit our YouTube (opens in a new tab)"><span class="visually-hidden">YouTube</span></a>
+                <a  href="{{this.theme.youtube_url}}" target="_blank" rel="noopener noreferrer" class="pr p-secondary p-youtube normal" aria-label="visit our youtube (opens in a new tab)"><span class="visually-hidden">youtube</span></a>
                 {% endif %}
                 {% if this.theme.instagram_url %}
-                <a  href="{{this.theme.instagram_url}}" target="_blank" rel="noopener noreferrer" class="pr p-secondary p-instagram normal" aria-label="Visit our Instagram (opens in a new tab)"><span class="visually-hidden">Instagram</span></a>
+                <a  href="{{this.theme.instagram_url}}" target="_blank" rel="noopener noreferrer" class="pr p-secondary p-instagram normal" aria-label="visit our instagram (opens in a new tab)"><span class="visually-hidden">instagram</span></a>
                 {% endif %}
                 {% if this.theme.twitter_url %}
-                <a href="{{this.theme.twitter_url}}" target="_blank" rel="noopener noreferrer" class="pr p-secondary p-twitter normal" aria-label="Visit our X (Twitter) (opens in a new tab)"><span class="visually-hidden">X (Twitter)</span></a>
+                <a href="{{this.theme.twitter_url}}" target="_blank" rel="noopener noreferrer" class="pr p-secondary p-twitter normal" aria-label="visit our x (twitter) (opens in a new tab)"><span class="visually-hidden">x (twitter)</span></a>
                 {% endif %}
                 {% if this.theme.threads_url %}
-                <a href="{{this.theme.threads_url}}" target="_blank" rel="noopener noreferrer" class="pr p-secondary p-threads normal" aria-label="Visit our Threads (opens in a new tab)"><span class="visually-hidden">Threads</span></a>
+                <a href="{{this.theme.threads_url}}" target="_blank" rel="noopener noreferrer" class="pr p-secondary p-threads normal" aria-label="visit our threads (opens in a new tab)"><span class="visually-hidden">threads</span></a>
                 {% endif %}
 
-                <!--<div id="google_translate_element" aria-label="Google Translate"></div>-->
+                <!--<div id="google_translate_element" aria-label="google translate"></div>-->
+
+                <select class="locale-select form-control" onchange="window.location.assign(this.value)">
+                    {% for code, name in locales %}
+                    <option data-lang="{{code}}" value="{{ this.page.url|localeUrl(code) }}" {{ code == activeLocale ? 'selected' }}>{{ name }}</option>
+                    {% endfor %}
+                </select>
+
             </div>
         </div>
 

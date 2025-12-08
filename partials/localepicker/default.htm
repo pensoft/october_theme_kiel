@@ -1,0 +1,44 @@
+{# Custom dropdown language selector with flags #}
+{% set flagFiles = {
+    'en': 'flag_gb.svg',
+    'gb': 'flag_gb.svg',
+    'fr': 'flag_fr.svg',
+    'de': 'flag_de.png',
+    'hr': 'flag_croatia.svg',
+    'bg': 'flag_bg.png'
+} %}
+
+{% set activeCode = activeLocale %}
+{% set activeName = locales[activeCode] ?? 'English' %}
+{# normalize active locale code like de-DE -> de #}
+{% set activeBaseCode = (activeCode|lower|replace({'_':'-'}))|split('-')[0] %}
+{% set activeFlagFile = flagFiles[activeBaseCode] ?? null %}
+
+{{ form_open({ 'class': 'language-switcher-form language-dropdown-form' }) }}
+    <div class="language-dropdown" id="language-switcher">
+        <button type="button" class="selected-language" aria-haspopup="true" aria-expanded="false">
+            {% if activeFlagFile %}
+                <img alt="{{ activeName }}" class="flag" src="{{ ('assets/images/' ~ activeFlagFile)|theme }}" />
+            {% endif %}
+            <span class="language-text">{{ activeCode|upper }}</span>
+            <span class="dropdown-arrow" aria-hidden="true"></span>
+        </button>
+        <div class="language-options" role="menu">
+            {% for code, name in locales %}
+                {% set baseCode = (code|lower|replace({'_':'-'}))|split('-')[0] %}
+                {% set flagFile = flagFiles[baseCode] ?? null %}
+                <a href="#"
+                   role="menuitem"
+                   class="language-option {{ code == activeCode ? 'selected' }}"
+                   data-request="onSwitchLocale"
+                   data-request-data="locale: '{{ code }}'"
+                   aria-current="{{ code == activeCode ? 'true' : 'false' }}">
+                    {% if flagFile %}
+                        <img alt="{{ name }}" class="flag" src="{{ ('assets/images/' ~ flagFile)|theme }}" />
+                    {% endif %}
+                    <span class="option-label">{{ name }}</span>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{{ form_close() }}

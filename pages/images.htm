@@ -83,7 +83,7 @@ return Response::download($pathToFile, $fileName, $headers);
     {% if is_detail_page %}
         <div class="row media_images news">
             <div class="col-md-12 col-xs-12 mb-2">
-                <a href="/media-center/images" class="go-back-link">Back</a>
+                <a href="/media-center/images" class="go-back-link">{{ 'Back'|_ }}</a>
             </div>
 
             {% if gallery.images %}
@@ -126,7 +126,7 @@ return Response::download($pathToFile, $fileName, $headers);
         {% if records.count() %}
         <div class="row media_images news">
             <div class="col-md-12 col-xs-12 mb-2">
-                <a href="/media-center" class="go-back-link">Back</a>
+                <a href="/media-center" class="go-back-link">{{ 'Back'|_ }}</a>
             </div>
             {% for record in records %}
 
@@ -135,7 +135,7 @@ return Response::download($pathToFile, $fileName, $headers);
                     <div class="col-md-12 col-xs-12 home-news-cover">
                         <a href="/media-center/images/{{record.id}}">
                             <img src="{{ record.images[0].path}}" alt="{{ record.name }}">
-                            <div class="btn read-more-btn btn-primary">View</div>
+                            <div class="btn read-more-btn btn-primary">{{ 'View'|_ }}</div>
                             <div class="blur_filter"></div>
                         </a>
                     </div>

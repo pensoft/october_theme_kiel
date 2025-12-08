@@ -119,10 +119,10 @@ function onStart(){
 <div class="container1000 highlights-news">
     <div class="row nav-row">
         <div class="col-md-9 col-xs-12 start-md center-xs">
-            <h1>RECENT NEWS</h1>
+            <h1>{{ 'RECENT NEWS'|_ }}</h1>
         </div>
-        <div class="col-md-3 col-xs-12 end-md center-xs view-all-button">
-            <a href="/news" class="btn btn-primary">All news</a>
+        <div class="col-md-3 col-xs-12 view-all-button">
+            <a href="/news" class="btn btn-primary">{{ 'All news'|_ }}</a>
         </div>
     </div>
     <div class="row">
@@ -155,8 +155,8 @@ function onStart(){
 <div class="container1000 strarting">
     <div class="row between-md around-xs">
         <div class="col-md-4 col-xs12 col-xs-12 start-md center-xs title_and_btn">
-            <h1>Starting 2026</h1>
-            <a href="/about" class="btn btn-primary" aria-label="Open about page">About us</a>
+            <h1>{{ 'Starting 2026'|_ }}</h1>
+            <a href="/about" class="btn btn-primary" aria-label="{{ 'Open about page'|_ }}">{{ 'About us'|_ }}</a>
         </div>
         <div class="col-md-8 col-xs12 col-xs-12">
             {% component 'strarting' %}
@@ -173,17 +173,17 @@ function onStart(){
             <div class="col-md-4 col-xs-12">
                 <div class="number_item_number pink">
                     <h1><span class="count">1000</span>+</h1>
-                    <div class="label">Engaging activities</div>
+                    <div class="label">{{ 'Engaging activities'|_ }}</div>
                 </div>
 
                 <div class="number_item_number green">
                     <h1><span class="count">70</span>+</h1>
-                    <div class="label">Committed partners</div>
+                    <div class="label">{{ 'Committed partners'|_ }}</div>
                 </div>
 
                 <div class="number_item_number blue">
                     <h1><span class="count">365</span>+</h1>
-                    <div class="label">Days programme</div>
+                    <div class="label">{{ 'Days programme'|_ }}</div>
                 </div>
             </div>
         </div>
@@ -208,10 +208,10 @@ function onStart(){
     <div class="container mb-0 pb-0">
         <div class="row nav-row">
             <div class="col-md-9 col-xs-12 start-md center-xs">
-                <h1>HIGHLIGHTS 2026</h1>
+                <h1>{{ 'HIGHLIGHTS 2026'|_ }}</h1>
             </div>
             <div class="col-md-3 col-xs-12 view-all-button">
-                <a href="/events" class="btn btn-primary">All events</a>
+                <a href="/events" class="btn btn-primary">{{ 'All events'|_ }}</a>
             </div>
         </div>
     </div>
@@ -251,7 +251,7 @@ function onStart(){
                         <a class="events-title" href="/events/{{entry.slug}}">
                             <div class="events-date">
 
-                                {% if entry.start == '2026-09-25T09:07:29' %} autumn {{entry.start|date("Y")}} {% else %}
+                                {% if entry.start == '2026-09-25T09:07:29' %} {{ 'autumn'|_}} {{entry.start|date("Y")}} {% else %}
 
                                     {% if entry.start|date("j") != entry.end|date("j") %} {{entry.start|date("j")}}-{{entry.end|date("j")}}{% else %}{{entry.start|date("j")}}{% endif %}
 

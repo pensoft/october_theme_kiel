@@ -20,16 +20,16 @@
 			{%if profile.email %}<a href="mailto:{{profile.email}}">{{profile.email}}</a><br>{%endif%}
 		</div>
 		<div class="col-lg-3 col-sm-6 col-xs-12 mb-2">
-			<h4>Participating actions</h4>
+			<h4>{{ 'Participating actions'|_ }}</h4>
 			{{profile.content|raw}}
 		</div>
 		<div class="col-lg-3 col-sm-6 col-xs-12 mb-2">
-			<h4>Working Groups</h4>
+			<h4>{{ 'Working Groups'|_ }}</h4>
 			<!--{{wg.getWG(profile.category_id).name}}-->
 			{{profile.position}}
 		</div>
 		<div class="col-lg-3 col-sm-6 col-xs-12 mb-2">
-			<h4>Country</h4>
+			<h4>{{ 'Country'|_ }}</h4>
 			{{country.getCountry(profile.country_id).name}}
 		</div>
 	</div>

@@ -35,8 +35,8 @@ return Attendant::where('event_id', $id)
 ==
 {% component 'session' %}
 <div class="container events">
-    <a href="{{'event-attendance-report'|page}}" class="btn btn-primary no-margin">Add event</a> &nbsp; &nbsp;
-    <a href="{{'event-attendance-form'|page}}" class="btn btn-primary no-margin">Add attendance</a>
+    <a href="{{'event-attendance-report'|page}}" class="btn btn-primary no-margin">{{ 'Add event'|_ }}</a> &nbsp; &nbsp;
+    <a href="{{'event-attendance-form'|page}}" class="btn btn-primary no-margin">{{ 'Add attendance'|_ }}</a>
 
     <p>&nbsp;</p>
     <div class="container">
@@ -69,29 +69,29 @@ return Attendant::where('event_id', $id)
 
                                 {% if event.organiser %}
                                 <div>
-                                    <span class="text-bold">Organiser:</span>
+                                    <span class="text-bold">{{ 'Organiser:'|_ }}</span>
                                     <span class="text-ligth">{{event.organiser}}</span>
                                 </div>
                                 {% endif %}
                                 <div>
-                                    <span class="text-bold">Kiel organised/involved/relevant:</span>
-                                    {% set arrayOrganised = {'1': 'organised', '2': 'involved', '3': 'relevant'} %}
+                                    <span class="text-bold">{{ 'Kiel organised/involved/relevant:'|_ }}</span>
+                                    {% set arrayOrganised = {'1': 'organised'|_, '2': 'involved'|_, '3': 'relevant'|_} %}
                                     <span class="text-ligth">{{arrayOrganised[event.identifier]}}</span>
                                 </div>
                                 <div>
-                                    <span class="text-bold">Venue:</span>
+                                    <span class="text-bold">{{ 'Venue:'|_ }}</span>
                                     <span class="text-ligth">{{event.place}}</span>
                                 </div>
                                 {% if event.online_hybrid_onsite %}
                                 <div>
-                                    <span class="text-bold">Online, hybrid or on-site:</span>
-                                    {% set onlineHybridOnsite = {'1': 'online', '2': 'hybrid', '3': 'on-site'} %}
+                                    <span class="text-bold">{{ 'Online, hybrid or on-site:'|_ }}</span>
+                                    {% set onlineHybridOnsite = {'1': 'online'|_, '2': 'hybrid'|_, '3': 'on-site'|_} %}
                                     <span class="text-ligth">{{onlineHybridOnsite[event.online_hybrid_onsite]}}</span>
                                 </div>
                                 {% endif %}
                                 {% if attendees.getIM(event.id).count %}
                                 <div>
-                                    <span class="text-bold">Attendees:</span>
+                                    <span class="text-bold">{{ 'Attendees:'|_ }}</span>
 
                                     {% for profile in attendees.getIM(event.id) %}
                                     <span class="text-ligth">{{profile.name}} {{profile.surname}}</span>
@@ -106,9 +106,9 @@ return Attendant::where('event_id', $id)
                         </div>
                         <div class="col-md-2 col-xs-12 end-md center-xs">
                             {% set url = '/events/' ~ event.slug %}
-                            <a href="{{url}}" target="_blank" class="btn btn-primary" style="width: 230px; font-size: unset;">Go to event website</a>
+                            <a href="{{url}}" target="_blank" class="btn btn-primary" style="width: 230px; font-size: unset;">{{ 'Go to event website'|_ }}</a>
                             {% if user  %}
-                            <a href="{{'event-attendance-form'|page}}/{{event.id}}" class="btn btn-primary mb-1 mt-1" style="width: 230px;  font-size: unset;">Add attendance</a>
+                            <a href="{{'event-attendance-form'|page}}/{{event.id}}" class="btn btn-primary mb-1 mt-1" style="width: 230px;  font-size: unset;">{{ 'Add attendance'|_ }}</a>
                             {% endif %}
                         </div>
                     </div>

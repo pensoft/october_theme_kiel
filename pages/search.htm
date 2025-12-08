@@ -25,7 +25,7 @@ function onInit()
     <div class="row">
         <div class="col-xs">
 
-            <h1 class="base_heading">Search results for {{ searchResults.query }}</h1>
+            <h1 class="base_heading">{{ 'Search results for'|_ }} {{ searchResults.query }}</h1>
 
             {% component 'searchResults' %}
         </div>

@@ -75,7 +75,7 @@ function elementScrolled(elem) {
 
 }
 
-$(document).ready(function() {
+    $(document).ready(function() {
     // $("nav").removeClass("no-transition");
 	/* MENU */
 	$('.navbar-nav').attr('id', 'menu'); // please don't remove this line
@@ -97,6 +97,42 @@ $(document).ready(function() {
             $(this).removeAttr('data-toggle')
         }
     });
+
+    // Language dropdown: toggle open/close and outside click handling
+    (function(){
+        var $dropdown = $('#language-switcher.language-dropdown');
+        if(!$dropdown.length){ return; }
+
+        var $toggle = $dropdown.find('.selected-language');
+        var $menu = $dropdown.find('.language-options');
+
+        function closeDropdown(){
+            $dropdown.removeClass('open');
+            $toggle.attr('aria-expanded', 'false');
+        }
+
+        function openDropdown(){
+            $dropdown.addClass('open');
+            $toggle.attr('aria-expanded', 'true');
+        }
+
+        $toggle.on('click', function(e){
+            e.preventDefault();
+            if($dropdown.hasClass('open')){ closeDropdown(); } else { openDropdown(); }
+        });
+
+        $(document).on('click', function(e){
+            if(!$dropdown.is(e.target) && $dropdown.has(e.target).length === 0){
+                closeDropdown();
+            }
+        });
+
+        $(document).on('keydown', function(e){
+            if(e.key === 'Escape'){
+                closeDropdown();
+            }
+        });
+    })();
 
     $("nav").removeClass("no-transition");
 
@@ -417,71 +453,71 @@ $(document).ready(function() {
 
     }
 
-
-    // Read more button that follows cursor for all news items
-    if(screen.width > 1024){
-        $('.home-news-cover a, .related-news .home-news-cover a, .media-center a').on('mouseenter', function(e) {
-            // Show the button immediately at the current mouse position
-            var parentOffset = $(this).offset();
-            var relX = e.pageX - parentOffset.left;
-            var relY = e.pageY - parentOffset.top;
-
-            $(this).find('.read-more-btn, .zoom-btn').css({
-                display: 'block',
-                opacity: 1,
-                left: relX + 'px',
-                top: relY + 'px'
-            });
-        }).on('mouseleave', function() {
-            // Hide the button immediately
-            $(this).find('.read-more-btn, .zoom-btn').css({
-                display: 'none'
-            });
-        }).on('mousemove', function(e) {
-            var parentOffset = $(this).offset();
-            var relX = e.pageX - parentOffset.left;
-            var relY = e.pageY - parentOffset.top;
-            var $btn = $(this).find('.read-more-btn, .zoom-btn');
-            var btnWidth = $btn.outerWidth();
-            var btnHeight = $btn.outerHeight();
-            var containerWidth = $(this).width();
-            var containerHeight = $(this).height();
-
-            // Remove all edge classes
-            $btn.removeClass('edge-right edge-left edge-top edge-bottom');
-
-            // Handle edge cases
-            var edgeThreshold = 50; // pixels from edge
-
-            // Check if near right edge
-            if (relX > containerWidth - edgeThreshold) {
-                $btn.addClass('edge-right');
-                relX = containerWidth - 20;
-            }
-            // Check if near left edge
-            else if (relX < edgeThreshold) {
-                $btn.addClass('edge-left');
-                relX = 20;
-            }
-
-            // Check if near bottom edge
-            if (relY > containerHeight - edgeThreshold) {
-                $btn.addClass('edge-bottom');
-                relY = containerHeight - 20;
-            }
-            // Check if near top edge
-            else if (relY < edgeThreshold) {
-                $btn.addClass('edge-top');
-                relY = 20;
-            }
-
-            // Position the button immediately for precise cursor replacement
-            $btn.css({
-                left: relX + 'px',
-                top: relY + 'px'
-            });
-        });
-    }
+    //
+    // // Read more button that follows cursor for all news items
+    // if(screen.width > 1024){
+    //     $('.home-news-cover a, .related-news .home-news-cover a, .media-center a').on('mouseenter', function(e) {
+    //         // Show the button immediately at the current mouse position
+    //         var parentOffset = $(this).offset();
+    //         var relX = e.pageX - parentOffset.left;
+    //         var relY = e.pageY - parentOffset.top;
+    //
+    //         $(this).find('.read-more-btn, .zoom-btn').css({
+    //             display: 'block',
+    //             opacity: 1,
+    //             left: relX + 'px',
+    //             top: relY + 'px'
+    //         });
+    //     }).on('mouseleave', function() {
+    //         // Hide the button immediately
+    //         $(this).find('.read-more-btn, .zoom-btn').css({
+    //             display: 'none'
+    //         });
+    //     }).on('mousemove', function(e) {
+    //         var parentOffset = $(this).offset();
+    //         var relX = e.pageX - parentOffset.left;
+    //         var relY = e.pageY - parentOffset.top;
+    //         var $btn = $(this).find('.read-more-btn, .zoom-btn');
+    //         var btnWidth = $btn.outerWidth();
+    //         var btnHeight = $btn.outerHeight();
+    //         var containerWidth = $(this).width();
+    //         var containerHeight = $(this).height();
+    //
+    //         // Remove all edge classes
+    //         $btn.removeClass('edge-right edge-left edge-top edge-bottom');
+    //
+    //         // Handle edge cases
+    //         var edgeThreshold = 50; // pixels from edge
+    //
+    //         // Check if near right edge
+    //         if (relX > containerWidth - edgeThreshold) {
+    //             $btn.addClass('edge-right');
+    //             relX = containerWidth - 20;
+    //         }
+    //         // Check if near left edge
+    //         else if (relX < edgeThreshold) {
+    //             $btn.addClass('edge-left');
+    //             relX = 20;
+    //         }
+    //
+    //         // Check if near bottom edge
+    //         if (relY > containerHeight - edgeThreshold) {
+    //             $btn.addClass('edge-bottom');
+    //             relY = containerHeight - 20;
+    //         }
+    //         // Check if near top edge
+    //         else if (relY < edgeThreshold) {
+    //             $btn.addClass('edge-top');
+    //             relY = 20;
+    //         }
+    //
+    //         // Position the button immediately for precise cursor replacement
+    //         $btn.css({
+    //             left: relX + 'px',
+    //             top: relY + 'px'
+    //         });
+    //     });
+    // }
 
 
 
@@ -494,6 +530,63 @@ $(document).ready(function() {
             e.preventDefault();
             $('.prev').trigger('click');
         }
+    });
+
+
+
+
+    /* LANGUAGE SWITCH */
+
+    document.querySelectorAll('select.locale-select').forEach(function(select) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'custom-select';
+        select.parentNode.insertBefore(wrapper, select);
+        wrapper.appendChild(select);
+
+        var selected = select.options[select.selectedIndex];
+
+        var trigger = document.createElement('div');
+
+        var selectedCode = selected.value.split('/')[1] || selected.value.split('/')[0];
+
+        trigger.className = 'custom-select__trigger';
+        trigger.innerHTML = '<span class="flag-icon flag-icon-' + selectedCode + '"></span> <span>' + selectedCode + '</span>';
+        wrapper.appendChild(trigger);
+
+        var list = document.createElement('div');
+        list.className = 'custom-select__options';
+
+        for (var i = 0; i < select.options.length; i++) {
+            var opt = select.options[i];
+            var item = document.createElement('div');
+            item.className = 'custom-select__option' + (opt.selected ? ' is-selected' : '');
+            item.dataset.value = opt.value;
+
+            // Extract locale code from option value for display
+            var localeCode = opt.value.split('/')[1] || opt.value.split('/')[0];
+            item.innerHTML = '<span class="flag-icon flag-icon-' + localeCode + '"></span> ' + opt.text ;
+            list.appendChild(item);
+        }
+        wrapper.appendChild(list);
+
+        trigger.onclick = function(e) {
+            e.stopPropagation();
+            document.querySelectorAll('.custom-select.is-open').forEach(function(el) {
+                if (el !== wrapper) el.classList.remove('is-open');
+            });
+            wrapper.classList.toggle('is-open');
+        };
+
+        list.onclick = function(e) {
+            var option = e.target.closest('.custom-select__option');
+            if (option) window.location.assign(option.dataset.value);
+        };
+    });
+
+    document.addEventListener('click', function() {
+        document.querySelectorAll('.custom-select.is-open').forEach(function(el) {
+            el.classList.remove('is-open');
+        });
     });
 
 

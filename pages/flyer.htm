@@ -75,7 +75,7 @@ return Response::download($pathToFile, $fileName, $headers);
         {% if records.count() %}
         <div class="row">
             <div class="col-md-12 col-xs-12 mb-2">
-                <a href="/media-center" class="go-back-link">Back</a>
+                <a href="/media-center" class="go-back-link">{{ 'Back'|_ }}</a>
             </div>
             {% for record in records %}
 
@@ -87,7 +87,7 @@ return Response::download($pathToFile, $fileName, $headers);
                     <div class="record_name">{{record.name}}</div>
                     <div class="links">
                         {% if record.file %}
-                        <a href="{{record.file.path}}" target="_blank" data-attach-loading class="btn btn-primary"><i></i> Download</a>
+                        <a href="{{record.file.path}}" target="_blank" data-attach-loading class="btn btn-primary"><i></i> {{ 'Download'|_ }}</a>
                         {% endif %}
                     </div>
                 </div>

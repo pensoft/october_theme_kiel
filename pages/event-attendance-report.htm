@@ -19,6 +19,6 @@ function onStart(){
 ==
 {% component 'session' %}
 <div class="container">
-    <a href="{{'event-attendees'|page}}" class="btn btn-primary" style="margin: 20px">&#10094;&nbsp; Back to events</a>
+    <a href="{{'event-attendees'|page}}" class="btn btn-primary" style="margin: 20px">&#10094;&nbsp; {{ 'Back to events'|_ }}</a>
     {% component 'EventReportingForm' slug=slug %}
 </div>

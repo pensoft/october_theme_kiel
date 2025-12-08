@@ -32,7 +32,7 @@ function onStart(){
                 <div class="row accordion-content" style="display: none;">
                     {% if record.user.count %}
                     <div class="col-xs-12 col-md-6">
-                        <h2>To user(s):</h2>
+                        <h2>{{ 'To user(s):'|_ }}</h2>
                         {% for recipient_user in record.user %}
                         {{recipient_user.name}} {{recipient_user.surname}} - <a class="website" href="mailto:{{recipient_user.email}}">{{recipient_user.email}}</a><br>
                         {% endfor %}
@@ -41,7 +41,7 @@ function onStart(){
 
                     {% if record.group.count %}
                     <div class="col-xs-12 col-md-6">
-                        <h2>To group(s):</h2>
+                        <h2>{{ 'To group(s):'|_ }}</h2>
                         {% for recipient_group in record.group %}
                         {{recipient_group.name}} - <a class="website" href="mailto:{{recipient_group.email}}">{{recipient_group.email}}</a><br>
                         {% endfor %}
@@ -50,7 +50,7 @@ function onStart(){
 
                     {% if record.attachments.count %}
                     <div class="col-xs-12 role">
-                        <h2>Attachment(s):</h2>
+                        <h2>{{ 'Attachment(s):'|_ }}</h2>
                         <ul>
                             {% for attachment in record.attachments %}
                             <li><a  href="{{attachment.path}}" target="_blank">{{attachment.file_name}}</a></li>
@@ -58,7 +58,7 @@ function onStart(){
                         </ul>
                     </div>
                     {% endif %}
-                    <div class="col-xs-12"><h2>Message:</h2><p>{{record.body | raw}}</p></div>
+                    <div class="col-xs-12"><h2>{{ 'Message:'|_ }}</h2><p>{{record.body | raw}}</p></div>
                 </div>
             </div>
             {% endfor %}

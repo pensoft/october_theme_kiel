@@ -9,39 +9,39 @@
                 <span class="doc_type">{{record.type_attr}}</span></div>
             <h3 class="card-title">{{ record.title }}</h3>
             <div class="body">
-                {% partial "components/libraries-content" label="Authors:" value=record.authors %}<br>
+                {% partial "components/libraries-content" label=('Authors:'|_) value=record.authors %}<br>
 
                 {% if record.type == 5 %}
                 {% if record.status == 1 %}
-                {% set status = 'Approved' %}
+                {% set status = 'Approved'|_ %}
                 {% else %}
-                {% set status = 'Subject to change' %}
+                {% set status = 'Subject to change'|_ %}
                 {% endif %}
                 {% else %}
                 {% set status = record.status_attr %}
                 {% endif %}
-                {% partial __SELF__ ~ "::libraries-content" label="Status:" value=status %}
-                {% partial "components/libraries-content" label="Year:" value=record.year_attr %}
+                {% partial __SELF__ ~ "::libraries-content" label=('Status:'|_) value=status %}
+                {% partial "components/libraries-content" label=('Year:'|_) value=record.year_attr %}
 
 
-                {% partial "components/libraries-content" label="Journal:" value=record.journal_title %}
-                {% partial "components/libraries-content" label="Proceedings:" value=record.proceedings_title %}
-                {% partial "components/libraries-content" label="Monograph:" value=record.monograph_title %}
-                {% partial "components/libraries-content" label="Deliverable number:" value=record.deliverable_title %}
-                {% partial "components/libraries-content" label="Project:" value=record.project_title %}
+                {% partial "components/libraries-content" label=('Journal:'|_) value=record.journal_title %}
+                {% partial "components/libraries-content" label=('Proceedings:'|_) value=record.proceedings_title %}
+                {% partial "components/libraries-content" label=('Monograph:'|_) value=record.monograph_title %}
+                {% partial "components/libraries-content" label=('Deliverable number:'|_) value=record.deliverable_title %}
+                {% partial "components/libraries-content" label=('Project:'|_) value=record.project_title %}
 
-                {% partial "components/libraries-content" label="Volume/Issue:" value=record.volume_issue %}
-                {% partial "components/libraries-content" label="Publisher:" value=record.publisher  %}
-                {% partial "components/libraries-content" label="Place:" value=record.place  %}
-                {% partial "components/libraries-content" label="City:" value=record.city  %}
-                {% partial "components/libraries-content" label="Pages:" value=record.pages  %}
-                <br>{% partial "components/libraries-content" label="URL/DOI:" value=record.doi is_link=true  %}
+                {% partial "components/libraries-content" label=('Volume/Issue:'|_) value=record.volume_issue %}
+                {% partial "components/libraries-content" label=('Publisher:'|_) value=record.publisher  %}
+                {% partial "components/libraries-content" label=('Place:'|_) value=record.place  %}
+                {% partial "components/libraries-content" label=('City:'|_) value=record.city  %}
+                {% partial "components/libraries-content" label=('Pages:'|_) value=record.pages  %}
+                <br>{% partial "components/libraries-content" label=('URL/DOI:'|_) value=record.doi is_link=true  %}
             </div>
         </div>
 
         {%if record.file %}
         <div class="col-xs-12 col-md-3 end-xs end-md">
-            <a target="_blank" href="{{record.file.path}}#file_name={{record.file.file_name}}" class="btn btn-primary no-margin"><i class="pr normal p-download"></i>Download ({{(record.file.file_size / 1024 / 1024 )|round(2)}} MB)</a>
+            <a target="_blank" href="{{record.file.path}}#file_name={{record.file.file_name}}" class="btn btn-primary no-margin"><i class="pr normal p-download"></i>{{ 'Download'|_ }} ({{(record.file.file_size / 1024 / 1024 )|round(2)}} MB)</a>
         </div>
         {%endif%}
     </div>

@@ -4,7 +4,7 @@
         <div class="home-news-cover">
             <a href="/news/{{record.slug}}">
                 <img src="{{ record.cover.path}}" alt="{{ record.title }}">
-                <div class="btn read-more-btn btn-primary">Read</div>
+                <div class="btn read-more-btn btn-primary">{{ 'Read'|_ }}</div>
                 <div class="news-date">{{ record.published_at|date('d.m.Y') }}</div>
                 <div class="blur_filter"></div>
             </a>
