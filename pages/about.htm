@@ -15,6 +15,24 @@ jumbotron = "about"
 background = "transperant"
 templates = "template3"
 description_limit = 0
+
+[jumbotron goals]
+jumbotron = "about1"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron themes]
+jumbotron = "about2"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron vision]
+jumbotron = "about3"
+background = "transperant"
+templates = "template3"
+description_limit = 0
 ==
 {% component 'siteSearchInclude' %}
 
@@ -28,7 +46,48 @@ description_limit = 0
                 {% component 'jumbotron' %}
             </div>
         </div>
-        <div class="row mt-4">
+    </div>
+
+
+    <div class="container">
+        <div class="row about_intro">
+            <div class="col-md-4 col-xs-12">
+                <h1 class="underline">Project goals</h1>
+            </div>
+            <div class="col-md-8 col-xs-12">
+                {% component 'goals' %}
+            </div>
+        </div>
+    </div>
+
+
+     <div class="container">
+        <div class="row about_intro">
+            <div class="col-md-4 col-xs-12">
+                <h1 class="underline">Key Themes</h1>
+            </div>
+            <div class="col-md-8 col-xs-12">
+                {% component 'themes' %}
+            </div>
+        </div>
+    </div>
+
+
+     <div class="container">
+        <div class="row about_intro">
+            <div class="col-md-4 col-xs-12">
+                <h1 class="underline">The Vision</h1>
+            </div>
+            <div class="col-md-8 col-xs-12">
+                {% component 'vision' %}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+    
+    <div class="row">
             <div class="col-xs-12">
                 <iframe width="100%" height="644" src="https://www.youtube.com/embed/NhaaRr4LYvs?si=8J31SlIRRTRroEOd" title="ABout Science comes to town" 
                 alt="Science Comes To Town features a diverse programme including science festivals, competitions, and outreach events across Kiel, Brest, and Split, three vibrant university cities with strong town-and-gown relations."
@@ -39,4 +98,5 @@ description_limit = 0
         </div>
 
     </div>
+
 </div>
