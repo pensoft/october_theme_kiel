@@ -120,7 +120,7 @@ forceUrl = 0
     {% if page_id != 'home' and page_id != 'coming-soon' %}
     <div class="container">
         <h1 class="underline white">
-            {% if page_title %} {{ page_title }} {% else %} {{ site_name }} {% endif %}
+            {% if page_title %} {{ page_title|_ }} {% else %} {{ site_name }} {% endif %}
         </h1>
     </div>
     {% endif %}
