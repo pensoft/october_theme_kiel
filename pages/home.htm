@@ -122,7 +122,7 @@ function onStart(){
             <h1>{{ 'RECENT NEWS'|_ }}</h1>
         </div>
         <div class="col-md-3 col-xs-12 view-all-button">
-            <a href="/news" class="btn btn-primary">{{ 'All news'|_ }}</a>
+            <a href="/{{currentLang}}/news" class="btn btn-primary">{{ 'All news'|_ }}</a>
         </div>
     </div>
     <div class="row">
@@ -130,15 +130,15 @@ function onStart(){
         <div class="col-md-4 col-xs-12">
             <div class="news-item">
                 <div class="home-news-cover">
-                    <a href="/news/{{highlight.slug}}">
+                    <a href="/{{currentLang}}/news/{{highlight.slug}}">
                         <img src="{{highlight.cover.thumb(334, 196,{'mode':'crop'})}}" alt="{{ highlight.title }}">
                     </a>
                 </div>
                 <div class="news-content">
-                    <a href="/news/{{highlight.slug}}"><div class="news-title">{{ highlight.title|length > 100 ? highlight.title|slice(0, 100)|replace({"&nbsp;": " ", ".": ". "}) ~ '...' : highlight.title|replace({"&nbsp;": " ", ".": ". "})  }}</div></a>
+                    <a href="/{{currentLang}}/news/{{highlight.slug}}"><div class="news-title">{{ highlight.title|length > 100 ? highlight.title|slice(0, 100)|replace({"&nbsp;": " ", ".": ". "}) ~ '...' : highlight.title|replace({"&nbsp;": " ", ".": ". "})  }}</div></a>
                     <p class="news-date">{{ highlight.published_at|date('d M Y') }}</p>
                     <div class="row read-more-row">
-                        <a href="/news/{{highlight.slug}}" class="read-more"><span>{{'Read more' |_}}</span> <span>&#10230;</span></a>
+                        <a href="/{{currentLang}}/news/{{highlight.slug}}" class="read-more"><span>{{'Read more' |_}}</span> <span>&#10230;</span></a>
                     </div>
                 </div>
             </div>
@@ -156,7 +156,7 @@ function onStart(){
     <div class="row between-md around-xs">
         <div class="col-md-4 col-xs12 col-xs-12 start-md center-xs title_and_btn">
             <h1>{{ 'Starting 2026'|_ }}</h1>
-            <a href="/about" class="btn btn-primary" aria-label="{{ 'Open about page'|_ }}">{{ 'About us'|_ }}</a>
+            <a href="/{{currentLang}}/about" class="btn btn-primary" aria-label="{{ 'Open about page'|_ }}">{{ 'About us'|_ }}</a>
         </div>
         <div class="col-md-8 col-xs12 col-xs-12">
             {% component 'strarting' %}
@@ -211,7 +211,7 @@ function onStart(){
                 <h1>{{ 'HIGHLIGHTS 2026'|_ }}</h1>
             </div>
             <div class="col-md-3 col-xs-12 view-all-button">
-                <a href="/events" class="btn btn-primary">{{ 'All events'|_ }}</a>
+                <a href="/{{currentLang}}/events" class="btn btn-primary">{{ 'All events'|_ }}</a>
             </div>
         </div>
     </div>
@@ -222,11 +222,11 @@ function onStart(){
                 {% if entries|length %}
                 <div class="events-card">
                     <div class="img-container">
-                        <a href="/events/{{entries[0].slug}}">
+                        <a href="/{{currentLang}}/events/{{entries[0].slug}}">
                             <img src="{{entries[0].cover_image.thumb(868, 521,{'mode':'crop'})}}" alt="{{ entries[0].title }}">
                         </a>
 
-                        <a class="events-title" href="/events/{{entries[0].slug}}">
+                        <a class="events-title" href="/{{currentLang}}/events/{{entries[0].slug}}">
                             <div class="events-date">
                                 {% if entries[0].start|date("j") != entries[0].end|date("j") %} {{entries[0].start|date("j")}}-{{entries[0].end|date("j")}}{% else %}{{entries[0].start|date("j")}}{% endif %}
                                 {{entries[0].start|date("M Y")}}
@@ -244,11 +244,11 @@ function onStart(){
                 {% for entry in entries|slice(1, 2) %}
                 <div class="row events-card">
                     <div class="img-container">
-                        <a href="/events/{{entry.slug}}">
+                        <a href="/{{currentLang}}/events/{{entry.slug}}">
                             <img src="{{entry.cover_image.thumb(426, 246,{'mode':'crop'})}}" alt="{{ entry.title }}">
                         </a>
 
-                        <a class="events-title" href="/events/{{entry.slug}}">
+                        <a class="events-title" href="/{{currentLang}}/events/{{entry.slug}}">
                             <div class="events-date">
 
                                 {% if entry.start == '2026-09-25T09:07:29' %} {{ 'autumn'|_}} {{entry.start|date("Y")}} {% else %}

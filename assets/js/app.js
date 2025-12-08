@@ -534,54 +534,114 @@ function elementScrolled(elem) {
 
 
 
+        /* LANGUAGE SWITCH */
 
-    /* LANGUAGE SWITCH */
+        document.querySelectorAll('select.locale-select').forEach(function(select) {
+            var wrapper = document.createElement('div');
+            wrapper.className = 'custom-select';
+            select.parentNode.insertBefore(wrapper, select);
+            wrapper.appendChild(select);
 
-    document.querySelectorAll('select.locale-select').forEach(function(select) {
-        var wrapper = document.createElement('div');
-        wrapper.className = 'custom-select';
-        select.parentNode.insertBefore(wrapper, select);
-        wrapper.appendChild(select);
 
-        var selected = select.options[select.selectedIndex];
 
-        var trigger = document.createElement('div');
+            var selected = select.options[select.selectedIndex];
 
-        var selectedCode = selected.value.split('/')[1] || selected.value.split('/')[0];
+            var trigger = document.createElement('div');
 
-        trigger.className = 'custom-select__trigger';
-        trigger.innerHTML = '<span class="flag-icon flag-icon-' + selectedCode + '"></span> <span>' + selectedCode + '</span>';
-        wrapper.appendChild(trigger);
+            var selectedCode = selected.value.split('/')[1] || selected.value.split('/')[0];
 
-        var list = document.createElement('div');
-        list.className = 'custom-select__options';
+            var regex = new RegExp('^(\/' + selectedCode + ')(\/|$)');
+            var hash = window.location.hash;
 
-        for (var i = 0; i < select.options.length; i++) {
-            var opt = select.options[i];
-            var item = document.createElement('div');
-            item.className = 'custom-select__option' + (opt.selected ? ' is-selected' : '');
-            item.dataset.value = opt.value;
+            trigger.className = 'custom-select__trigger';
+            trigger.innerHTML = '<span class="flag-icon flag-icon-' + selectedCode + '"></span> <span>' + selectedCode + '</span>';
+            wrapper.appendChild(trigger);
 
-            // Extract locale code from option value for display
-            var localeCode = opt.value.split('/')[1] || opt.value.split('/')[0];
-            item.innerHTML = '<span class="flag-icon flag-icon-' + localeCode + '"></span> ' + opt.text ;
-            list.appendChild(item);
-        }
-        wrapper.appendChild(list);
+            var list = document.createElement('div');
+            list.className = 'custom-select__options';
 
-        trigger.onclick = function(e) {
-            e.stopPropagation();
-            document.querySelectorAll('.custom-select.is-open').forEach(function(el) {
-                if (el !== wrapper) el.classList.remove('is-open');
-            });
-            wrapper.classList.toggle('is-open');
-        };
+            for (var i = 0; i < select.options.length; i++) {
+                var opt = select.options[i];
 
-        list.onclick = function(e) {
-            var option = e.target.closest('.custom-select__option');
-            if (option) window.location.assign(option.dataset.value);
-        };
-    });
+                var localeCode = opt.value.split('/')[1] || opt.value.split('/')[0];
+                var newPath = window.location.pathname.replace(regex, '/' + localeCode + '/');
+
+                var item = document.createElement('div');
+                item.className = 'custom-select__option' + (opt.selected ? ' is-selected' : '');
+                // item.dataset.value = opt.value;
+                item.dataset.value = newPath;
+
+
+
+                // Extract locale code from option value for display
+
+                item.innerHTML = '<span class="flag-icon flag-icon-' + localeCode + '"></span> ' + opt.text ;
+                list.appendChild(item);
+            }
+            wrapper.appendChild(list);
+
+            trigger.onclick = function(e) {
+                e.stopPropagation();
+                document.querySelectorAll('.custom-select.is-open').forEach(function(el) {
+                    if (el !== wrapper) el.classList.remove('is-open');
+                });
+                wrapper.classList.toggle('is-open');
+            };
+
+            list.onclick = function(e) {
+                var option = e.target.closest('.custom-select__option');
+                if (option) window.location.assign(option.dataset.value);
+            };
+        });
+
+
+    // /* LANGUAGE SWITCH */
+    //
+    // document.querySelectorAll('select.locale-select').forEach(function(select) {
+    //     var wrapper = document.createElement('div');
+    //     wrapper.className = 'custom-select';
+    //     select.parentNode.insertBefore(wrapper, select);
+    //     wrapper.appendChild(select);
+    //
+    //     var selected = select.options[select.selectedIndex];
+    //
+    //     var trigger = document.createElement('div');
+    //
+    //     var selectedCode = selected.value.split('/')[1] || selected.value.split('/')[0];
+    //
+    //     trigger.className = 'custom-select__trigger';
+    //     trigger.innerHTML = '<span class="flag-icon flag-icon-' + selectedCode + '"></span> <span>' + selectedCode + '</span>';
+    //     wrapper.appendChild(trigger);
+    //
+    //     var list = document.createElement('div');
+    //     list.className = 'custom-select__options';
+    //
+    //     for (var i = 0; i < select.options.length; i++) {
+    //         var opt = select.options[i];
+    //         var item = document.createElement('div');
+    //         item.className = 'custom-select__option' + (opt.selected ? ' is-selected' : '');
+    //         item.dataset.value = opt.value;
+    //
+    //         // Extract locale code from option value for display
+    //         var localeCode = opt.value.split('/')[1] || opt.value.split('/')[0];
+    //         item.innerHTML = '<span class="flag-icon flag-icon-' + localeCode + '"></span> ' + opt.text ;
+    //         list.appendChild(item);
+    //     }
+    //     wrapper.appendChild(list);
+    //
+    //     trigger.onclick = function(e) {
+    //         e.stopPropagation();
+    //         document.querySelectorAll('.custom-select.is-open').forEach(function(el) {
+    //             if (el !== wrapper) el.classList.remove('is-open');
+    //         });
+    //         wrapper.classList.toggle('is-open');
+    //     };
+    //
+    //     list.onclick = function(e) {
+    //         var option = e.target.closest('.custom-select__option');
+    //         if (option) window.location.assign(option.dataset.value);
+    //     };
+    // });
 
     document.addEventListener('click', function() {
         document.querySelectorAll('.custom-select.is-open').forEach(function(el) {

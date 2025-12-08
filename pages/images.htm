@@ -83,7 +83,7 @@ return Response::download($pathToFile, $fileName, $headers);
     {% if is_detail_page %}
         <div class="row media_images news">
             <div class="col-md-12 col-xs-12 mb-2">
-                <a href="/media-center/images" class="go-back-link">{{ 'Back'|_ }}</a>
+                <a href="/{{currentLang}}/media-center/images" class="go-back-link">{{ 'Back'|_ }}</a>
             </div>
 
             {% if gallery.images %}

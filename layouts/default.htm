@@ -15,6 +15,17 @@ escape = 1
 forceUrl = 0
 
 ==
+<?php
+function onStart() {
+    $translator = \RainLab\Translate\Classes\Translator::instance();
+
+    $currentLang = $translator->getLocale();
+
+    $this['currentLang'] = $currentLang;
+}
+?>
+==
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -68,7 +79,7 @@ forceUrl = 0
 <!-- End Matomo Code -->
 </head>
 
-<body>
+<body data-current-lang="{{ currentLang }}">
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PWW5NKQ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

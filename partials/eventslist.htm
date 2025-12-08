@@ -3,7 +3,7 @@
     {% for entry in records %}
     <div class="col-md-4 col-xs-12 highlight-events">
         <div class="img-container">
-            <a href="/events/{{entry.slug}}">
+            <a href="/{{currentLang}}/events/{{entry.slug}}">
                 <img src="{{entry.cover_image.thumb(868, 521,{'mode':'crop'})}}" alt="{{ entry.title }}">
             </a>
 

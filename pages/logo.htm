@@ -74,7 +74,7 @@ return Response::download($pathToFile, $fileName, $headers);
     {% if records.count() %}
         <div class="row">
             <div class="col-md-12 col-xs-12 mb-2">
-                <a href="/media-center" class="go-back-link">{{ 'Back'|_ }}</a>
+                <a href="/{{currentLang}}/media-center" class="go-back-link">{{ 'Back'|_ }}</a>
             </div>
             {% for record in records %}
             {% spaceless %}
