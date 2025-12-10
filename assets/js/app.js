@@ -542,8 +542,6 @@ function elementScrolled(elem) {
             select.parentNode.insertBefore(wrapper, select);
             wrapper.appendChild(select);
 
-
-
             var selected = select.options[select.selectedIndex];
 
             var trigger = document.createElement('div');
@@ -564,12 +562,19 @@ function elementScrolled(elem) {
                 var opt = select.options[i];
 
                 var localeCode = opt.value.split('/')[1] || opt.value.split('/')[0];
+
                 var newPath = window.location.pathname.replace(regex, '/' + localeCode + '/');
+
+                if (!window.location.pathname.match(regex)) {
+                    newPath = '/' + localeCode + window.location.pathname;
+                }
+
+                newPath = newPath.replace(/\/\/+/g, '/');
 
                 var item = document.createElement('div');
                 item.className = 'custom-select__option' + (opt.selected ? ' is-selected' : '');
                 // item.dataset.value = opt.value;
-                item.dataset.value = newPath;
+                item.dataset.value = newPath + hash;
 
 
 
