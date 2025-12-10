@@ -137,7 +137,7 @@ $this['slug'] = $this->param('slug');
                             {% if highlights|length %}
                             <div class="events-card">
                                 <div class="img-container">
-                                    <a href="/events/{{highlights[0].slug}}">
+                                    <a href="/{{currentLang}}/events/{{highlights[0].slug}}">
                                         <img src="{{highlights[0].cover_image.thumb(868, 521,{'mode':'crop'})}}" alt="{{ highlights[0].title }}">
                                     </a>
 
@@ -159,7 +159,7 @@ $this['slug'] = $this->param('slug');
                             {% for entry in highlights|slice(1, 2) %}
                             <div class="row events-card">
                                 <div class="img-container">
-                                    <a href="/events/{{entry.slug}}">
+                                    <a href="/{{currentLang}}/events/{{entry.slug}}">
                                         <img src="{{entry.cover_image.thumb(426, 246,{'mode':'crop'})}}" alt="{{ entry.title }}">
                                     </a>
 
@@ -207,7 +207,7 @@ $this['slug'] = $this->param('slug');
                         {% if entries_homepage|length %}
                         <div class="events-card">
                             <div class="img-container">
-                                <a href="/events/{{entries_homepage[0].slug}}">
+                                <a href="/{{currentLang}}/events/{{entries_homepage[0].slug}}">
                                     <img src="{{entries_homepage[0].cover_image.thumb(868, 521,{'mode':'crop'})}}" alt="{{ entries_homepage[0].title }}">
                                 </a>
 
@@ -229,7 +229,7 @@ $this['slug'] = $this->param('slug');
                         {% for entry in entries_homepage|slice(1, 2) %}
                         <div class="row events-card">
                             <div class="img-container">
-                                <a href="/events/{{entry.slug}}">
+                                <a href="/{{currentLang}}/events/{{entry.slug}}">
                                     <img src="{{entry.cover_image.thumb(426, 246,{'mode':'crop'})}}" alt="{{ entry.title }}">
                                 </a>
 
@@ -277,7 +277,7 @@ $this['slug'] = $this->param('slug');
                         {% if exhibitions|length %}
                         <div class="events-card">
                             <div class="img-container">
-                                <a href="/events/{{exhibitions.first.slug}}">
+                                <a href="/{{currentLang}}/events/{{exhibitions.first.slug}}">
                                     <img src="{{exhibitions.first.cover_image.thumb(868, 521,{'mode':'crop'})}}" alt="{{ exhibitions.first.title }}">
                                 </a>
 
@@ -301,7 +301,7 @@ $this['slug'] = $this->param('slug');
                         {% for entry in exhibitions|slice(1, 2) %}
                         <div class="row events-card">
                             <div class="img-container">
-                                <a href="/events/{{entry.slug}}">
+                                <a href="/{{currentLang}}/events/{{entry.slug}}">
                                     <img src="{{entry.cover_image.thumb(426, 246,{'mode':'crop'})}}" alt="{{ entry.title }}">
                                 </a>
 
