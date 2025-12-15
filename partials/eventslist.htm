@@ -1,7 +1,7 @@
 
 <div class="events_list_container row">
     {% for entry in records %}
-    <div class="col-md-4 col-xs-12 highlight-events">
+    <div class="col-md-6 col-xs-12 highlight-events">
         <div class="img-container">
             <a href="/{{currentLang}}/events/{{entry.slug}}">
                 <img src="{{entry.cover_image.thumb(auto, 345,{'mode':'crop'})}}" alt="{{ entry.title }}">
