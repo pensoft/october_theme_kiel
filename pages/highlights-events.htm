@@ -1,0 +1,249 @@
+title = "Highlights events"
+layout = "default"
+url = "/highlights-events/:slug?|[a-zA-Z\-0-9]"
+[calendar]
+default = "true"
+limit = "null"
+category = "null"
+language = "en"
+redirect_to_detailed_page = "false"
+default_view = "dayGridMonth"
+==
+<?php
+use Pensoft\Calendar\Models\Entry;
+use Carbon\Carbon;
+use Pensoft\Articles\Models\Category;
+use Pensoft\Articles\Models\Article;
+
+use Spatie\GoogleCalendar\Event;
+
+function onStart(){
+
+    if($this->param('slug')){
+$this['entry'] =  Entry::select(
+'*',
+'title',
+'place',
+'description',
+'url',
+
+DB::raw("to_char(\"start\", 'DD') as start_day"),
+DB::raw("to_char(\"start\", 'YYYY') as start_year"),
+DB::raw("to_char(\"end\", 'DD') as end_day"),
+DB::raw("to_char(\"end\", 'YYYY') as end_year"),
+DB::raw("to_char(\"start\", 'month') as start_month"),
+DB::raw("to_char(\"end\", 'month') as end_month"),
+DB::raw("
+\"end\" is not null as has_end
+")
+
+
+)->where('slug', $this->param('slug'))->first();
+
+\BennoThommo\Meta\Meta::set('twitter:card', 'summary_large_image');
+\BennoThommo\Meta\Meta::set('twitter:title', $this['entry']['title']);
+\BennoThommo\Meta\Meta::set('twitter:description', str_limit(Html::strip($this['entry']['description']), 255));
+\BennoThommo\Meta\Meta::set('og:title', $this['entry']['title']);
+\BennoThommo\Meta\Meta::set('og:description', str_limit(Html::strip($this['entry']['description']), 255) );
+\BennoThommo\Meta\Meta::set('og:type', 'article');
+\BennoThommo\Meta\Meta::set('og:url', $this->pageUrl(''));
+if($this['entry']['cover_image']){
+\BennoThommo\Meta\Meta::set('twitter:image', $this['entry']['cover_image']->getThumb(600, null, ['mode' => 'auto']));
+
+
+\BennoThommo\Meta\Meta::set('og:image', $this['entry']['cover_image']->getThumb(600, 314, ['mode' => 'crop']));
+\BennoThommo\Meta\Meta::set('og:image:width', 600);
+\BennoThommo\Meta\Meta::set('og:image:height', 314);
+}
+
+}
+$this['page_url'] = $this->pageUrl('');
+
+
+
+$highlights = Entry::where('end', '>', Carbon::now())
+->where('is_internal', false)
+->where('show_on_timeline', false)
+->orderBy('start', 'asc')
+->get();
+
+$this['highlights'] = $highlights;
+
+
+$this['slug'] = $this->param('slug');
+
+
+}
+?>
+==
+{% if not slug %}
+
+<div class="container-fluid events">
+
+
+
+    <div class="container events_container">
+        <div class="row" id="listView">
+<!--            {% if highlights.count %}-->
+<!--            <div class="upcoming_events_container">-->
+
+
+<!--                <div class="row highligts-row">-->
+<!--                    <div class="col-md-7 col-xs-12 latest-events">-->
+<!--                        {% if highlights|length %}-->
+<!--                        <div class="events-card">-->
+<!--                            <div class="img-container">-->
+<!--                                <a href="/{{currentLang}}/events/{{highlights[0].slug}}">-->
+<!--                                    <img src="{{highlights[0].cover_image.thumb(868, 521,{'mode':'crop'})}}" alt="{{ highlights[0].title }}">-->
+<!--                                </a>-->
+
+<!--                                <a class="events-title" href="/events/{{highlights[0].slug}}">-->
+<!--                                    <div class="events-date">-->
+<!--                                        {% if highlights[0].start|date("j") != highlights[0].end|date("j") %} {{highlights[0].start|date("j")}}-{{highlights[0].end|date("j")}}{% else %}{{highlights[0].start|date("j")}}{% endif %}-->
+<!--                                        {{highlights[0].start|date("M Y")}}-->
+<!--                                    </div>-->
+<!--                                    <div class="title">-->
+<!--                                        <h3>{{ highlights[0].title|raw}}</h3>-->
+<!--                                    </div>-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        {% endif %}-->
+<!--                    </div>-->
+
+<!--                    <div class="col-md-5 col-xs-12 highlight-events">-->
+<!--                        {% for entry in highlights|slice(1, 2) %}-->
+<!--                        <div class="row events-card">-->
+<!--                            <div class="img-container">-->
+<!--                                <a href="/{{currentLang}}/events/{{entry.slug}}">-->
+<!--                                    <img src="{{entry.cover_image.thumb(426, 246,{'mode':'crop'})}}" alt="{{ entry.title }}">-->
+<!--                                </a>-->
+
+<!--                                <a class="events-title" href="/events/{{entry.slug}}">-->
+<!--                                    <div class="events-date">-->
+
+<!--                                        {% if entry.start == '2026-09-25T09:07:29' %} autumn {{entry.start|date("Y")}} {% else %}-->
+
+<!--                                        {% if entry.start|date("j") != entry.end|date("j") %} {{entry.start|date("j")}}-{{entry.end|date("j")}}{% else %}{{entry.start|date("j")}}{% endif %}-->
+
+
+<!--                                        {{entry.start|date("M Y")}}-->
+
+
+<!--                                        {% endif %}-->
+
+<!--                                    </div>-->
+<!--                                    <div class="title">-->
+<!--                                        <h3>{{ entry.title|raw}}</h3>-->
+<!--                                    </div>-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        {% endfor %}-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            {% endif %}-->
+
+
+
+            {% if highlights.count %}
+
+            <div class="mt-4 no-padding">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h1>{{'HIGHLIGHTS 2026'|_}}</h1>
+                    </div>
+                </div>
+
+            </div>
+
+            {% partial 'eventslist' records=highlights url_fragment='highlights-events' %}
+
+
+            {% if entries.count > 20 %}
+            <div class="row container">
+                {{ entries.fragment('listView').render|raw }}
+            </div>
+            {% endif %}
+
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+
+
+{% else %}
+
+{% if entry %}
+
+<main class="container single-news-item" role="main">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="news-date">
+
+                {% if entry.start == '2026-09-25T09:07:29' %} autumn {{entry.start|date("Y")}} {% else %}
+                {% if entry.start|date("Y") == entry.end|date("Y") %}
+                {% if entry.start|date("M") == entry.end|date("M") %}
+                {% if entry.start|date("j") == entry.end|date("j") %}
+                {{entry.start|date("j M Y")}}
+                {% else %}
+                {{entry.start|date("j")}} - {{entry.end|date("j M Y")}}
+                {% endif %}
+                {% else %}
+                {{entry.start|date("j M")}} - {{entry.end|date("j M Y")}}
+                {% endif %}
+                {% else %}
+                {{entry.start|date("j M Y")}} - {{entry.end|date("j M Y")}}
+                {% endif %}
+
+                <!-- {% if entry.start|date("j") != entry.end|date("j") %} {{entry.start|date("j")}}-{{entry.end|date("j")}}{% else %}{{entry.start|date("j")}}{% endif %}
+
+
+             {{entry.start|date("M Y")}}-->
+
+
+                {% endif %}
+
+
+                <br><br>{{entry.place}}</div>
+        </div>
+        <div class="col-xs-12 news-title">
+            <h1 class="single-new-title">{{entry.title}}</h1>
+        </div>
+        <div class="col-xs-12">
+            {% if entry.cover_image %}
+            <img src="{{ entry.cover_image|crop_image|resize(743, auto, { mode: 'crop' }) }}" class="article_cover" />
+            {% endif %}
+        </div>
+
+
+        <div class="col-xs-12">
+            <div class="content">
+                {{entry.description|raw}}
+
+
+                {% if entry.url %}
+                <a href="{{entry.url}}" class="btn btn-primary" target="_blank" aria-label="Opens the event website in new tab">{{ 'Go to event website'|_ }}</a>
+                {% endif %}
+
+            </div>
+
+            <div class="row middle-xs">
+                <div class="col-xs col-md start-md center-xs share_container">
+                    <span class="share_label">{{'Share'|_}}</span>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{page_url}}" target="_blank" class="pr p-linkedin normal"></a>
+                    <a href="https://bsky.app/intent/compose?text={{page_url}}" class="pr p-bluesky small"  target="_blank"></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+
+
+{% endif %}
+
+{% endif %}

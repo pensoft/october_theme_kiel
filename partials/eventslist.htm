@@ -3,11 +3,11 @@
     {% for entry in records %}
     <div class="col-md-6 col-xs-12 highlight-events">
         <div class="img-container">
-            <a href="/{{currentLang}}/events/{{entry.slug}}">
+            <a href="/{{currentLang}}/{{url_fragment}}/{{entry.slug}}">
                 <img src="{{entry.cover_image.thumb(auto, 345,{'mode':'crop'})}}" alt="{{ entry.title }}">
             </a>
 
-            <a class="events-title" href="/{{currentLang}}/events/{{entry.slug}}">
+            <a class="events-title" href="/{{currentLang}}/{{url_fragment}}/{{entry.slug}}">
                 <div class="events-date">
                     {% if entry.start == '2026-09-25T09:07:29' %} autumn {{entry.start|date("Y")}} {% else %}
 

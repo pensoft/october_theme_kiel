@@ -91,9 +91,6 @@ $highlights = Entry::where('end', '>', Carbon::now())
 $this['highlights'] = $highlights;
 
 
-$this['entries_homepage'] = Entry::where('end', '>', Carbon::now())->where('show_on_timeline', true)->where('is_internal', false)->orderBy('start', 'asc')->take(3)->get();
-
-
 // All entries (exclude highlights)
 $excludeIds = array_merge($exhibitionIds, $highlights->pluck('id')->toArray());
 
@@ -190,76 +187,6 @@ $this['slug'] = $this->param('slug');
             {% endif %}
 
 
-
-            {% if entries_homepage.count %}
-            <div class="upcoming_events_container">
-
-                <div class="mt-4 no-padding">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <h1>{{'HIGHLIGHTS 2026'|_}}</h1>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row highligts-row">
-                    <div class="col-md-7 col-xs-12 latest-events">
-                        {% if entries_homepage|length %}
-                        <div class="events-card">
-                            <div class="img-container">
-                                <a href="/{{currentLang}}/events/{{entries_homepage[0].slug}}">
-                                    <img src="{{entries_homepage[0].cover_image.thumb(868, 521,{'mode':'crop'})}}" alt="{{ entries_homepage[0].title }}">
-                                </a>
-
-                                <a class="events-title" href="/events/{{entries_homepage[0].slug}}">
-                                    <div class="events-date">
-                                        {% if entries_homepage[0].start|date("j") != entries_homepage[0].end|date("j") %} {{entries_homepage[0].start|date("j")}}-{{entries_homepage[0].end|date("j")}}{% else %}{{entries_homepage[0].start|date("j")}}{% endif %}
-                                        {{entries_homepage[0].start|date("M Y")}}
-                                    </div>
-                                    <div class="title">
-                                        <h3>{{ entries_homepage[0].title|raw}}</h3>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        {% endif %}
-                    </div>
-
-                    <div class="col-md-5 col-xs-12 highlight-events">
-                        {% for entry in entries_homepage|slice(1, 2) %}
-                        <div class="row events-card">
-                            <div class="img-container">
-                                <a href="/{{currentLang}}/events/{{entry.slug}}">
-                                    <img src="{{entry.cover_image.thumb(426, 246,{'mode':'crop'})}}" alt="{{ entry.title }}">
-                                </a>
-
-                                <a class="events-title" href="/events/{{entry.slug}}">
-                                    <div class="events-date">
-
-                                        {% if entry.start == '2026-09-25T09:07:29' %} autumn {{entry.start|date("Y")}} {% else %}
-
-                                        {% if entry.start|date("j") != entry.end|date("j") %} {{entry.start|date("j")}}-{{entry.end|date("j")}}{% else %}{{entry.start|date("j")}}{% endif %}
-
-
-                                        {{entry.start|date("M Y")}}
-
-
-                                        {% endif %}
-
-                                    </div>
-                                    <div class="title">
-                                        <h3>{{ entry.title|raw}}</h3>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-
-
             {% if exhibitions.count %}
 
             <div class="mt-4 no-padding">
@@ -340,7 +267,7 @@ $this['slug'] = $this->param('slug');
 
             </div>
 
-                    {% partial 'eventslist' records=entries %}
+                    {% partial 'eventslist' records=entries url_fragment='events' %}
 
 
                     {% if entries.count > 20 %}
