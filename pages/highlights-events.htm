@@ -63,7 +63,7 @@ $this['page_url'] = $this->pageUrl('');
 
 $highlights = Entry::where('end', '>', Carbon::now())
 ->where('is_internal', false)
-->where('show_on_timeline', false)
+->where('show_on_timeline', true)
 ->orderBy('start', 'asc')
 ->get();
 
