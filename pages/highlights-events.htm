@@ -103,11 +103,11 @@ $this['slug'] = $this->param('slug');
                         {% if highlights|length %}
                         <div class="events-card">
                             <div class="img-container">
-                                <a href="/{{currentLang}}/highlights-events/{{highlights[0].slug}}">
+                                <a href="/{{currentLang}}/events/{{highlights[0].slug}}">
                                     <img src="{{highlights[0].cover_image.thumb(758, 605,{'mode':'crop'})}}" alt="{{ highlights[0].title }}">
                                 </a>
 
-                                <a class="events-title" href="/highlights-events/{{highlights[0].slug}}">
+                                <a class="events-title" href="/events/{{highlights[0].slug}}">
                                     <div class="events-date">
                                         {% if highlights[0].start|date("j") != highlights[0].end|date("j") %} {{highlights[0].start|date("j")}}-{{highlights[0].end|date("j")}}{% else %}{{highlights[0].start|date("j")}}{% endif %}
                                         {{highlights[0].start|date("M Y")}}
@@ -125,11 +125,11 @@ $this['slug'] = $this->param('slug');
                         {% for entry in highlights|slice(1, 2) %}
                         <div class="row events-card">
                             <div class="img-container">
-                                <a href="/{{currentLang}}/highlights-events/{{entry.slug}}">
+                                <a href="/{{currentLang}}/events/{{entry.slug}}">
                                     <img src="{{entry.cover_image.thumb(537, 289,{'mode':'crop'})}}" alt="{{ entry.title }}">
                                 </a>
 
-                                <a class="events-title" href="/highlights-events/{{entry.slug}}">
+                                <a class="events-title" href="/events/{{entry.slug}}">
                                     <div class="events-date">
 
                                         {% if entry.start == '2026-09-25T09:07:29' %} autumn {{entry.start|date("Y")}} {% else %}

@@ -267,7 +267,7 @@ $this['slug'] = $this->param('slug');
 
             </div>
 
-                    {% partial 'eventslist' records=entries url_fragment='events' %}
+                    {% partial 'eventslist' records=entries %}
 
 
                     {% if entries.count > 20 %}
