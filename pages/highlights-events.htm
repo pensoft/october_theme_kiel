@@ -84,90 +84,90 @@ $this['slug'] = $this->param('slug');
 
     <div class="container events_container">
         <div class="row" id="listView">
-<!--            {% if highlights.count %}-->
-<!--            <div class="upcoming_events_container">-->
-
-
-<!--                <div class="row highligts-row">-->
-<!--                    <div class="col-md-7 col-xs-12 latest-events">-->
-<!--                        {% if highlights|length %}-->
-<!--                        <div class="events-card">-->
-<!--                            <div class="img-container">-->
-<!--                                <a href="/{{currentLang}}/events/{{highlights[0].slug}}">-->
-<!--                                    <img src="{{highlights[0].cover_image.thumb(868, 521,{'mode':'crop'})}}" alt="{{ highlights[0].title }}">-->
-<!--                                </a>-->
-
-<!--                                <a class="events-title" href="/events/{{highlights[0].slug}}">-->
-<!--                                    <div class="events-date">-->
-<!--                                        {% if highlights[0].start|date("j") != highlights[0].end|date("j") %} {{highlights[0].start|date("j")}}-{{highlights[0].end|date("j")}}{% else %}{{highlights[0].start|date("j")}}{% endif %}-->
-<!--                                        {{highlights[0].start|date("M Y")}}-->
-<!--                                    </div>-->
-<!--                                    <div class="title">-->
-<!--                                        <h3>{{ highlights[0].title|raw}}</h3>-->
-<!--                                    </div>-->
-<!--                                </a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        {% endif %}-->
-<!--                    </div>-->
-
-<!--                    <div class="col-md-5 col-xs-12 highlight-events">-->
-<!--                        {% for entry in highlights|slice(1, 2) %}-->
-<!--                        <div class="row events-card">-->
-<!--                            <div class="img-container">-->
-<!--                                <a href="/{{currentLang}}/events/{{entry.slug}}">-->
-<!--                                    <img src="{{entry.cover_image.thumb(426, 246,{'mode':'crop'})}}" alt="{{ entry.title }}">-->
-<!--                                </a>-->
-
-<!--                                <a class="events-title" href="/events/{{entry.slug}}">-->
-<!--                                    <div class="events-date">-->
-
-<!--                                        {% if entry.start == '2026-09-25T09:07:29' %} autumn {{entry.start|date("Y")}} {% else %}-->
-
-<!--                                        {% if entry.start|date("j") != entry.end|date("j") %} {{entry.start|date("j")}}-{{entry.end|date("j")}}{% else %}{{entry.start|date("j")}}{% endif %}-->
-
-
-<!--                                        {{entry.start|date("M Y")}}-->
-
-
-<!--                                        {% endif %}-->
-
-<!--                                    </div>-->
-<!--                                    <div class="title">-->
-<!--                                        <h3>{{ entry.title|raw}}</h3>-->
-<!--                                    </div>-->
-<!--                                </a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        {% endfor %}-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            {% endif %}-->
-
-
-
             {% if highlights.count %}
+            <div class="upcoming_events_container">
 
-            <div class="mt-4 no-padding">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <h1>{{'HIGHLIGHTS 2026'|_}}</h1>
+
+                <div class="row highligts-row">
+                    <div class="col-md-7 col-xs-12 latest-events">
+                        {% if highlights|length %}
+                        <div class="events-card">
+                            <div class="img-container">
+                                <a href="/{{currentLang}}/highlights-events/{{highlights[0].slug}}">
+                                    <img src="{{highlights[0].cover_image.thumb(868, 521,{'mode':'crop'})}}" alt="{{ highlights[0].title }}">
+                                </a>
+
+                                <a class="events-title" href="/highlights-events/{{highlights[0].slug}}">
+                                    <div class="events-date">
+                                        {% if highlights[0].start|date("j") != highlights[0].end|date("j") %} {{highlights[0].start|date("j")}}-{{highlights[0].end|date("j")}}{% else %}{{highlights[0].start|date("j")}}{% endif %}
+                                        {{highlights[0].start|date("M Y")}}
+                                    </div>
+                                    <div class="title">
+                                        <h3>{{ highlights[0].title|raw}}</h3>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-5 col-xs-12 highlight-events">
+                        {% for entry in highlights|slice(1, 2) %}
+                        <div class="row events-card">
+                            <div class="img-container">
+                                <a href="/{{currentLang}}/highlights-events/{{entry.slug}}">
+                                    <img src="{{entry.cover_image.thumb(426, 246,{'mode':'crop'})}}" alt="{{ entry.title }}">
+                                </a>
+
+                                <a class="events-title" href="/highlights-events/{{entry.slug}}">
+                                    <div class="events-date">
+
+                                        {% if entry.start == '2026-09-25T09:07:29' %} autumn {{entry.start|date("Y")}} {% else %}
+
+                                        {% if entry.start|date("j") != entry.end|date("j") %} {{entry.start|date("j")}}-{{entry.end|date("j")}}{% else %}{{entry.start|date("j")}}{% endif %}
+
+
+                                        {{entry.start|date("M Y")}}
+
+
+                                        {% endif %}
+
+                                    </div>
+                                    <div class="title">
+                                        <h3>{{ entry.title|raw}}</h3>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
                     </div>
                 </div>
-
-            </div>
-
-            {% partial 'eventslist' records=highlights url_fragment='highlights-events' %}
-
-
-            {% if entries.count > 20 %}
-            <div class="row container">
-                {{ entries.fragment('listView').render|raw }}
             </div>
             {% endif %}
 
-            {% endif %}
+
+
+<!--            {% if highlights.count %}-->
+
+<!--            <div class="mt-4 no-padding">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-xs-12">-->
+<!--                        <h1>{{'HIGHLIGHTS 2026'|_}}</h1>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--            </div>-->
+
+<!--            {% partial 'eventslist' records=highlights url_fragment='highlights-events' %}-->
+
+
+<!--                {% if entries.count > 20 %}-->
+<!--                <div class="row container">-->
+<!--                    {{ entries.fragment('listView').render|raw }}-->
+<!--                </div>-->
+<!--                {% endif %}-->
+
+<!--            {% endif %}-->
         </div>
     </div>
 
