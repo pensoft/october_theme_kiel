@@ -752,14 +752,14 @@ ul.pagination{
             height: 100%;
         });
 
-        .video-carousel-1, .video-carousel-2, .video-carousel-3 {
+        .video-carousel-0, .video-carousel-1, .video-carousel-2, .video-carousel-3 {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100vh;
 
-            video {
+            video, img {
                 width: 100% !important;
                 height: calc(~'100% - 32px')!important;
                 //height: 100% !important;
@@ -820,9 +820,15 @@ ul.pagination{
 
                     span{
                         font-size: 120px;
+
                         .breakpoint-large-down({
                             font-size: 90px;
                         });
+
+                        &.event_date{
+                            font-size: 18px;
+                            line-height: 1em;
+                        }
                     }
 
 
