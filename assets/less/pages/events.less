@@ -1123,3 +1123,215 @@
 }
 
 
+/* Two-Column Layout for Events */
+.two-column-layout {
+    .short-term-column, .ongoing-column {
+        h2 {
+            font-family: Staatliches;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+    }
+
+    .short-term-column {
+        padding-right: 30px;
+        .breakpoint-large-down({
+            padding-right: 15px;
+            margin-bottom: 40px;
+        });
+    }
+
+    .ongoing-column {
+        padding-left: 30px;
+        .breakpoint-large-down({
+            padding-left: 15px;
+        });
+    }
+}
+
+/* Short-Term Events List */
+.short-term-events-list {
+    width: 100%;
+}
+
+.short-term-card {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 2px solid @link-color;
+    border-radius: 12px;
+    background: @white-color;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        box-shadow: 0 4px 12px rgba(50, 104, 255, 0.15);
+    }
+
+    .card-image {
+        flex-shrink: 0;
+
+        img {
+            width: 150px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .breakpoint-large-down({
+            img {
+                width: 100px;
+                height: 70px;
+            }
+        });
+    }
+
+    .card-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .event-date {
+            color: @pink-color;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        h3 {
+            font-size: 18px;
+            line-height: 1.3;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+
+            a {
+                color: @dark-color;
+                text-decoration: none;
+
+                &:hover {
+                    color: @link-color;
+                }
+            }
+        }
+
+        .event-organiser {
+            font-size: 13px;
+            color: #666;
+
+            .label {
+                font-weight: 600;
+                text-transform: uppercase;
+                font-size: 11px;
+                letter-spacing: 0.5px;
+            }
+
+            .value {
+                margin-left: 5px;
+            }
+        }
+    }
+}
+
+/* Ongoing Events Sidebar */
+.ongoing-events-sidebar {
+    width: 100%;
+}
+
+.ongoing-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: @pink-color;
+    padding: 15px 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-content {
+        flex: 1;
+        padding-right: 15px;
+
+        .event-date-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.25);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            color: @white-color;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        h4 {
+            font-size: 14px;
+            line-height: 1.4;
+            margin: 0;
+            font-weight: 600;
+            color: @white-color;
+            text-transform: uppercase;
+        }
+    }
+
+    .card-image {
+        flex-shrink: 0;
+
+        img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+    }
+}
+
+/* Pagination */
+.pagination-wrapper {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+
+    .pagination {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+
+        .pagination-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background: @white-color;
+            color: @dark-color;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.2s ease-in-out;
+
+            &:hover {
+                border-color: @link-color;
+                color: @link-color;
+            }
+
+            &.active {
+                background: @link-color;
+                border-color: @link-color;
+                color: @white-color;
+                font-weight: 600;
+            }
+        }
+    }
+}
+

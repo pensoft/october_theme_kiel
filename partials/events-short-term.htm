@@ -1,0 +1,47 @@
+<div class="short-term-events-list">
+    {% for entry in records %}
+    <div class="short-term-card">
+        <div class="card-image">
+            <a href="/{{currentLang}}/events/{{entry.slug}}">
+                {% if entry.cover_image %}
+                <img src="{{entry.cover_image.thumb(150, 100, {'mode':'crop'})}}" alt="{{ entry.title }}">
+                {% else %}
+                <img src="{{'sctt-general.png'|media}}" alt="{{ entry.title }}">
+                {% endif %}
+            </a>
+        </div>
+        <div class="card-content">
+            <div class="event-date">{{ entry.start|date("d.m.Y") }}</div>
+            <h3><a href="/{{currentLang}}/events/{{entry.slug}}">{{ entry.title|raw }}</a></h3>
+            <div class="event-organiser">
+                <span class="label">{{ 'ORGANISED BY:'|_ }}</span>
+                {% if entry.institution %}
+                <span class="value">{{ entry.institution }}</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% if records.lastPage is defined and records.lastPage > 1 %}
+<div class="pagination-wrapper">
+    <nav class="pagination">
+        {% if records.currentPage > 1 %}
+        <a href="javascript:void(0);" class="pagination-link" data-page="{{ records.currentPage - 1 }}">&lt;</a>
+        {% endif %}
+
+        {% for i in 1..records.lastPage %}
+            {% if i == records.currentPage %}
+            <span class="pagination-link active">{{ i }}</span>
+            {% else %}
+            <a href="javascript:void(0);" class="pagination-link" data-page="{{ i }}">{{ i }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if records.currentPage < records.lastPage %}
+        <a href="javascript:void(0);" class="pagination-link" data-page="{{ records.currentPage + 1 }}">&gt;</a>
+        {% endif %}
+    </nav>
+</div>
+{% endif %}

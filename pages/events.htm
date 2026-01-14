@@ -68,14 +68,14 @@ $this['google_calendar_events'] = Event::get();
 //$this['google_calendar_events_test'] = Event::get(null, null, [], getenv('GOOGLE_CALENDAR_TEST_ID'));
 
 
-// Long-term exhibitions (>= 100 days duration)
+// Long-term exhibitions (>= 100 days duration) - shown as "Ongoing Events" in sidebar
 $exhibitions = Entry::where('is_internal', false)
                     ->orderBy('start', 'asc')
                     ->get()
                     ->filter(function ($item) {
                         return Carbon::parse($item->start)->diffInDays(Carbon::parse($item->end)) >= 100;
                     })
-                ->take(3);
+                ->take(4);
 
 $this['exhibitions'] = $exhibitions;
 
@@ -101,10 +101,12 @@ $highlights = Entry::where('end', '>', Carbon::now())
 $this['highlights'] = $highlights;
 
 
-// All entries (exclude highlights)
+// Short-term events (exclude exhibitions and highlights)
 $excludeIds = array_merge($exhibitionIds, $highlights->pluck('id')->toArray());
 
 $this['all_records'] = Entry::whereNotIn('id', $excludeIds)
+        ->where('is_internal', false)
+        ->where('show_on_timeline', false)
         ->orderBy('start', 'asc')
         ->paginate(20);
 
@@ -292,38 +294,21 @@ $this['slug'] = $this->param('slug');
     </div>
 
 
-    <div class="container events_container">
+    <div class="container events_container two-column-layout">
         <div class="row" id="listView">
-            {% if highlights.count %}
-            {% partial 'eventslist' records=highlights %}
-            {% endif %}
-
-
-            {% if exhibitions.count %}
-
-            <div class="mt-4 no-padding">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <h1>{{'Ongoing events'|_}}</h1>
-                    </div>
+            <!-- Left Column: Short-Term Events -->
+            <div class="col-md-8 col-xs-12 short-term-column">
+                <h2>{{'SHORT-TERMED EVENTS'|_}}</h2>
+                <div id="recordsContainer">
+                    {% partial 'events-short-term' records=all_records %}
                 </div>
-
             </div>
 
-            {% partial 'eventslist' records=exhibitions %}
-            {% endif %}
-
-
-            <div class="mt-4 no-padding">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <h1>{{'All EVENTS'|_}}</h1>
-                    </div>
-                </div>
-
+            <!-- Right Column: Ongoing Events -->
+            <div class="col-md-4 col-xs-12 ongoing-column">
+                <h2>{{'ONGOING EVENTS'|_}}</h2>
+                {% partial 'events-ongoing' exhibitions=exhibitions %}
             </div>
-                    <div class="row" id="recordsContainer">
-                    </div>
         </div>
     </div>
 

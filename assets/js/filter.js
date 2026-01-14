@@ -139,7 +139,9 @@ function getDate( element ) {
 
 
 
-function updateEventsList() {
+function updateEventsList(page) {
+    page = page || 1;
+
     var sortCategory = $('#sortCategory').val();
     var sortCountry = $('#sortCountry').val();
     var sortTarget = $('#sortTarget').val();
@@ -166,8 +168,9 @@ function updateEventsList() {
             sortTheme: sortTheme,
             dateFrom: dateFrom,
             dateTo: dateTo,
+            page: page
         },
-        update: { 'eventslist': '#recordsContainer' }
+        update: { 'events-short-term': '#recordsContainer' }
     });
 }
 
@@ -198,5 +201,18 @@ $(document).keydown(function(e) {
         e.preventDefault();
         $('#searchInput')[0].selectize.close();
         $('#searchInput')[0].selectize.blur();
+    }
+});
+
+// Pagination click handler
+$(document).on('click', '.pagination-wrapper .pagination-link', function(e) {
+    e.preventDefault();
+    var page = $(this).data('page');
+    if (page) {
+        updateEventsList(page);
+        // Scroll to top of results
+        $('html, body').animate({
+            scrollTop: $('#recordsContainer').offset().top - 100
+        }, 300);
     }
 });
