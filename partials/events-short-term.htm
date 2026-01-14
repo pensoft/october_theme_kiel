@@ -28,7 +28,9 @@
 <div class="pagination-wrapper">
     <nav class="pagination">
         {% if records.currentPage > 1 %}
-        <a href="javascript:void(0);" class="pagination-link" data-page="{{ records.currentPage - 1 }}">&lt;</a>
+        <a href="javascript:void(0);" class="pagination-link pagination-prev" data-page="{{ records.currentPage - 1 }}">
+            <img src="{{ 'assets/images/pagination-arrow.svg'|theme }}" alt="Previous">
+        </a>
         {% endif %}
 
         {% for i in 1..records.lastPage %}
@@ -40,7 +42,9 @@
         {% endfor %}
 
         {% if records.currentPage < records.lastPage %}
-        <a href="javascript:void(0);" class="pagination-link" data-page="{{ records.currentPage + 1 }}">&gt;</a>
+        <a href="javascript:void(0);" class="pagination-link pagination-next" data-page="{{ records.currentPage + 1 }}">
+            <img src="{{ 'assets/images/pagination-arrow.svg'|theme }}" alt="Next">
+        </a>
         {% endif %}
     </nav>
 </div>

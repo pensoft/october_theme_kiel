@@ -1244,34 +1244,60 @@
 
     .pagination {
         display: flex;
-        gap: 8px;
+        gap: 12px;
         align-items: center;
 
+        // Page numbers - no border
         .pagination-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            background: @white-color;
-            color: @dark-color;
-            font-size: 14px;
+            font-family: Inter;
+            font-weight: 300;
+            font-size: 18px;
+            line-height: 30px;
+            color: #05133A;
+            background: transparent;
+            border: none;
+            padding: 5px 8px;
             text-decoration: none;
             transition: all 0.2s ease-in-out;
 
             &:hover {
-                border-color: @link-color;
                 color: @link-color;
             }
 
             &.active {
-                background: @link-color;
-                border-color: @link-color;
-                color: @white-color;
                 font-weight: 600;
+                color: #05133A;
             }
+        }
+
+        // Prev/Next buttons with border (override .pagination-link base styles)
+        .pagination-link.pagination-prev,
+        .pagination-link.pagination-next {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            padding: 0;
+            background: @white-color;
+            border: 1px solid #3268FF;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.2s ease-in-out;
+
+            img {
+                width: 12px;
+                height: 12px;
+            }
+
+            &:hover {
+                background: #F4F6FC;
+                color: inherit;
+            }
+        }
+
+        .pagination-prev img {
+            transform: rotate(180deg);
         }
     }
 }
