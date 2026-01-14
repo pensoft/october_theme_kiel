@@ -108,7 +108,7 @@ $this['all_records'] = Entry::whereNotIn('id', $excludeIds)
         ->where('is_internal', false)
         ->where('show_on_timeline', false)
         ->orderBy('start', 'asc')
-        ->paginate(20);
+        ->paginate(4);
 
 $this['categories'] = Category::get();
 $this['countries'] = Country::isEnabled()->get();

@@ -1,7 +1,14 @@
 <div class="ongoing-events-sidebar">
     {% for entry in exhibitions %}
     <a href="/{{currentLang}}/events/{{entry.slug}}" class="ongoing-card">
-        <div class="card-content">
+        <div class="card-image">
+            {% if entry.cover_image %}
+            <img src="{{entry.cover_image.path}}" alt="{{ entry.title }}">
+            {% else %}
+            <img src="{{'sctt-general.png'|media}}" alt="{{ entry.title }}">
+            {% endif %}
+        </div>
+        <div class="card-overlay">
             <div class="event-date-badge">
                 {% if entry.start == '2026-09-25T09:07:29' %}
                     {{ 'AUTUMN'|_ }} {{ entry.start|date("Y") }}
@@ -16,13 +23,6 @@
                 {% endif %}
             </div>
             <h4>{{ entry.title|raw }}</h4>
-        </div>
-        <div class="card-image">
-            {% if entry.cover_image %}
-            <img src="{{entry.cover_image.thumb(80, 80, {'mode':'crop'})}}" alt="{{ entry.title }}">
-            {% else %}
-            <img src="{{'sctt-general.png'|media}}" alt="{{ entry.title }}">
-            {% endif %}
         </div>
     </a>
     {% endfor %}
