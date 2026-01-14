@@ -191,91 +191,64 @@ $this['slug'] = $this->param('slug');
 
     <div class="container mb-0 pb-0">
         <div class="record-search mb-2">
-            <div class="row">
-                <div class="col-xs-12 search-field-container">
-                    <div class="search-field">
-                        <select multiple id="searchTerms" name="searchTerms">
-                            <option value="">{{'Search' |_}}</option>
+            <div class="filter-row">
+                <div class="filters-badge">
+                    <span class="filter-icon"></span>
+                    <span>{{'Filters' |_}}</span>
+                </div>
+
+                <div class="filter-dropdowns">
+                    <div class="sort-field sort-dropdown">
+                        <select id="sortTarget" name="sortTarget">
+                            <option value="0">{{'All target groups' |_}}</option>
+                            <option value="children">Children (0-16 y)</option>
+                            <option value="young">Young people (16-26 y)</option>
+                            <option value="general">General public/Civil society</option>
+                            <option value="elder">Elderly people (+65y)</option>
+                            <option value="entrepreneurs">Entrepreneurs/Businesses</option>
+                            <option value="policy">Policy makers</option>
+                            <option value="early career researchers">Early career researchers</option>
+                            <option value="all researchers">All researchers</option>
+                        </select>
+                    </div>
+                    <div class="sort-field sort-dropdown">
+                        <select id="sortTheme" name="sortTheme">
+                            <option value="0">{{'All thematic focuses' |_}}</option>
+                            <option value="sea">Sea and water</option>
+                            <option value="europe">Europe</option>
+                            <option value="sustainability">Sustainability</option>
+                            <option value="cultural">Cultural Heritage</option>
+                            <option value="health">Health and well-being</option>
+                            <option value="talents">Talents</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="sort-field sort-dropdown">
+                        <select id="sortCountry" name="sortCountry">
+                            <option value="0">{{'All countries' |_}}</option>
+                            {% for country in countries %}
+                            <option value="{{country.id}}">{{country.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="sort-field sort-dropdown">
+                        <select id="sortCategory" name="sortCategory">
+                            <option value="0">{{'All categories' |_}}</option>
+                            {% for category in categories %}
+                            <option value="{{category.id}}">{{category.title}}</option>
+                            {% endfor %}
                         </select>
                     </div>
                 </div>
 
-                <div class="col-xs-12 filter-fields-container">
-                    <div class="row between-md around-xs">
-                        <div class="col-md-10 col-xs-12 start-md center-xs">
-                            <div class="sort-field sort-dropdown">
-                                <select id="sortTarget" name="sortTarget">
-                                    <option value="0">{{'All target groups' |_}}</option>
-                                    <option value="children">Children (0-16 y)</option>
-                                    <option value="young">Young people (16-26 y)</option>
-                                    <option value="general">General public/Civil society</option>
-                                    <option value="elder">Elderly people (+65y)</option>
-                                    <option value="entrepreneurs">Entrepreneurs/Businesses</option>
-                                    <option value="policy">Policy makers</option>
-                                    <option value="early career researchers">Early career researchers</option>
-                                    <option value="all researchers">All researchers</option>
-                                </select>
-                            </div>
-                            <div class="sort-field sort-dropdown">
-                                <select id="sortTheme" name="sortTheme">
-                                    <option value="0">{{'All thematic focuses' |_}}</option>
-                                    <option value="sea">Sea and water</option>
-                                    <option value="europe">Europe</option>
-                                    <option value="sustainability">Sustainability</option>
-                                    <option value="cultural">Cultural Heritage</option>
-                                    <option value="health">Health and well-being</option>
-                                    <option value="talents">Talents</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-
-                            <div class="sort-field sort-dropdown">
-                                <select id="sortCountry" name="sortCountry">
-                                    <option value="0">{{'All countries' |_}}</option>
-                                    {% for country in countries %}
-                                    <option value="{{country.id}}">{{country.name}}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="sort-field sort-dropdown">
-                                <select id="sortCategory" name="sortCategory">
-                                    <option value="0">{{'All categories' |_}}</option>
-                                    {% for category in categories %}
-                                    <option value="{{category.id}}">{{category.title}}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-
-                            <div class="sort-field">
-                                <input
-                                    type="text"
-                                    class="datepicker-input"
-                                    id="dateFrom"
-                                    name="dateFrom"
-                                    placeholder="YYYY-MM-DD">
-                                -
-                                <input
-                                    type="text"
-                                    class="datepicker-input"
-                                    id="dateTo"
-                                    name="dateTo"
-                                    placeholder="YYYY-MM-DD">
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-2 col-xs-12 end-md center-xs">
-                            <div class="clear-filter">
-                                <a id="clearFilter" href="javascript:void(0);">{{'Clear filters' |_}}</a>
-                            </div>
-                            <div class="apply-filter">
-                                <a id="applyFilter" class="btn btn-primary">{{'Apply filter' |_}}</a>
-                            </div>
-                        </div>
-
+                <div class="filter-actions">
+                    <div class="clear-filter">
+                        <a id="clearFilter" href="javascript:void(0);">{{'Clear all' |_}}</a>
+                    </div>
+                    <div class="apply-filter">
+                        <a id="applyFilter" class="btn btn-primary">{{'Apply filter' |_}}</a>
                     </div>
                 </div>
-
             </div>
         </div>
 
