@@ -12,12 +12,14 @@ category = "null"
 language = "en"
 redirect_to_detailed_page = "false"
 default_view = "dayGridMonth"
+
+[Filter]
 ==
 <?php
 use Pensoft\Calendar\Models\Entry;
 use Carbon\Carbon;
-use Pensoft\Articles\Models\Category;
-use Pensoft\Articles\Models\Article;
+use Pensoft\Calendar\Models\Category;
+use RainLab\Location\Models\Country;
 
 use Spatie\GoogleCalendar\Event;
 
@@ -94,9 +96,12 @@ $this['highlights'] = $highlights;
 // All entries (exclude highlights)
 $excludeIds = array_merge($exhibitionIds, $highlights->pluck('id')->toArray());
 
-$this['entries'] = Entry::whereNotIn('id', $excludeIds)
+$this['all_records'] = Entry::whereNotIn('id', $excludeIds)
         ->orderBy('start', 'asc')
         ->paginate(20);
+
+$this['categories'] = Category::get();
+$this['countries'] = Country::isEnabled()->get();
 
 $this['slug'] = $this->param('slug');
 
@@ -109,15 +114,105 @@ $this['slug'] = $this->param('slug');
 <div class="container-fluid events">
 
     <div class="container mb-0 pb-0">
+        <div class="record-search mb-2">
+            <div class="row">
+                <div class="col-xs-12 search-field-container">
+                    <div class="search-field">
+                        <select multiple id="searchTerms" name="searchTerms">
+                            <option value="">{{'Search' |_}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 filter-fields-container">
+                    <div class="row between-md around-xs">
+                        <div class="col-md-10 col-xs-12 start-md center-xs">
+                            <div class="sort-field sort-dropdown">
+                                <select id="sortTarget" name="sortTarget">
+                                    <option value="0">{{'All target groups' |_}}</option>
+                                    <option value="children">Children (0-16 y)</option>
+                                    <option value="young">Young people (16-26 y)</option>
+                                    <option value="general">General public/Civil society</option>
+                                    <option value="elder">Elderly people (+65y)</option>
+                                    <option value="entrepreneurs">Entrepreneurs/Businesses</option>
+                                    <option value="policy">Policy makers</option>
+                                    <option value="early career researchers">Early career researchers</option>
+                                    <option value="all researchers">All researchers</option>
+                                </select>
+                            </div>
+                            <div class="sort-field sort-dropdown">
+                                <select id="sortTheme" name="sortTheme">
+                                    <option value="0">{{'All thematic focuses' |_}}</option>
+                                    <option value="sea">Sea and water</option>
+                                    <option value="europe">Europe</option>
+                                    <option value="sustainability">Sustainability</option>
+                                    <option value="cultural">Cultural Heritage</option>
+                                    <option value="health">Health and well-being</option>
+                                    <option value="talents">Talents</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="sort-field sort-dropdown">
+                                <select id="sortCountry" name="sortCountry">
+                                    <option value="0">{{'All countries' |_}}</option>
+                                    {% for country in countries %}
+                                    <option value="{{country.id}}">{{country.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+<!--                            <div class="sort-field sort-dropdown">-->
+<!--                                <select id="sortCategory" name="sortCategory">-->
+<!--                                    <option value="0">{{'All categories' |_}}</option>-->
+<!--                                    {% for category in categories %}-->
+<!--                                    <option value="{{category.id}}">{{category.title}}</option>-->
+<!--                                    {% endfor %}-->
+<!--                                </select>-->
+<!--                            </div>-->
+
+                            <div class="sort-field">
+                                <input
+                                    type="text"
+                                    class="datepicker-input"
+                                    id="dateFrom"
+                                    name="dateFrom"
+                                    placeholder="YYYY-MM-DD">
+                                -
+                                <input
+                                    type="text"
+                                    class="datepicker-input"
+                                    id="dateTo"
+                                    name="dateTo"
+                                    placeholder="YYYY-MM-DD">
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-2 col-xs-12 end-md center-xs">
+                            <div class="clear-filter">
+                                <a id="clearFilter" href="javascript:void(0);">{{'Clear filters' |_}}</a>
+                            </div>
+                            <div class="apply-filter">
+                                <a id="applyFilter" class="btn btn-primary">{{'Apply filter' |_}}</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
         <div class="row nav-row">
             <div class="col-md-9 col-xs-12 start-md center-xs">
                 <h1>{{'COMING SOON'|_}}</h1>
             </div>
             <div class="col-md-3 col-xs-12 view-all-button">
-                <div class="tabs">
-                    <a class="" href="#listView"></a>
-                    <a class="" href="#calendarView"></a>
-                </div>
+<!--                <div class="tabs">-->
+<!--                    <a class="" href="#listView"></a>-->
+<!--                    <a class="" href="#calendarView"></a>-->
+<!--                </div>-->
             </div>
         </div>
     </div>
@@ -126,64 +221,65 @@ $this['slug'] = $this->param('slug');
     <div class="container events_container">
         <div class="row" id="listView">
             {% if highlights.count %}
-            <div class="upcoming_events_container">
+            {% partial 'eventslist' records=highlights %}
+<!--            <div class="upcoming_events_container">-->
 
 
-                    <div class="row highligts-row">
-                        <div class="col-md-7 col-xs-12 latest-events">
-                            {% if highlights|length %}
-                            <div class="events-card">
-                                <div class="img-container">
-                                    <a href="/{{currentLang}}/events/{{highlights[0].slug}}">
-                                        <img src="{{highlights[0].cover_image.thumb(758, 605,{'mode':'crop'})}}" alt="{{ highlights[0].title }}">
-                                    </a>
+<!--                    <div class="row highligts-row">-->
+<!--                        <div class="col-md-7 col-xs-12 latest-events">-->
+<!--                            {% if highlights|length %}-->
+<!--                            <div class="events-card">-->
+<!--                                <div class="img-container">-->
+<!--                                    <a href="/{{currentLang}}/events/{{highlights[0].slug}}">-->
+<!--                                        <img src="{{highlights[0].cover_image.thumb(758, 605,{'mode':'crop'})}}" alt="{{ highlights[0].title }}">-->
+<!--                                    </a>-->
 
-                                    <a class="events-title" href="/events/{{highlights[0].slug}}">
-                                        <div class="events-date">
-                                            {% if highlights[0].start|date("j") != highlights[0].end|date("j") %} {{highlights[0].start|date("j")}}-{{highlights[0].end|date("j")}}{% else %}{{highlights[0].start|date("j")}}{% endif %}
-                                            {{highlights[0].start|date("M Y")}}
-                                        </div>
-                                        <div class="title">
-                                            <h3>{{ highlights[0].title|raw}}</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            {% endif %}
-                        </div>
+<!--                                    <a class="events-title" href="/events/{{highlights[0].slug}}">-->
+<!--                                        <div class="events-date">-->
+<!--                                            {% if highlights[0].start|date("j") != highlights[0].end|date("j") %} {{highlights[0].start|date("j")}}-{{highlights[0].end|date("j")}}{% else %}{{highlights[0].start|date("j")}}{% endif %}-->
+<!--                                            {{highlights[0].start|date("M Y")}}-->
+<!--                                        </div>-->
+<!--                                        <div class="title">-->
+<!--                                            <h3>{{ highlights[0].title|raw}}</h3>-->
+<!--                                        </div>-->
+<!--                                    </a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            {% endif %}-->
+<!--                        </div>-->
 
-                        <div class="col-md-5 col-xs-12 highlight-events">
-                            {% for entry in highlights|slice(1, 2) %}
-                            <div class="row events-card">
-                                <div class="img-container">
-                                    <a href="/{{currentLang}}/events/{{entry.slug}}">
-                                        <img src="{{entry.cover_image.thumb(537, 289,{'mode':'crop'})}}" alt="{{ entry.title }}">
-                                    </a>
+<!--                        <div class="col-md-5 col-xs-12 highlight-events">-->
+<!--                            {% for entry in highlights|slice(1, 2) %}-->
+<!--                            <div class="row events-card">-->
+<!--                                <div class="img-container">-->
+<!--                                    <a href="/{{currentLang}}/events/{{entry.slug}}">-->
+<!--                                        <img src="{{entry.cover_image.thumb(537, 289,{'mode':'crop'})}}" alt="{{ entry.title }}">-->
+<!--                                    </a>-->
 
-                                    <a class="events-title" href="/events/{{entry.slug}}">
-                                        <div class="events-date">
+<!--                                    <a class="events-title" href="/events/{{entry.slug}}">-->
+<!--                                        <div class="events-date">-->
 
-                                            {% if entry.start == '2026-09-25T09:07:29' %} autumn {{entry.start|date("Y")}} {% else %}
+<!--                                            {% if entry.start == '2026-09-25T09:07:29' %} autumn {{entry.start|date("Y")}} {% else %}-->
 
-                                            {% if entry.start|date("j") != entry.end|date("j") %} {{entry.start|date("j")}}-{{entry.end|date("j")}}{% else %}{{entry.start|date("j")}}{% endif %}
-
-
-                                            {{entry.start|date("M Y")}}
+<!--                                            {% if entry.start|date("j") != entry.end|date("j") %} {{entry.start|date("j")}}-{{entry.end|date("j")}}{% else %}{{entry.start|date("j")}}{% endif %}-->
 
 
-                                            {% endif %}
+<!--                                            {{entry.start|date("M Y")}}-->
 
-                                        </div>
-                                        <div class="title">
-                                            <h3>{{ entry.title|raw}}</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        </div>
-                </div>
-            </div>
+
+<!--                                            {% endif %}-->
+
+<!--                                        </div>-->
+<!--                                        <div class="title">-->
+<!--                                            <h3>{{ entry.title|raw}}</h3>-->
+<!--                                        </div>-->
+<!--                                    </a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            {% endfor %}-->
+<!--                        </div>-->
+<!--                </div>-->
+<!--            </div>-->
             {% endif %}
 
 
@@ -198,65 +294,67 @@ $this['slug'] = $this->param('slug');
 
             </div>
 
-            <div class="upcoming_events_container">
-                <div class="row highligts-row">
-                    <div class="col-md-7 col-xs-12 latest-events">
-                        {% if exhibitions|length %}
-                        <div class="events-card">
-                            <div class="img-container">
-                                <a href="/{{currentLang}}/events/{{exhibitions.first.slug}}">
-                                    <img src="{{exhibitions.first.cover_image.thumb(758, 605,{'mode':'crop'})}}" alt="{{ exhibitions.first.title }}">
-                                </a>
+            {% partial 'eventslist' records=exhibitions %}
 
-                                <a class="events-title" href="/events/{{exhibitions.first.slug}}">
-                                    <div class="events-date">
-                                        {{exhibitions.first.start|date("j M")}} - {{exhibitions.first.end|date("j M Y")}}
+<!--            <div class="upcoming_events_container">-->
+<!--                <div class="row highligts-row">-->
+<!--                    <div class="col-md-7 col-xs-12 latest-events">-->
+<!--                        {% if exhibitions|length %}-->
+<!--                        <div class="events-card">-->
+<!--                            <div class="img-container">-->
+<!--                                <a href="/{{currentLang}}/events/{{exhibitions.first.slug}}">-->
+<!--                                    <img src="{{exhibitions.first.cover_image.thumb(758, 605,{'mode':'crop'})}}" alt="{{ exhibitions.first.title }}">-->
+<!--                                </a>-->
 
-                                        <!--{% if exhibitions.first.start|date("j") != exhibitions.first.end|date("j") %} {{exhibitions.first.start|date("j")}}-{{exhibitions.first.end|date("j")}}{% else %}{{exhibitions.first.start|date("j")}}{% endif %}
-                                        {{exhibitions.first.start|date("M Y")}}-->
-                                    </div>
-                                    <div class="title">
-                                        <h3>{{ exhibitions.first.title|raw}}</h3>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        {% endif %}
-                    </div>
+<!--                                <a class="events-title" href="/events/{{exhibitions.first.slug}}">-->
+<!--                                    <div class="events-date">-->
+<!--                                        {{exhibitions.first.start|date("j M")}} - {{exhibitions.first.end|date("j M Y")}}-->
 
-                    <div class="col-md-5 col-xs-12 highlight-events">
-                        {% for entry in exhibitions|slice(1, 2) %}
-                        <div class="row events-card">
-                            <div class="img-container">
-                                <a href="/{{currentLang}}/events/{{entry.slug}}">
-                                    <img src="{{entry.cover_image.thumb(537, 289,{'mode':'crop'})}}" alt="{{ entry.title }}">
-                                </a>
+<!--                                        &lt;!&ndash;{% if exhibitions.first.start|date("j") != exhibitions.first.end|date("j") %} {{exhibitions.first.start|date("j")}}-{{exhibitions.first.end|date("j")}}{% else %}{{exhibitions.first.start|date("j")}}{% endif %}-->
+<!--                                        {{exhibitions.first.start|date("M Y")}}&ndash;&gt;-->
+<!--                                    </div>-->
+<!--                                    <div class="title">-->
+<!--                                        <h3>{{ exhibitions.first.title|raw}}</h3>-->
+<!--                                    </div>-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        {% endif %}-->
+<!--                    </div>-->
 
-                                <a class="events-title" href="/events/{{entry.slug}}">
-                                    <div class="events-date">
+<!--                    <div class="col-md-5 col-xs-12 highlight-events">-->
+<!--                        {% for entry in exhibitions|slice(1, 2) %}-->
+<!--                        <div class="row events-card">-->
+<!--                            <div class="img-container">-->
+<!--                                <a href="/{{currentLang}}/events/{{entry.slug}}">-->
+<!--                                    <img src="{{entry.cover_image.thumb(537, 289,{'mode':'crop'})}}" alt="{{ entry.title }}">-->
+<!--                                </a>-->
 
-                                        {{entry.start|date("j M Y")}} - {{entry.end|date("j M Y")}}
+<!--                                <a class="events-title" href="/events/{{entry.slug}}">-->
+<!--                                    <div class="events-date">-->
 
-                                        <!--{% if entry.start|date("j") != entry.end|date("j") %} {{entry.start|date("j")}}-{{entry.end|date("j")}}{% else %}{{entry.start|date("j")}}{% endif %}
+<!--                                        {{entry.start|date("j M Y")}} - {{entry.end|date("j M Y")}}-->
 
-                                        {{entry.start|date("M Y")}}-->
+<!--                                        &lt;!&ndash;{% if entry.start|date("j") != entry.end|date("j") %} {{entry.start|date("j")}}-{{entry.end|date("j")}}{% else %}{{entry.start|date("j")}}{% endif %}-->
+
+<!--                                        {{entry.start|date("M Y")}}&ndash;&gt;-->
 
 
-                                    </div>
-                                    <div class="title">
-                                        <h3>{{ entry.title|raw}}</h3>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
+<!--                                    </div>-->
+<!--                                    <div class="title">-->
+<!--                                        <h3>{{ entry.title|raw}}</h3>-->
+<!--                                    </div>-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        {% endfor %}-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
             {% endif %}
 
 
-            {% if entries.count %}
+<!--            {% if all_records.count %}-->
 
             <div class="mt-4 no-padding">
                 <div class="row">
@@ -266,22 +364,14 @@ $this['slug'] = $this->param('slug');
                 </div>
 
             </div>
-
-                    {% partial 'eventslist' records=entries %}
-
-
-                    {% if entries.count > 20 %}
-                    <div class="row container">
-                        {{ entries.fragment('listView').render|raw }}
+                    <div class="row" id="recordsContainer">
                     </div>
-                    {% endif %}
-
-            {% endif %}
+<!--            {% endif %}-->
         </div>
-        <div class="row" id="calendarView">
-            <!--<iframe src="https://calendar.google.com/calendar/embed?src=motive.project.stat%40gmail.com&ctz=Europe%2FSofia" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>-->
-            {% component 'calendar' %}
-        </div>
+<!--        <div class="row" id="calendarView">-->
+<!--            &lt;!&ndash;<iframe src="https://calendar.google.com/calendar/embed?src=motive.project.stat%40gmail.com&ctz=Europe%2FSofia" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>&ndash;&gt;-->
+<!--            {% component 'calendar' %}-->
+<!--        </div>-->
     </div>
 
 </div>
@@ -320,7 +410,10 @@ $this['slug'] = $this->param('slug');
                                 {% endif %}
 
 
-            <br><br>{{entry.place}}</div>
+
+            <br><br>{{entry.place}}
+            <br><br>{{entry.institution}}
+            </div>
         </div>
         <div class="col-xs-12 news-title">
             <h1 class="single-new-title">{{entry.title}}</h1>

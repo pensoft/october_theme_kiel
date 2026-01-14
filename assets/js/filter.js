@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var search_i = $('#searchInput').selectize({
+    var search_i = $('#searchTerms, #searchTarget, #searchTheme').selectize({
         plugins: ["clear_button", "remove_button", "restore_on_backspace"],
         create: true,
         valueField: 'value',
@@ -10,7 +10,7 @@ $(document).ready(function() {
                 callback([]);
                 return;
             }
-            $.request('onSearchRecords', {
+            $.request('onSearchEvents', {
                 data: {query: query},
                 success: function (response) {
                     callback(response);
@@ -27,18 +27,18 @@ $(document).ready(function() {
         loadThrottle: 300,
         noResultsText: 'No results found',
         onChange: function (value) {
-            updateLibraryList();
+            updateEventsList();
         }
     });
 
-// $('#dateFrom').on('change', updateLibraryList());
-// $('#dateTo').on('change', updateLibraryList());
+// $('#dateFrom').on('change', updateEventsList());
+// $('#dateTo').on('change', updateEventsList());
 
     var dateFormat = 'yy-mm-dd';
     $('#dateFrom').datepicker({
         dateFormat: dateFormat,
         onSelect: function (value) {
-            updateLibraryList();
+            updateEventsList();
         }
     }).keyup(function(e) {
         if(e.keyCode == 8 || e.keyCode == 46) {
@@ -48,7 +48,7 @@ $(document).ready(function() {
     $('#dateTo').datepicker({
         dateFormat: dateFormat,
         onSelect: function (value) {
-            updateLibraryList();
+            updateEventsList();
         }
     }).keyup(function(e) {
         if(e.keyCode == 8 || e.keyCode == 46) {
@@ -70,28 +70,40 @@ $(document).ready(function() {
                 from.datepicker("option", "maxDate", getDate(this));
             });
 
-    var select = $('#sortFormat, #sortProject').selectize({
+    var select = $('#sortCategory, #sortCountry, #sortTarget, #sortTheme').selectize({
         onChange: function(value) {
-            updateLibraryList();
+            updateEventsList();
         }
     });
 
-    $('#applyFilter').on('click', updateLibraryList());
+    $('#applyFilter').on('click', updateEventsList());
 
     $('#clearFilter').on('click',function() {
         $('#dateFrom').val('');
         $('#dateTo').val('');
         // $('#searchInput').val('');
         // $('#sortFormat').val(0);
-        // $('#sortProject').val(0);
+        $('#sortCategory').val(0);
+        $('#sortCountry').val(0);
+        $('#sortTarget').val(0);
+        $('#sortTheme').val(0);
         var selectize = select[0].selectize;
         var selectize1 = select[1].selectize;
+        var selectize2 = select[2].selectize;
+        var selectize3 = select[3].selectize;
 
         var searchinput = search_i[0].selectize;
+        var searchtarget = search_i[1].selectize;
+        var searchtheme = search_i[2].selectize;
+
         searchinput.clear();
+        searchtarget.clear();
+        searchtheme.clear();
         selectize.setValue(0);
         selectize1.setValue(0);
-        updateLibraryList();
+        selectize2.setValue(0);
+        selectize3.setValue(0);
+        updateEventsList();
     });
 
     var urlParams = window.location.search.substring(1).split('&');
@@ -103,7 +115,7 @@ $(document).ready(function() {
             if(typeof paramVal !== 'undefined'){
                 var selectize = select[i].selectize;
                 selectize.setValue(paramVal);
-                updateLibraryList();
+                updateEventsList();
             }
         }
 
@@ -127,43 +139,50 @@ function getDate( element ) {
 
 
 
-function updateLibraryList() {
-    var sortProject = $('#sortProject').val();
+function updateEventsList() {
+    var sortCategory = $('#sortCategory').val();
+    var sortCountry = $('#sortCountry').val();
+    var sortTarget = $('#sortTarget').val();
+    var sortTheme = $('#sortTheme').val();
 
-    if($('#sortProject').length == 0){
-        sortProject = 2;
-    }
-
-    var sortFormat = $('#sortFormat').val();
+    // if($('#sortCategory').length == 0){
+    //     sortCategory = 2;
+    // }
+    //
+    // var sortFormat = $('#sortFormat').val();
 
     var dateFrom = $('#dateFrom').val();
     var dateTo = $('#dateTo').val();
-    var searchTerm = $('#searchInput').val();
+    var searchTerm = $('#searchTerms').val();
+    var searchTarget = $('#searchTarget').val();
+    var searchTheme = $('#searchTheme').val();
 
-    $.request('onSearchRecords', {
+    $.request('onSearchEvents', {
         data: {
             searchTerms: searchTerm,
-            sortFormat: sortFormat,
-            sortProject: sortProject,
+            sortCategory: sortCategory,
+            sortCountry: sortCountry,
+            sortTarget: sortTarget,
+            sortTheme: sortTheme,
             dateFrom: dateFrom,
             dateTo: dateTo,
         },
-        update: { 'library_records': '#recordsContainer' }
+        update: { 'eventslist': '#recordsContainer' }
     });
 }
 
-
-function getUrlParams(){
-    var params = window.location.search.substring(1).split('&');
-    console.log(params);
-    var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-    // var urlparam = [];
-    // for (var i = 0; i < url.length; i++) {
-    //     urlparam[] = url[i];
-    //
-    // }
-    // return urlparam;
-}
+//
+// function getUrlParams(){
+//     var params = window.location.search.substring(1).split('&');
+//     console.log(params);
+//     var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+//     // var urlparam = [];
+//     // for (var i = 0; i < url.length; i++) {
+//     //     urlparam[] = url[i];
+//     //
+//     // }
+//     // return urlparam;
+// }
 
 
 $(document).keydown(function(e) {

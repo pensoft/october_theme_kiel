@@ -4,7 +4,11 @@
     <div class="col-md-6 col-xs-12 highlight-events">
         <div class="img-container">
             <a href="/{{currentLang}}/events/{{entry.slug}}">
+                {% if entry.cover_image %}
                 <img src="{{entry.cover_image.thumb(647, 345,{'mode':'crop'})}}" alt="{{ entry.title }}">
+                {% else %}
+                <img src="{{'events_default.jpeg'|media}}" alt="{{ entry.title }}">
+                {% endif %}
             </a>
 
             <a class="events-title" href="/{{currentLang}}/events/{{entry.slug}}">
@@ -33,7 +37,7 @@
     {% endfor %}
 </div>
 
-{% if records.count > 2 %}
+{% if records.count > 20 %}
 <div class="row container">
     {{ entries.fragment('listView').render|raw }}
 </div>
