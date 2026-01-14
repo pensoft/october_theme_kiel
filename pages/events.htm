@@ -79,6 +79,14 @@ $exhibitions = Entry::where('is_internal', false)
 
 $this['exhibitions'] = $exhibitions;
 
+// Timeline highlights for top section (same as home page)
+$this['timeline_highlights'] = Entry::where('end', '>', Carbon::now())
+    ->where('show_on_timeline', true)
+    ->where('is_internal', false)
+    ->orderBy('start', 'asc')
+    ->take(3)
+    ->get();
+
 // Highlights (upcoming, exclude exhibitions)
 $exhibitionIds = $exhibitions->pluck('id')->toArray();
 
@@ -110,6 +118,72 @@ $this['slug'] = $this->param('slug');
 ?>
 ==
 {% if not slug %}
+
+{% if timeline_highlights.count %}
+<div class="upcoming_events_container">
+    <div class="container mb-0 pb-0">
+        <div class="row nav-row">
+            <div class="col-md-9 col-xs-12 start-md center-xs">
+                <h1>{{ 'HIGHLIGHTS 2026'|_ }}</h1>
+            </div>
+            <div class="col-md-3 col-xs-12 view-all-button">
+                <div class="tabs">
+                     <a class="" href="#listView"></a>
+                     <a class="" href="#calendarView"></a>
+                 </div>
+              </div>
+        </div>
+    </div>
+
+    <div class="container home-container">
+        <div class="row highligts-row">
+            <div class="col-md-8 col-xs-12 latest-events">
+                {% if timeline_highlights|length %}
+                <div class="events-card">
+                    <div class="img-container">
+                        <a href="/{{currentLang}}/events/{{timeline_highlights[0].slug}}">
+                            <img src="{{timeline_highlights[0].cover_image.thumb(868, 521,{'mode':'crop'})}}" alt="{{ timeline_highlights[0].title }}">
+                        </a>
+                        <a class="events-title" href="/{{currentLang}}/events/{{timeline_highlights[0].slug}}">
+                            <div class="events-date">
+                                {% if timeline_highlights[0].start|date("j") != timeline_highlights[0].end|date("j") %}{{timeline_highlights[0].start|date("j")}}-{{timeline_highlights[0].end|date("j")}}{% else %}{{timeline_highlights[0].start|date("j")}}{% endif %}
+                                {{timeline_highlights[0].start|date("M Y")}}
+                            </div>
+                            <div class="title">
+                                <h3>{{ timeline_highlights[0].title|raw}}</h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="col-md-4 col-xs-12 highlight-events">
+                {% for entry in timeline_highlights|slice(1, 2) %}
+                <div class="row events-card">
+                    <div class="img-container">
+                        <a href="/{{currentLang}}/events/{{entry.slug}}">
+                            <img src="{{entry.cover_image.thumb(426, 246,{'mode':'crop'})}}" alt="{{ entry.title }}">
+                        </a>
+                        <a class="events-title" href="/{{currentLang}}/events/{{entry.slug}}">
+                            <div class="events-date">
+                                {% if entry.start == '2026-09-25T09:07:29' %}{{ 'autumn'|_}} {{entry.start|date("Y")}}{% else %}
+                                    {% if entry.start|date("j") != entry.end|date("j") %}{{entry.start|date("j")}}-{{entry.end|date("j")}}{% else %}{{entry.start|date("j")}}{% endif %}
+                                    {{entry.start|date("M Y")}}
+                                {% endif %}
+                            </div>
+                            <div class="title">
+                                <h3>{{ entry.title|raw}}</h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 <div class="container-fluid events">
 
@@ -209,10 +283,10 @@ $this['slug'] = $this->param('slug');
                 <h1>{{'COMING SOON'|_}}</h1>
             </div>
             <div class="col-md-3 col-xs-12 view-all-button">
-<!--                <div class="tabs">-->
-<!--                    <a class="" href="#listView"></a>-->
-<!--                    <a class="" href="#calendarView"></a>-->
-<!--                </div>-->
+              <div class="tabs">
+                   <a class="" href="#listView"></a>
+                   <a class="" href="#calendarView"></a>
+               </div>
             </div>
         </div>
     </div>
@@ -222,64 +296,6 @@ $this['slug'] = $this->param('slug');
         <div class="row" id="listView">
             {% if highlights.count %}
             {% partial 'eventslist' records=highlights %}
-<!--            <div class="upcoming_events_container">-->
-
-
-<!--                    <div class="row highligts-row">-->
-<!--                        <div class="col-md-7 col-xs-12 latest-events">-->
-<!--                            {% if highlights|length %}-->
-<!--                            <div class="events-card">-->
-<!--                                <div class="img-container">-->
-<!--                                    <a href="/{{currentLang}}/events/{{highlights[0].slug}}">-->
-<!--                                        <img src="{{highlights[0].cover_image.thumb(758, 605,{'mode':'crop'})}}" alt="{{ highlights[0].title }}">-->
-<!--                                    </a>-->
-
-<!--                                    <a class="events-title" href="/events/{{highlights[0].slug}}">-->
-<!--                                        <div class="events-date">-->
-<!--                                            {% if highlights[0].start|date("j") != highlights[0].end|date("j") %} {{highlights[0].start|date("j")}}-{{highlights[0].end|date("j")}}{% else %}{{highlights[0].start|date("j")}}{% endif %}-->
-<!--                                            {{highlights[0].start|date("M Y")}}-->
-<!--                                        </div>-->
-<!--                                        <div class="title">-->
-<!--                                            <h3>{{ highlights[0].title|raw}}</h3>-->
-<!--                                        </div>-->
-<!--                                    </a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            {% endif %}-->
-<!--                        </div>-->
-
-<!--                        <div class="col-md-5 col-xs-12 highlight-events">-->
-<!--                            {% for entry in highlights|slice(1, 2) %}-->
-<!--                            <div class="row events-card">-->
-<!--                                <div class="img-container">-->
-<!--                                    <a href="/{{currentLang}}/events/{{entry.slug}}">-->
-<!--                                        <img src="{{entry.cover_image.thumb(537, 289,{'mode':'crop'})}}" alt="{{ entry.title }}">-->
-<!--                                    </a>-->
-
-<!--                                    <a class="events-title" href="/events/{{entry.slug}}">-->
-<!--                                        <div class="events-date">-->
-
-<!--                                            {% if entry.start == '2026-09-25T09:07:29' %} autumn {{entry.start|date("Y")}} {% else %}-->
-
-<!--                                            {% if entry.start|date("j") != entry.end|date("j") %} {{entry.start|date("j")}}-{{entry.end|date("j")}}{% else %}{{entry.start|date("j")}}{% endif %}-->
-
-
-<!--                                            {{entry.start|date("M Y")}}-->
-
-
-<!--                                            {% endif %}-->
-
-<!--                                        </div>-->
-<!--                                        <div class="title">-->
-<!--                                            <h3>{{ entry.title|raw}}</h3>-->
-<!--                                        </div>-->
-<!--                                    </a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            {% endfor %}-->
-<!--                        </div>-->
-<!--                </div>-->
-<!--            </div>-->
             {% endif %}
 
 
@@ -295,66 +311,8 @@ $this['slug'] = $this->param('slug');
             </div>
 
             {% partial 'eventslist' records=exhibitions %}
-
-<!--            <div class="upcoming_events_container">-->
-<!--                <div class="row highligts-row">-->
-<!--                    <div class="col-md-7 col-xs-12 latest-events">-->
-<!--                        {% if exhibitions|length %}-->
-<!--                        <div class="events-card">-->
-<!--                            <div class="img-container">-->
-<!--                                <a href="/{{currentLang}}/events/{{exhibitions.first.slug}}">-->
-<!--                                    <img src="{{exhibitions.first.cover_image.thumb(758, 605,{'mode':'crop'})}}" alt="{{ exhibitions.first.title }}">-->
-<!--                                </a>-->
-
-<!--                                <a class="events-title" href="/events/{{exhibitions.first.slug}}">-->
-<!--                                    <div class="events-date">-->
-<!--                                        {{exhibitions.first.start|date("j M")}} - {{exhibitions.first.end|date("j M Y")}}-->
-
-<!--                                        &lt;!&ndash;{% if exhibitions.first.start|date("j") != exhibitions.first.end|date("j") %} {{exhibitions.first.start|date("j")}}-{{exhibitions.first.end|date("j")}}{% else %}{{exhibitions.first.start|date("j")}}{% endif %}-->
-<!--                                        {{exhibitions.first.start|date("M Y")}}&ndash;&gt;-->
-<!--                                    </div>-->
-<!--                                    <div class="title">-->
-<!--                                        <h3>{{ exhibitions.first.title|raw}}</h3>-->
-<!--                                    </div>-->
-<!--                                </a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        {% endif %}-->
-<!--                    </div>-->
-
-<!--                    <div class="col-md-5 col-xs-12 highlight-events">-->
-<!--                        {% for entry in exhibitions|slice(1, 2) %}-->
-<!--                        <div class="row events-card">-->
-<!--                            <div class="img-container">-->
-<!--                                <a href="/{{currentLang}}/events/{{entry.slug}}">-->
-<!--                                    <img src="{{entry.cover_image.thumb(537, 289,{'mode':'crop'})}}" alt="{{ entry.title }}">-->
-<!--                                </a>-->
-
-<!--                                <a class="events-title" href="/events/{{entry.slug}}">-->
-<!--                                    <div class="events-date">-->
-
-<!--                                        {{entry.start|date("j M Y")}} - {{entry.end|date("j M Y")}}-->
-
-<!--                                        &lt;!&ndash;{% if entry.start|date("j") != entry.end|date("j") %} {{entry.start|date("j")}}-{{entry.end|date("j")}}{% else %}{{entry.start|date("j")}}{% endif %}-->
-
-<!--                                        {{entry.start|date("M Y")}}&ndash;&gt;-->
-
-
-<!--                                    </div>-->
-<!--                                    <div class="title">-->
-<!--                                        <h3>{{ entry.title|raw}}</h3>-->
-<!--                                    </div>-->
-<!--                                </a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        {% endfor %}-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
             {% endif %}
 
-
-<!--            {% if all_records.count %}-->
 
             <div class="mt-4 no-padding">
                 <div class="row">
@@ -366,12 +324,7 @@ $this['slug'] = $this->param('slug');
             </div>
                     <div class="row" id="recordsContainer">
                     </div>
-<!--            {% endif %}-->
         </div>
-<!--        <div class="row" id="calendarView">-->
-<!--            &lt;!&ndash;<iframe src="https://calendar.google.com/calendar/embed?src=motive.project.stat%40gmail.com&ctz=Europe%2FSofia" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>&ndash;&gt;-->
-<!--            {% component 'calendar' %}-->
-<!--        </div>-->
     </div>
 
 </div>
