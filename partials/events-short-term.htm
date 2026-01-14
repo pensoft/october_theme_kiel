@@ -13,12 +13,12 @@
         <div class="card-content">
             <div class="event-date">{{ entry.start|date("d.m.Y") }}</div>
             <h3><a href="/{{currentLang}}/events/{{entry.slug}}">{{ entry.title|raw }}</a></h3>
+            {% if entry.institution %}
             <div class="event-organiser">
                 <span class="label">{{ 'ORGANISED BY:'|_ }}</span>
-                {% if entry.institution %}
                 <span class="value">{{ entry.institution }}</span>
-                {% endif %}
             </div>
+            {% endif %}
         </div>
     </div>
     {% endfor %}

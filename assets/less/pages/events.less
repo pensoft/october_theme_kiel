@@ -1089,6 +1089,11 @@
     margin-bottom: 30px;
     transition: all 0.2s ease-in-out;
 
+    .breakpoint-large-down({
+        flex-direction: column;
+        gap: 15px;
+    });
+
     &:hover {
         transform: translateY(-2px);
     }
@@ -1112,8 +1117,9 @@
         }
 
         .breakpoint-large-down({
-            width: 200px;
-            height: 117px;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16/9;
         });
     }
 
@@ -1246,6 +1252,12 @@
         display: flex;
         gap: 12px;
         align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .breakpoint-large-down({
+            gap: 6px;
+        });
 
         // Page numbers - no border
         .pagination-link {
@@ -1259,6 +1271,11 @@
             padding: 5px 8px;
             text-decoration: none;
             transition: all 0.2s ease-in-out;
+
+            .breakpoint-large-down({
+                font-size: 16px;
+                padding: 4px 6px;
+            });
 
             &:hover {
                 color: @link-color;
@@ -1284,6 +1301,11 @@
             border-radius: 10px;
             text-decoration: none;
             transition: all 0.2s ease-in-out;
+
+            .breakpoint-large-down({
+                width: 36px;
+                height: 36px;
+            });
 
             img {
                 width: 12px;
