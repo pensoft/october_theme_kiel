@@ -70,6 +70,7 @@ $this['page_url'] = $this->pageUrl('');
 
 // Get ALL ongoing events (>= 100 days duration) for exclusion purposes
 $allOngoingEvents = Entry::where('is_internal', false)
+                    ->where('end', '>', Carbon::now())
                     ->orderBy('start', 'asc')
                     ->get()
                     ->filter(function ($item) {
