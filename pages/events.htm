@@ -121,6 +121,15 @@ $this['slug'] = $this->param('slug');
 ==
 {% if not slug %}
 
+<div class="container events-tabs-wrapper">
+    <div class="tabs">
+        <a class="active" href="#listView"></a>
+        <a class="" href="#calendarView"></a>
+    </div>
+</div>
+
+<div id="listView">
+
 {% if timeline_highlights.count %}
 <div class="upcoming_events_container">
     <div class="container mb-0 pb-0">
@@ -128,12 +137,6 @@ $this['slug'] = $this->param('slug');
             <div class="col-md-9 col-xs-12 start-md center-xs">
                 <h1>{{ 'HIGHLIGHTS 2026'|_ }}</h1>
             </div>
-            <div class="col-md-3 col-xs-12 view-all-button">
-                <div class="tabs">
-                     <a class="" href="#listView"></a>
-                     <a class="" href="#calendarView"></a>
-                 </div>
-              </div>
         </div>
     </div>
 
@@ -245,30 +248,14 @@ $this['slug'] = $this->param('slug');
                     <div class="clear-filter">
                         <a id="clearFilter" href="javascript:void(0);">{{'Clear all' |_}}</a>
                     </div>
-                    <div class="apply-filter">
-                        <a id="applyFilter" class="btn btn-primary">{{'Apply filter' |_}}</a>
-                    </div>
                 </div>
-            </div>
-        </div>
-
-
-        <div class="row nav-row">
-            <div class="col-md-9 col-xs-12 start-md center-xs">
-                <h1>{{'COMING SOON'|_}}</h1>
-            </div>
-            <div class="col-md-3 col-xs-12 view-all-button">
-              <div class="tabs">
-                   <a class="" href="#listView"></a>
-                   <a class="" href="#calendarView"></a>
-               </div>
             </div>
         </div>
     </div>
 
 
     <div class="container events_container two-column-layout">
-        <div class="row" id="listView">
+        <div class="row">
             <!-- Left Column: Short-Term Events -->
             <div class="col-md-8 col-xs-12 short-term-column">
                 <h2>{{'SHORT-TERMED EVENTS'|_}}</h2>
@@ -287,6 +274,13 @@ $this['slug'] = $this->param('slug');
 
 </div>
 
+</div><!-- End #listView -->
+
+<div id="calendarView" style="display: none;">
+    <div class="container calendar-container">
+        <!-- {% component 'calendar' %} -->
+    </div>
+</div>
 
 {% else %}
 

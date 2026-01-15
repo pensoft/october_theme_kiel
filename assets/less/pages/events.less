@@ -110,6 +110,22 @@
     }
 }
 
+/* Top-level tabs wrapper for page-wide view switching */
+.events-tabs-wrapper {
+    padding: 20px 0;
+    display: flex;
+    justify-content: flex-end;
+
+    .breakpoint-large-down({
+        justify-content: center;
+    });
+
+    .tabs {
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
 .events .tabs{
     width: 100%;
     display: flex;
@@ -1388,6 +1404,16 @@
             &:hover {
                 background: #F4F6FC;
                 color: inherit;
+            }
+
+            &.disabled {
+                border-color: #CCCCCC;
+                cursor: default;
+                opacity: 0.5;
+
+                &:hover {
+                    background: @white-color;
+                }
             }
         }
 

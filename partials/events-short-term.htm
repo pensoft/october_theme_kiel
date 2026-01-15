@@ -31,6 +31,10 @@
         <a href="javascript:void(0);" class="pagination-link pagination-prev" data-page="{{ records.currentPage - 1 }}">
             <img src="{{ 'assets/images/pagination-arrow.svg'|theme }}" alt="Previous">
         </a>
+        {% else %}
+        <span class="pagination-link pagination-prev disabled">
+            <img src="{{ 'assets/images/pagination-arrow.svg'|theme }}" alt="Previous">
+        </span>
         {% endif %}
 
         {% for i in 1..records.lastPage %}
@@ -45,6 +49,10 @@
         <a href="javascript:void(0);" class="pagination-link pagination-next" data-page="{{ records.currentPage + 1 }}">
             <img src="{{ 'assets/images/pagination-arrow.svg'|theme }}" alt="Next">
         </a>
+        {% else %}
+        <span class="pagination-link pagination-next disabled">
+            <img src="{{ 'assets/images/pagination-arrow.svg'|theme }}" alt="Next">
+        </span>
         {% endif %}
     </nav>
 </div>
