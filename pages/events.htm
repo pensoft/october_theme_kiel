@@ -64,7 +64,7 @@ function onStart(){
 
 }
 $this['page_url'] = $this->pageUrl('');
-$this['google_calendar_events'] = Event::get();
+//$this['google_calendar_events'] = Event::get();
 //$this['google_calendar_events_test'] = Event::get(null, null, [], getenv('GOOGLE_CALENDAR_TEST_ID'));
 
 
@@ -123,10 +123,10 @@ $this['slug'] = $this->param('slug');
 
 <div class="container events-tabs-wrapper">
     <h1 class="view-title" data-list-text="{{ 'HIGHLIGHTS 2026'|_ }}" data-calendar-text="{{ 'CALENDAR'|_ }}">{{ 'HIGHLIGHTS 2026'|_ }}</h1>
-    <div class="tabs">
-        <a class="active" href="#listView"></a>
-        <a class="" href="#calendarView"></a>
-    </div>
+<!--    <div class="tabs">-->
+<!--        <a class="active" href="#listView"></a>-->
+<!--        <a class="" href="#calendarView"></a>-->
+<!--    </div>-->
 </div>
 
 <div id="listView">
@@ -140,7 +140,7 @@ $this['slug'] = $this->param('slug');
                 <div class="events-card">
                     <div class="img-container">
                         <a href="/{{currentLang}}/events/{{timeline_highlights[0].slug}}">
-                            <img src="{{timeline_highlights[0].cover_image.thumb(868, 521,{'mode':'crop'})}}" alt="{{ timeline_highlights[0].title }}">
+                            <img src="{{timeline_highlights[0].cover_image.thumb(868, 605,{'mode':'crop'})}}" alt="{{ timeline_highlights[0].title }}">
                         </a>
                         <a class="events-title" href="/{{currentLang}}/events/{{timeline_highlights[0].slug}}">
                             <div class="events-date">
@@ -161,7 +161,7 @@ $this['slug'] = $this->param('slug');
                 <div class="row events-card">
                     <div class="img-container">
                         <a href="/{{currentLang}}/events/{{entry.slug}}">
-                            <img src="{{entry.cover_image.thumb(426, 246,{'mode':'crop'})}}" alt="{{ entry.title }}">
+                            <img src="{{entry.cover_image.thumb(426, 289,{'mode':'crop'})}}" alt="{{ entry.title }}">
                         </a>
                         <a class="events-title" href="/{{currentLang}}/events/{{entry.slug}}">
                             <div class="events-date">
@@ -271,11 +271,11 @@ $this['slug'] = $this->param('slug');
 
 </div><!-- End #listView -->
 
-<div id="calendarView" style="display: none;">
-    <div class="container calendar-container">
-        {% component 'calendar' %}
-    </div>
-</div>
+<!--<div id="calendarView" style="display: none;">-->
+<!--    <div class="container calendar-container">-->
+<!--        {% component 'calendar' %}-->
+<!--    </div>-->
+<!--</div>-->
 
 {% else %}
 
