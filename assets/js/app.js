@@ -274,6 +274,10 @@ function elementScrolled(elem) {
             $active.addClass('active');
         }
 
+        if($(this).parent().hasClass('events-tabs-wrapper')){
+            $active.addClass('active');
+        }
+
         if($(this).parent().parent().hasClass('partners')){
             $active.addClass('active');
         }
@@ -281,6 +285,9 @@ function elementScrolled(elem) {
         if($(this).parent().parent().hasClass('engagement')){
             $active.addClass('active');
         }
+
+        // Remove active from other tabs on initial load
+        $links.not($active).removeClass('active');
 
         $content = $($active[0].hash);
 
@@ -342,6 +349,17 @@ function elementScrolled(elem) {
                 } else {
                     $viewTitle.text($viewTitle.data('list-text'));
                 }
+            }
+
+            // Re-render FullCalendar when calendar tab becomes visible
+            if (this.hash === '#calendarView') {
+                setTimeout(function() {
+                    var calendarEl = document.getElementById('calendar');
+                    if (calendarEl && calendarEl._calendar) {
+                        calendarEl._calendar.render();
+                        calendarEl._calendar.refetchEvents();
+                    }
+                }, 100);
             }
 
             // Prevent the anchor\'s default click action
