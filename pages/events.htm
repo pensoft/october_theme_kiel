@@ -68,16 +68,19 @@ $this['page_url'] = $this->pageUrl('');
 //$this['google_calendar_events_test'] = Event::get(null, null, [], getenv('GOOGLE_CALENDAR_TEST_ID'));
 
 
-// Long-term exhibitions (>= 100 days duration) - shown as "Ongoing Events" in sidebar
-$exhibitions = Entry::where('is_internal', false)
+// Get ALL ongoing events (>= 100 days duration) for exclusion purposes
+$allOngoingEvents = Entry::where('is_internal', false)
                     ->orderBy('start', 'asc')
                     ->get()
                     ->filter(function ($item) {
-                        return Carbon::parse($item->start)->diffInDays(Carbon::parse($item->end)) >= 100;
-                    })
-                ->take(4);
+                        return Carbon::parse($item->start)->diffInDays(Carbon::parse($item->end)) >= 8;
+                    });
 
-$this['exhibitions'] = $exhibitions;
+// Get all ongoing event IDs for exclusion from short-term list
+$ongoingEventIds = $allOngoingEvents->pluck('id')->toArray();
+
+// Only display first 4 ongoing events in the sidebar
+$this['exhibitions'] = $allOngoingEvents->take(4);
 
 // Timeline highlights for top section (same as home page)
 $this['timeline_highlights'] = Entry::where('end', '>', Carbon::now())
@@ -87,13 +90,11 @@ $this['timeline_highlights'] = Entry::where('end', '>', Carbon::now())
     ->take(3)
     ->get();
 
-// Highlights (upcoming, exclude exhibitions)
-$exhibitionIds = $exhibitions->pluck('id')->toArray();
-
+// Highlights (upcoming, exclude ongoing events)
 $highlights = Entry::where('end', '>', Carbon::now())
             ->where('is_internal', false)
             ->where('show_on_timeline', false)
-            ->whereNotIn('id', $exhibitionIds)
+            ->whereNotIn('id', $ongoingEventIds)
             ->orderBy('start', 'asc')
             ->take(3)
             ->get();
@@ -101,14 +102,29 @@ $highlights = Entry::where('end', '>', Carbon::now())
 $this['highlights'] = $highlights;
 
 
-// Short-term events (exclude exhibitions and highlights)
-$excludeIds = array_merge($exhibitionIds, $highlights->pluck('id')->toArray());
+// Short-term events (< 8 days duration, exclude ongoing events and highlights)
+$excludeIds = array_merge($ongoingEventIds, $highlights->pluck('id')->toArray());
 
 $this['all_records'] = Entry::whereNotIn('id', $excludeIds)
         ->where('is_internal', false)
         ->where('show_on_timeline', false)
         ->orderBy('start', 'asc')
-        ->paginate(4);
+        ->get()
+        ->filter(function ($item) {
+            return Carbon::parse($item->start)->diffInDays(Carbon::parse($item->end)) < 8;
+        })
+        ->values();
+
+// Paginate the filtered results manually
+$page = input('page', 1);
+$perPage = 4;
+$this['all_records'] = new \Illuminate\Pagination\LengthAwarePaginator(
+    $this['all_records']->forPage($page, $perPage),
+    $this['all_records']->count(),
+    $perPage,
+    $page,
+    ['path' => request()->url()]
+);
 
 $this['categories'] = Category::get();
 $this['countries'] = Country::isEnabled()->get();
@@ -123,10 +139,10 @@ $this['slug'] = $this->param('slug');
 
 <div class="container events-tabs-wrapper">
     <h1 class="view-title" data-list-text="{{ 'HIGHLIGHTS 2026'|_ }}" data-calendar-text="{{ 'CALENDAR'|_ }}">{{ 'HIGHLIGHTS 2026'|_ }}</h1>
-<!--    <div class="tabs">-->
-<!--        <a class="active" href="#listView"></a>-->
-<!--        <a class="" href="#calendarView"></a>-->
-<!--    </div>-->
+   <div class="tabs">
+<a class="active" href="#listView"></a>
+       <a class="" href="#calendarView"></a>
+    </div>
 </div>
 
 <div id="listView">
@@ -271,11 +287,11 @@ $this['slug'] = $this->param('slug');
 
 </div><!-- End #listView -->
 
-<!--<div id="calendarView" style="display: none;">-->
-<!--    <div class="container calendar-container">-->
-<!--        {% component 'calendar' %}-->
-<!--    </div>-->
-<!--</div>-->
+<div id="calendarView" style="display: none;">
+   <div class="container calendar-container">
+       {% component 'calendar' %}
+   </div>
+</div>
 
 {% else %}
 

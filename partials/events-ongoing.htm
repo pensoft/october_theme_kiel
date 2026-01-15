@@ -9,19 +9,7 @@
             {% endif %}
         </div>
         <div class="card-overlay">
-            <div class="event-date-badge">
-                {% if entry.start == '2026-09-25T09:07:29' %}
-                    {{ 'AUTUMN'|_ }} {{ entry.start|date("Y") }}
-                {% elseif entry.start|date("n") >= 9 and entry.start|date("n") <= 11 %}
-                    {{ 'AUTUMN'|_ }} {{ entry.start|date("Y") }}
-                {% elseif entry.start|date("n") >= 3 and entry.start|date("n") <= 5 %}
-                    {{ 'SPRING'|_ }} {{ entry.start|date("Y") }}
-                {% elseif entry.start|date("n") >= 6 and entry.start|date("n") <= 8 %}
-                    {{ 'SUMMER'|_ }} {{ entry.start|date("Y") }}
-                {% else %}
-                    {{ 'WINTER'|_ }} {{ entry.start|date("Y") }}
-                {% endif %}
-            </div>
+            <div class="event-date-badge">{% if entry.end and entry.start|date("d.m.Y") != entry.end|date("d.m.Y") %}{{ entry.start|date("d.m.Y") }} - {{ entry.end|date("d.m.Y") }}{% else %}{{ entry.start|date("d.m.Y") }}{% endif %}</div>
             <h4>{{ entry.title|raw }}</h4>
         </div>
     </a>
