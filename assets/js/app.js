@@ -255,7 +255,7 @@ function elementScrolled(elem) {
         }
     });
 
-    $('.events .tabs, .partners .tabs, .engagement .tabs').each(function(){
+    $('.events .tabs, .events-tabs-wrapper .tabs, .partners .tabs, .engagement .tabs').each(function(){
         // For each set of tabs, we want to keep track of
         // which tab is active and its associated content
         var $active, $content, $links = $(this).find('a');
@@ -333,6 +333,16 @@ function elementScrolled(elem) {
             $content.slideDown({
                 scrollTop: $content.offset().top - $('header').height()
             }, speed);
+
+            // Update view title for events page
+            var $viewTitle = $('.events-tabs-wrapper .view-title');
+            if ($viewTitle.length) {
+                if (this.hash === '#calendarView') {
+                    $viewTitle.text($viewTitle.data('calendar-text'));
+                } else {
+                    $viewTitle.text($viewTitle.data('list-text'));
+                }
+            }
 
             // Prevent the anchor\'s default click action
             e.preventDefault();

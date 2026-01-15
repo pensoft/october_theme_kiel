@@ -114,10 +114,22 @@
 .events-tabs-wrapper {
     padding: 20px 0;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
+
+    .view-title {
+        margin: 0;
+        font: normal normal normal 50px/52px Staatliches;
+        letter-spacing: 0px;
+        color: #05133A;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
 
     .breakpoint-large-down({
-        justify-content: center;
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
     });
 
     .tabs {
