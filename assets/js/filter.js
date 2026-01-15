@@ -73,6 +73,7 @@ $(document).ready(function() {
     var select = $('#sortCategory, #sortCountry, #sortTarget, #sortTheme').selectize({
         onChange: function(value) {
             updateEventsList();
+            renderActiveFilters();
         }
     });
 
@@ -104,6 +105,7 @@ $(document).ready(function() {
         selectize2.setValue(0);
         selectize3.setValue(0);
         updateEventsList();
+        renderActiveFilters();
     });
 
     var urlParams = window.location.search.substring(1).split('&');
@@ -215,4 +217,38 @@ $(document).on('click', '.pagination-wrapper .pagination-link', function(e) {
             scrollTop: $('#recordsContainer').offset().top - 100
         }, 300);
     }
+});
+
+// Render active filter chips
+function renderActiveFilters() {
+    var container = $('.active-filters');
+    container.empty();
+
+    var filters = [
+        { id: 'sortTarget', el: '#sortTarget' },
+        { id: 'sortTheme', el: '#sortTheme' },
+        { id: 'sortCountry', el: '#sortCountry' },
+        { id: 'sortCategory', el: '#sortCategory' }
+    ];
+
+    filters.forEach(function(filter) {
+        var $select = $(filter.el);
+        var value = $select.val();
+        if (value && value !== '0') {
+            var text = $select.find('option:selected').text();
+            var chip = $('<div class="filter-chip" data-filter="' + filter.id + '">' +
+                '<span class="chip-text">' + text + '</span>' +
+                '<span class="chip-remove">×</span>' +
+                '</div>');
+            container.append(chip);
+        }
+    });
+}
+
+// Handle chip remove click
+$(document).on('click', '.filter-chip .chip-remove', function() {
+    var filterId = $(this).closest('.filter-chip').data('filter');
+    var selectize = $('#' + filterId)[0].selectize;
+    selectize.setValue('0');
+    updateEventsList();
 });
