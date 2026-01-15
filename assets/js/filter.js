@@ -77,7 +77,7 @@ $(document).ready(function() {
         }
     });
 
-    $('#applyFilter').on('click', updateEventsList());
+    $('#applyFilter').on('click', function() { updateEventsList(); });
 
     $('#clearFilter').on('click',function() {
         $('#dateFrom').val('');
