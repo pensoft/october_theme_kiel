@@ -11,7 +11,7 @@
             </a>
         </div>
         <div class="card-content">
-            <div class="event-date">{{ entry.start|date("d.m.Y") }}</div>
+            <div class="event-date">{% if entry.end and entry.start|date("d.m.Y") != entry.end|date("d.m.Y") %}{{ entry.start|date("d.m.Y") }} - {{ entry.end|date("d.m.Y") }}{% else %}{{ entry.start|date("d.m.Y") }}{% endif %}</div>
             <h3><a href="/{{currentLang}}/events/{{entry.slug}}">{{ entry.title|raw }}</a></h3>
             {% if entry.institution %}
             <div class="event-organiser">
