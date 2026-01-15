@@ -93,13 +93,15 @@ $(document).ready(function() {
         var selectize2 = select[2].selectize;
         var selectize3 = select[3].selectize;
 
-        var searchinput = search_i[0].selectize;
-        var searchtarget = search_i[1].selectize;
-        var searchtheme = search_i[2].selectize;
-
-        searchinput.clear();
-        searchtarget.clear();
-        searchtheme.clear();
+        if (search_i.length > 0 && search_i[0].selectize) {
+            search_i[0].selectize.clear();
+        }
+        if (search_i.length > 1 && search_i[1].selectize) {
+            search_i[1].selectize.clear();
+        }
+        if (search_i.length > 2 && search_i[2].selectize) {
+            search_i[2].selectize.clear();
+        }
         selectize.setValue(0);
         selectize1.setValue(0);
         selectize2.setValue(0);
