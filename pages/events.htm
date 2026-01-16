@@ -109,6 +109,7 @@ $excludeIds = array_merge($ongoingEventIds, $highlights->pluck('id')->toArray())
 $this['all_records'] = Entry::whereNotIn('id', $excludeIds)
         ->where('is_internal', false)
         ->where('show_on_timeline', false)
+        ->where('end', '>', Carbon::now())
         ->orderBy('start', 'asc')
         ->get()
         ->filter(function ($item) {
