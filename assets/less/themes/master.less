@@ -794,9 +794,10 @@ ul.pagination{
                 left: 50%;
                 transform: translate(-50%, -50%);
                 padding-bottom: 0px;
-                height: 165px;
+                height: 240px;
                 .breakpoint-large-down({
                     max-width: 100%;
+                    height: 220px;
                 });
 
                 h1{
@@ -868,6 +869,55 @@ ul.pagination{
                         &:before{
                             background: transparent linear-gradient(89deg, @blue-color 0%, rgba(50, 104, 255, 0) 100%) 0% 0% no-repeat padding-box;
                         }
+                    }
+
+                    &.has-btn{
+                        padding-bottom: 70px;
+
+                        &:before{
+                            height: 340px;
+                            .breakpoint-large-down({
+                                height: 280px;
+                            });
+                        }
+                    }
+                }
+
+                .live-stream-btn {
+                    display: inline-flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 10px;
+                    width: 156px;
+                    height: 50px;
+                    background: #FFFFFF;
+                    border-radius: 20px;
+                    color: #3268FF;
+                    font-family: Inter;
+                    font-size: 16px;
+                    font-weight: 500;
+                    line-height: 1;
+                    letter-spacing: -0.24px;
+                    text-decoration: none;
+                    position: relative;
+                    margin-top: 15px;
+                    z-index: 2;
+                    white-space: nowrap;
+
+                    img {
+                        width: 21px !important;
+                        height: 15px !important;
+                        max-width: 21px !important;
+                        max-height: 15px !important;
+                        flex-shrink: 0;
+                        display: inline-block;
+                        object-fit: contain;
+                    }
+
+                    &:hover {
+                        opacity: 0.85;
+                        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
                     }
                 }
 

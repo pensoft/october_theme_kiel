@@ -943,6 +943,36 @@
                 }
             });
         }
+
+        &.date-field {
+            input {
+                background: @white-color url("../../assets/images/calendar-view-icon.svg") right 12px center no-repeat;
+                background-size: 18px;
+                border: 1px solid #CCCCCC;
+                border-radius: 8px;
+                padding: 10px 40px 10px 12px;
+                font-family: Inter;
+                font-weight: 300;
+                font-size: 16px;
+                line-height: 30px;
+                color: #5C5C5C;
+                min-width: 140px;
+                cursor: pointer;
+                outline: none;
+
+                &::placeholder {
+                    color: #5C5C5C;
+                }
+
+                &:focus {
+                    border-color: #3268FF;
+                }
+
+                .breakpoint-large-down({
+                    width: 100%;
+                });
+            }
+        }
     }
 }
 

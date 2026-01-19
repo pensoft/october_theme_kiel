@@ -39,20 +39,24 @@ $(document).ready(function() {
         dateFormat: dateFormat,
         onSelect: function (value) {
             updateEventsList();
+            renderActiveFilters();
         }
     }).keyup(function(e) {
         if(e.keyCode == 8 || e.keyCode == 46) {
             $.datepicker._clearDate(this);
+            renderActiveFilters();
         }
     });
     $('#dateTo').datepicker({
         dateFormat: dateFormat,
         onSelect: function (value) {
             updateEventsList();
+            renderActiveFilters();
         }
     }).keyup(function(e) {
         if(e.keyCode == 8 || e.keyCode == 46) {
             $.datepicker._clearDate(this);
+            renderActiveFilters();
         }
     });
 
@@ -245,12 +249,35 @@ function renderActiveFilters() {
             container.append(chip);
         }
     });
+
+    // Add date filters to the active filter chips
+    var dateFrom = $('#dateFrom').val();
+    var dateTo = $('#dateTo').val();
+    if (dateFrom) {
+        var chip = $('<div class="filter-chip" data-filter="dateFrom">' +
+            '<span class="chip-text">From: ' + dateFrom + '</span>' +
+            '<span class="chip-remove">×</span>' +
+            '</div>');
+        container.append(chip);
+    }
+    if (dateTo) {
+        var chip = $('<div class="filter-chip" data-filter="dateTo">' +
+            '<span class="chip-text">To: ' + dateTo + '</span>' +
+            '<span class="chip-remove">×</span>' +
+            '</div>');
+        container.append(chip);
+    }
 }
 
 // Handle chip remove click
 $(document).on('click', '.filter-chip .chip-remove', function() {
     var filterId = $(this).closest('.filter-chip').data('filter');
-    var selectize = $('#' + filterId)[0].selectize;
-    selectize.setValue('0');
+    if (filterId === 'dateFrom' || filterId === 'dateTo') {
+        $('#' + filterId).val('');
+    } else {
+        var selectize = $('#' + filterId)[0].selectize;
+        selectize.setValue('0');
+    }
     updateEventsList();
+    renderActiveFilters();
 });
