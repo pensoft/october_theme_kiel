@@ -81,7 +81,7 @@ $allOngoingEvents = Entry::where('is_internal', false)
 $ongoingEventIds = $allOngoingEvents->pluck('id')->toArray();
 
 // Only display first 4 ongoing events in the sidebar
-$this['exhibitions'] = $allOngoingEvents->take(10);
+$this['exhibitions'] = $allOngoingEvents->take(20);
 
 // Timeline highlights for top section (same as home page)
 $this['timeline_highlights'] = Entry::where('end', '>', Carbon::now())
