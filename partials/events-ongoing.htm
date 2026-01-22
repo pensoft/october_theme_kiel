@@ -3,7 +3,7 @@
     <a href="/{{currentLang}}/events/{{entry.slug}}" class="ongoing-card">
         <div class="card-image">
             {% if entry.cover_image %}
-            <img src="{{entry.cover_image.thumb(404, 204,{'mode':'crop'})}}" alt="{{ entry.title }}">
+            <img src="{{entry.cover_image|crop_image|resize(404, 204, { mode: 'crop' })}}" alt="{{ entry.title }}">
             {% else %}
             <img src="{{'sctt-general.png'|media}}" alt="{{ entry.title }}">
             {% endif %}

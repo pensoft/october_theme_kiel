@@ -81,7 +81,7 @@ $allOngoingEvents = Entry::where('is_internal', false)
 $ongoingEventIds = $allOngoingEvents->pluck('id')->toArray();
 
 // Only display first 4 ongoing events in the sidebar
-$this['exhibitions'] = $allOngoingEvents->take(4);
+$this['exhibitions'] = $allOngoingEvents->take(10);
 
 // Timeline highlights for top section (same as home page)
 $this['timeline_highlights'] = Entry::where('end', '>', Carbon::now())
@@ -158,7 +158,7 @@ $this['slug'] = $this->param('slug');
                 <div class="events-card">
                     <div class="img-container">
                         <a href="/{{currentLang}}/events/{{timeline_highlights[0].slug}}">
-                            <img src="{{timeline_highlights[0].cover_image.thumb(868, 605,{'mode':'crop'})}}" alt="{{ timeline_highlights[0].title }}">
+                            <img src="{{timeline_highlights[0].cover_image|crop_image|resize(868, 605, { mode: 'crop' })}}" alt="{{ timeline_highlights[0].title }}">
                         </a>
                         <a class="events-title" href="/{{currentLang}}/events/{{timeline_highlights[0].slug}}">
                             <div class="events-date">
@@ -179,7 +179,7 @@ $this['slug'] = $this->param('slug');
                 <div class="row events-card">
                     <div class="img-container">
                         <a href="/{{currentLang}}/events/{{entry.slug}}">
-                            <img src="{{entry.cover_image.thumb(426, 289,{'mode':'crop'})}}" alt="{{ entry.title }}">
+                            <img src="{{entry.cover_image|crop_image|resize(426, 289, { mode: 'crop' })}}" alt="{{ entry.title }}">
                         </a>
                         <a class="events-title" href="/{{currentLang}}/events/{{entry.slug}}">
                             <div class="events-date">
