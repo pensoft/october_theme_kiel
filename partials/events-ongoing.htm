@@ -15,3 +15,38 @@
     </a>
     {% endfor %}
 </div>
+
+
+{% if exhibitions.lastPage is defined and exhibitions.lastPage > 1 %}
+<div class="pagination-wrapper ongoing-pagination-wrapper">
+    <nav class="pagination">
+        {% if exhibitions.currentPage > 1 %}
+        <a href="javascript:void(0);" class="pagination-link pagination-prev" data-ongoing-page="{{ exhibitions.currentPage - 1 }}">
+            <img src="{{ 'assets/images/pagination-arrow.svg'|theme }}" alt="Previous">
+        </a>
+        {% else %}
+        <span class="pagination-link pagination-prev disabled">
+            <img src="{{ 'assets/images/pagination-arrow.svg'|theme }}" alt="Previous">
+        </span>
+        {% endif %}
+
+        {% for i in 1..exhibitions.lastPage %}
+        {% if i == exhibitions.currentPage %}
+        <span class="pagination-link active">{{ i }}</span>
+        {% else %}
+        <a href="javascript:void(0);" class="pagination-link" data-ongoing-page="{{ i }}">{{ i }}</a>
+        {% endif %}
+        {% endfor %}
+
+        {% if exhibitions.currentPage < exhibitions.lastPage %}
+        <a href="javascript:void(0);" class="pagination-link pagination-next" data-ongoing-page="{{ exhibitions.currentPage + 1 }}">
+            <img src="{{ 'assets/images/pagination-arrow.svg'|theme }}" alt="Next">
+        </a>
+        {% else %}
+        <span class="pagination-link pagination-next disabled">
+            <img src="{{ 'assets/images/pagination-arrow.svg'|theme }}" alt="Next">
+        </span>
+        {% endif %}
+    </nav>
+</div>
+{% endif %}

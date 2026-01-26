@@ -70,18 +70,27 @@ $this['page_url'] = $this->pageUrl('');
 
 // Get ALL ongoing events (>= 100 days duration) for exclusion purposes
 $allOngoingEvents = Entry::where('is_internal', false)
-                    ->where('end', '>', Carbon::now())
-                    ->orderBy('start', 'asc')
-                    ->get()
-                    ->filter(function ($item) {
-                        return Carbon::parse($item->start)->diffInDays(Carbon::parse($item->end)) >= 8;
-                    });
+            ->where('end', '>', Carbon::now())
+            ->orderBy('start', 'asc')
+            ->get()
+            ->filter(function ($item) {
+                return Carbon::parse($item->start)->diffInDays(Carbon::parse($item->end)) >= 8;
+            });
 
 // Get all ongoing event IDs for exclusion from short-term list
 $ongoingEventIds = $allOngoingEvents->pluck('id')->toArray();
 
-// Only display first 4 ongoing events in the sidebar
-$this['exhibitions'] = $allOngoingEvents->take(20);
+// Paginate ongoing events for sidebar
+$ongoingPage = input('ongoing_page', 1);
+$ongoingPerPage = 10;
+$this['exhibitions'] = new \Illuminate\Pagination\LengthAwarePaginator(
+        $allOngoingEvents->forPage($ongoingPage, $ongoingPerPage),
+        $allOngoingEvents->count(),
+        $ongoingPerPage,
+        $ongoingPage,
+        ['path' => request()->url(), 'pageName' => 'ongoing_page']
+);
+
 
 // Timeline highlights for top section (same as home page)
 $this['timeline_highlights'] = Entry::where('end', '>', Carbon::now())
@@ -91,20 +100,11 @@ $this['timeline_highlights'] = Entry::where('end', '>', Carbon::now())
     ->take(3)
     ->get();
 
-// Highlights (upcoming, exclude ongoing events)
-$highlights = Entry::where('end', '>', Carbon::now())
-            ->where('is_internal', false)
-            ->where('show_on_timeline', false)
-            ->whereNotIn('id', $ongoingEventIds)
-            ->orderBy('start', 'asc')
-            ->take(3)
-            ->get();
 
-$this['highlights'] = $highlights;
 
 
 // Short-term events (< 8 days duration, exclude ongoing events and highlights)
-$excludeIds = array_merge($ongoingEventIds, $highlights->pluck('id')->toArray());
+$excludeIds = array_merge($ongoingEventIds, $this['timeline_highlights']->pluck('id')->toArray());
 
 $this['all_records'] = Entry::whereNotIn('id', $excludeIds)
         ->where('is_internal', false)
@@ -283,10 +283,13 @@ $this['slug'] = $this->param('slug');
                 </div>
             </div>
 
+
             <!-- Right Column: Ongoing Events -->
             <div class="col-md-4 col-xs-12 ongoing-column">
                 <h2>{{'ONGOING EVENTS'|_}}</h2>
-                {% partial 'events-ongoing' exhibitions=exhibitions %}
+                <div id="ongoingEventsContainer">
+                    {% partial 'events-ongoing' exhibitions=exhibitions %}
+                </div>
             </div>
         </div>
     </div>

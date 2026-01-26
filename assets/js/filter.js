@@ -31,25 +31,12 @@ $(document).ready(function() {
         }
     });
 
-// $('#dateFrom').on('change', updateEventsList());
-// $('#dateTo').on('change', updateEventsList());
-
     var dateFormat = 'yy-mm-dd';
     $('#dateFrom').datepicker({
         dateFormat: dateFormat,
+        changeMonth: true,
         onSelect: function (value) {
-            updateEventsList();
-            renderActiveFilters();
-        }
-    }).keyup(function(e) {
-        if(e.keyCode == 8 || e.keyCode == 46) {
-            $.datepicker._clearDate(this);
-            renderActiveFilters();
-        }
-    });
-    $('#dateTo').datepicker({
-        dateFormat: dateFormat,
-        onSelect: function (value) {
+            $('#dateTo').datepicker("option", "minDate", getDate(this));
             updateEventsList();
             renderActiveFilters();
         }
@@ -60,19 +47,20 @@ $(document).ready(function() {
         }
     });
 
-    var from = $("#dateFrom")
-            .datepicker({
-                changeMonth: true,
-            })
-            .on("change", function () {
-                to.datepicker("option", "minDate", getDate(this));
-            }),
-        to = $("#dateTo").datepicker({
-            changeMonth: true,
-        })
-            .on("change", function () {
-                from.datepicker("option", "maxDate", getDate(this));
-            });
+    $('#dateTo').datepicker({
+        dateFormat: dateFormat,
+        changeMonth: true,
+        onSelect: function (value) {
+            $('#dateFrom').datepicker("option", "maxDate", getDate(this));
+            updateEventsList();
+            renderActiveFilters();
+        }
+    }).keyup(function(e) {
+        if(e.keyCode == 8 || e.keyCode == 46) {
+            $.datepicker._clearDate(this);
+            renderActiveFilters();
+        }
+    });
 
     var select = $('#sortCategory, #sortCountry, #sortTarget, #sortTheme').selectize({
         onChange: function(value) {
@@ -83,128 +71,92 @@ $(document).ready(function() {
 
     $('#applyFilter').on('click', function() { updateEventsList(); });
 
-    $('#clearFilter').on('click',function() {
+    $('#clearFilter').on('click', function() {
         $('#dateFrom').val('');
         $('#dateTo').val('');
-        // $('#searchInput').val('');
-        // $('#sortFormat').val(0);
-        $('#sortCategory').val(0);
-        $('#sortCountry').val(0);
-        $('#sortTarget').val(0);
-        $('#sortTheme').val(0);
-        var selectize = select[0].selectize;
-        var selectize1 = select[1].selectize;
-        var selectize2 = select[2].selectize;
-        var selectize3 = select[3].selectize;
+        $('#sortCategory, #sortCountry, #sortTarget, #sortTheme').val(0);
 
-        if (search_i.length > 0 && search_i[0].selectize) {
-            search_i[0].selectize.clear();
+        // Clear search selectize instances
+        for (var i = 0; i < search_i.length; i++) {
+            if (search_i[i].selectize) {
+                search_i[i].selectize.clear();
+            }
         }
-        if (search_i.length > 1 && search_i[1].selectize) {
-            search_i[1].selectize.clear();
+
+        // Reset filter selectize instances
+        for (var i = 0; i < select.length; i++) {
+            select[i].selectize.setValue(0);
         }
-        if (search_i.length > 2 && search_i[2].selectize) {
-            search_i[2].selectize.clear();
-        }
-        selectize.setValue(0);
-        selectize1.setValue(0);
-        selectize2.setValue(0);
-        selectize3.setValue(0);
+
         updateEventsList();
         renderActiveFilters();
     });
 
+    // URL params handling
     var urlParams = window.location.search.substring(1).split('&');
-    if(urlParams.length){
-        for(i = 0; i < urlParams.length; i++){
+    if (urlParams.length) {
+        for (var i = 0; i < urlParams.length; i++) {
             var paramArr = urlParams[i].split('=');
             var paramKey = paramArr[0];
             var paramVal = paramArr[1];
-            if(typeof paramVal !== 'undefined'){
-                var selectize = select[i].selectize;
-                selectize.setValue(paramVal);
+            if (typeof paramVal !== 'undefined' && select[i]) {
+                select[i].selectize.setValue(paramVal);
                 updateEventsList();
             }
         }
-
     }
-
-
-
 });
 
-function getDate( element ) {
+function getDate(element) {
     var date;
     try {
-        date = $.datepicker.parseDate( dateFormat, element.value );
-    } catch( error ) {
+        date = $.datepicker.parseDate('yy-mm-dd', element.value);
+    } catch(error) {
         date = null;
     }
-
     return date;
 }
 
-
-
-
-function updateEventsList(page) {
+function updateEventsList(page, type) {
     page = page || 1;
+    type = type || 'short-term';
 
-    var sortCategory = $('#sortCategory').val();
-    var sortCountry = $('#sortCountry').val();
-    var sortTarget = $('#sortTarget').val();
-    var sortTheme = $('#sortTheme').val();
+    var filters = {
+        searchTerms: $('#searchTerms').val(),
+        sortCategory: $('#sortCategory').val(),
+        sortCountry: $('#sortCountry').val(),
+        sortTarget: $('#sortTarget').val(),
+        sortTheme: $('#sortTheme').val(),
+        dateFrom: $('#dateFrom').val(),
+        dateTo: $('#dateTo').val()
+    };
 
-    // if($('#sortCategory').length == 0){
-    //     sortCategory = 2;
-    // }
-    //
-    // var sortFormat = $('#sortFormat').val();
+    var data, handler, update;
 
-    var dateFrom = $('#dateFrom').val();
-    var dateTo = $('#dateTo').val();
-    var searchTerm = $('#searchTerms').val();
-    var searchTarget = $('#searchTarget').val();
-    var searchTheme = $('#searchTheme').val();
+    if (type === 'ongoing') {
+        handler = 'Filter::onLoadOngoingEvents';
+        data = Object.assign({}, filters, { ongoing_page: page });
+        update = { 'events-ongoing': '#ongoingEventsContainer' };
+    } else {
+        handler = 'Filter::onSearchEvents';
+        data = Object.assign({}, filters, { page: page });
+        update = {
+            'events-short-term': '#recordsContainer',
+            'events-ongoing': '#ongoingEventsContainer'
+        };
+    }
 
-    $.request('onSearchEvents', {
-        data: {
-            searchTerms: searchTerm,
-            sortCategory: sortCategory,
-            sortCountry: sortCountry,
-            sortTarget: sortTarget,
-            sortTheme: sortTheme,
-            dateFrom: dateFrom,
-            dateTo: dateTo,
-            page: page
-        },
-        update: { 'events-short-term': '#recordsContainer' }
+    $.request(handler, {
+        data: data,
+        update: update
     });
 }
 
-//
-// function getUrlParams(){
-//     var params = window.location.search.substring(1).split('&');
-//     console.log(params);
-//     var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-//     // var urlparam = [];
-//     // for (var i = 0; i < url.length; i++) {
-//     //     urlparam[] = url[i];
-//     //
-//     // }
-//     // return urlparam;
-// }
-
-
 $(document).keydown(function(e) {
-
-    // 191 = /
     if (e.keyCode === 191) {
         e.preventDefault();
         $('#searchInput')[0].selectize.focus();
     }
-
-    // 27 = esc
     if (e.keyCode === 27) {
         e.preventDefault();
         $('#searchInput')[0].selectize.close();
@@ -212,20 +164,25 @@ $(document).keydown(function(e) {
     }
 });
 
-// Pagination click handler
+// Unified pagination click handler
 $(document).on('click', '.pagination-wrapper .pagination-link', function(e) {
     e.preventDefault();
     var page = $(this).data('page');
-    if (page) {
-        updateEventsList(page);
-        // Scroll to top of results
+    var ongoingPage = $(this).data('ongoing-page');
+
+    if (ongoingPage) {
+        updateEventsList(ongoingPage, 'ongoing');
+        $('html, body').animate({
+            scrollTop: $('#ongoingEventsContainer').offset().top - 100
+        }, 300);
+    } else if (page) {
+        updateEventsList(page, 'short-term');
         $('html, body').animate({
             scrollTop: $('#recordsContainer').offset().top - 100
         }, 300);
     }
 });
 
-// Render active filter chips
 function renderActiveFilters() {
     var container = $('.active-filters');
     container.empty();
@@ -242,41 +199,33 @@ function renderActiveFilters() {
         var value = $select.val();
         if (value && value !== '0') {
             var text = $select.find('option:selected').text();
-            var chip = $('<div class="filter-chip" data-filter="' + filter.id + '">' +
-                '<span class="chip-text">' + text + '</span>' +
-                '<span class="chip-remove">×</span>' +
-                '</div>');
-            container.append(chip);
+            container.append(createFilterChip(filter.id, text));
         }
     });
 
-    // Add date filters to the active filter chips
     var dateFrom = $('#dateFrom').val();
     var dateTo = $('#dateTo').val();
     if (dateFrom) {
-        var chip = $('<div class="filter-chip" data-filter="dateFrom">' +
-            '<span class="chip-text">From: ' + dateFrom + '</span>' +
-            '<span class="chip-remove">×</span>' +
-            '</div>');
-        container.append(chip);
+        container.append(createFilterChip('dateFrom', 'From: ' + dateFrom));
     }
     if (dateTo) {
-        var chip = $('<div class="filter-chip" data-filter="dateTo">' +
-            '<span class="chip-text">To: ' + dateTo + '</span>' +
-            '<span class="chip-remove">×</span>' +
-            '</div>');
-        container.append(chip);
+        container.append(createFilterChip('dateTo', 'To: ' + dateTo));
     }
 }
 
-// Handle chip remove click
+function createFilterChip(filterId, text) {
+    return $('<div class="filter-chip" data-filter="' + filterId + '">' +
+        '<span class="chip-text">' + text + '</span>' +
+        '<span class="chip-remove">×</span>' +
+        '</div>');
+}
+
 $(document).on('click', '.filter-chip .chip-remove', function() {
     var filterId = $(this).closest('.filter-chip').data('filter');
     if (filterId === 'dateFrom' || filterId === 'dateTo') {
         $('#' + filterId).val('');
     } else {
-        var selectize = $('#' + filterId)[0].selectize;
-        selectize.setValue('0');
+        $('#' + filterId)[0].selectize.setValue('0');
     }
     updateEventsList();
     renderActiveFilters();
