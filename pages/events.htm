@@ -26,43 +26,37 @@ use Spatie\GoogleCalendar\Event;
 function onStart(){
 
     if($this->param('slug')){
-        $this['entry'] =  Entry::select(
-        '*',
-        'title',
-        'place',
-        'description',
-        'url',
-
-        DB::raw("to_char(\"start\", 'DD') as start_day"),
-        DB::raw("to_char(\"start\", 'YYYY') as start_year"),
-        DB::raw("to_char(\"end\", 'DD') as end_day"),
-        DB::raw("to_char(\"end\", 'YYYY') as end_year"),
-        DB::raw("to_char(\"start\", 'month') as start_month"),
-        DB::raw("to_char(\"end\", 'month') as end_month"),
-        DB::raw("
-        \"end\" is not null as has_end
-        ")
-
-
+        $this['entry'] = Entry::select(
+            '*',
+            'title',
+            'place',
+            'description',
+            'url',
+            DB::raw("to_char(\"start\", 'DD') as start_day"),
+            DB::raw("to_char(\"start\", 'YYYY') as start_year"),
+            DB::raw("to_char(\"end\", 'DD') as end_day"),
+            DB::raw("to_char(\"end\", 'YYYY') as end_year"),
+            DB::raw("to_char(\"start\", 'month') as start_month"),
+            DB::raw("to_char(\"end\", 'month') as end_month"),
+            DB::raw("\"end\" is not null as has_end")
         )->where('slug', $this->param('slug'))->first();
 
-        \BennoThommo\Meta\Meta::set('twitter:card', 'summary_large_image');
-        \BennoThommo\Meta\Meta::set('twitter:title', $this['entry']['title']);
-        \BennoThommo\Meta\Meta::set('twitter:description', str_limit(Html::strip($this['entry']['description']), 255));
-        \BennoThommo\Meta\Meta::set('og:title', $this['entry']['title']);
-        \BennoThommo\Meta\Meta::set('og:description', str_limit(Html::strip($this['entry']['description']), 255) );
-        \BennoThommo\Meta\Meta::set('og:type', 'article');
-        \BennoThommo\Meta\Meta::set('og:url', $this->pageUrl(''));
-        if($this['entry']['cover_image']){
-        \BennoThommo\Meta\Meta::set('twitter:image', $this['entry']['cover_image']->getThumb(600, null, ['mode' => 'auto']));
-
-
-        \BennoThommo\Meta\Meta::set('og:image', $this['entry']['cover_image']->getThumb(600, 314, ['mode' => 'crop']));
-        \BennoThommo\Meta\Meta::set('og:image:width', 600);
-        \BennoThommo\Meta\Meta::set('og:image:height', 314);
+        if ($this['entry']) {
+            \BennoThommo\Meta\Meta::set('twitter:card', 'summary_large_image');
+            \BennoThommo\Meta\Meta::set('twitter:title', $this['entry']['title']);
+            \BennoThommo\Meta\Meta::set('twitter:description', str_limit(Html::strip($this['entry']['description']), 255));
+            \BennoThommo\Meta\Meta::set('og:title', $this['entry']['title']);
+            \BennoThommo\Meta\Meta::set('og:description', str_limit(Html::strip($this['entry']['description']), 255));
+            \BennoThommo\Meta\Meta::set('og:type', 'article');
+            \BennoThommo\Meta\Meta::set('og:url', $this->pageUrl(''));
+            if($this['entry']['cover_image']){
+                \BennoThommo\Meta\Meta::set('twitter:image', $this['entry']['cover_image']->getThumb(600, null, ['mode' => 'auto']));
+                \BennoThommo\Meta\Meta::set('og:image', $this['entry']['cover_image']->getThumb(600, 314, ['mode' => 'crop']));
+                \BennoThommo\Meta\Meta::set('og:image:width', 600);
+                \BennoThommo\Meta\Meta::set('og:image:height', 314);
+            }
         }
-
-}
+    }
 $this['page_url'] = $this->pageUrl('');
 //$this['google_calendar_events'] = Event::get();
 //$this['google_calendar_events_test'] = Event::get(null, null, [], getenv('GOOGLE_CALENDAR_TEST_ID'));
@@ -329,7 +323,7 @@ $this['slug'] = $this->param('slug');
                 {% else %}
                     {{entry.start|date("j M Y")}} - {{entry.end|date("j M Y")}}
                 {% endif %}
-            {% endif %}
+            {% endif %}{% if entry.start|date("H:i") != '00:00' %}, {{entry.start|date("H:i")}}{% if entry.end|date("H:i") != entry.start|date("H:i")%} - {{entry.end|date("H:i")}}{% endif %}{% endif %}
             </div>
             {% if entry.institution %}
             <div class="event-organiser">
