@@ -21,6 +21,12 @@ jumbotron = "joint-citizen-science"
 background = "transperant"
 templates = "template3"
 description_limit = 0
+
+[jumbotron ScienceBattle]
+jumbotron = "science-battle"
+background = "transperant"
+templates = "template3"
+description_limit = 0
 ==
 {% component 'siteSearchInclude' %}
 
@@ -42,11 +48,11 @@ description_limit = 0
     {% component 'cocreation' %}
     </div>
 
-    <div class="row center-xs " id="JointCitizenScience">
+    <div class="row" id="JointCitizenScience">
         {% component 'joint' %}
     </div>
 
-    <div class="row center-xs" id="ScienceBattle">
-        <h1 class="mt-4 mb-4">{{ 'Coming soon...'|_ }}</h1>
+    <div class="row" id="ScienceBattle">
+        {% component 'ScienceBattle' %}
     </div>
 </div>
