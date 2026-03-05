@@ -1,6 +1,6 @@
-url = "/media-center/brand-kit"
+url = "/media-center"
 layout = "default"
-title = "Brand kit"
+title = "Media center"
 is_hidden = 0
 robot_index = "index"
 robot_follow = "follow"
@@ -73,9 +73,6 @@ return Response::download($pathToFile, $fileName, $headers);
 
     {% if records.count() %}
         <div class="row">
-            <div class="col-md-12 col-xs-12 mb-2">
-                <a href="/{{currentLang}}/media-center" class="go-back-link">{{ 'Back'|_ }}</a>
-            </div>
             {% for record in records %}
             {% spaceless %}
             {% if record.logo_image %}
@@ -108,8 +105,15 @@ return Response::download($pathToFile, $fileName, $headers);
                         {{ form_close() }}
                         {% endif %}
 
+                        {% if record.file_zip %}
+                        {{form_open({ request: 'onDownloadFile' }) }}
+                        <input type="hidden" value="{{record.file_zip.id}}" name="id">
+                        <button type="submit" data-attach-loading class="btn btn-primary"><i></i> Download</button>
+                        {{ form_close() }}
+                        {% endif %}
+
                         {% if record.file_pdf %}
-                        <a href="{{record.file_pdf.path}}" target="_blank" class="btn btn-primary"><i></i> PDF</a>
+                        <a href="{{record.file_pdf.path}}" target="_blank" class="btn btn-primary"><i></i> Download</a>
                         {% endif %}
                     </div>
                 </div>
