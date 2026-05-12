@@ -36,31 +36,32 @@ description_limit = 0
 ==
 {% component 'siteSearchInclude' %}
 
-<div class="container700">
-    <div class="tabs">
-        <a class="" href="#Engagement">{{ 'Engagement'|_ }}</a>
-        <a class="" href="#Co-Creation">{{ 'Co-Creation'|_ }}</a>
-        <a class="" href="#JointCitizenScience">{{ 'Joint Citizen Science'|_ }}</a>
-        <a class="" href="#ScienceBattle">{{ 'Science Battle'|_ }}</a>
-        <a class="" href="#MutualLearning">{{ 'Mutual Learning'|_ }}</a>
-    </div>
-</div>
-
-<div class="container700">
-    <div class="row" id="Engagement">
-        {% component 'engagement' %}
+<div class="engagement">
+    <div class="container700">
+        <div class="tabs">
+            <a class="" href="#Engagement">{{ 'Engagement'|_ }}</a>
+            <a class="" href="#Co-Creation">{{ 'Co-Creation'|_ }}</a>
+            <a class="" href="#JointCitizenScience">{{ 'Joint Citizen Science'|_ }}</a>
+            <a class="" href="#ScienceBattle">{{ 'Science Battle'|_ }}</a>
+        </div>
     </div>
 
-    <div class="row" id="Co-Creation">
-    {% component 'cocreation' %}
-    </div>
+    <div class="container700">
+        <div class="row" id="Engagement">
+            {% component 'engagement' %}
+        </div>
 
-    <div class="row" id="JointCitizenScience">
-        {% component 'joint' %}
-    </div>
+        <div class="row" id="Co-Creation">
+        {% component 'cocreation' %}
+        </div>
 
-    <div class="row" id="ScienceBattle">
-        {% component 'ScienceBattle' %}
+        <div class="row" id="JointCitizenScience">
+            {% component 'joint' %}
+        </div>
+
+        <div class="row" id="ScienceBattle">
+            {% component 'ScienceBattle' %}
+        </div>
     </div>
 
 

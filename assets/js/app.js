@@ -5,12 +5,6 @@ var viewed = false;
 var viewed_subscribe = false;
 var viewed_text = false;
 
-// window.onscroll = function() {
-//     animateTestimonial()
-//     animateSubscribe()
-//     // animateTextRows()
-// }
-
 var width = window.innerWidth;
 
 var documentHasScroll = function() {
@@ -39,30 +33,6 @@ window.addEventListener('scroll', function (e) {
 
 
 });
-//
-// function animateTestimonial(){
-//     var el = $(".testimonial h3");
-//     if (isScrolledIntoView(el) && !viewed) {
-//         viewed = true;
-//         animateHeadingWords(el);
-//     }
-// }
-//
-// function animateSubscribe(){
-//     var el = $(".subscriber h1");
-//     if (isScrolledIntoView(el) && !viewed_subscribe) {
-//         viewed_subscribe = true;
-//         animateSubtitleWords(el, 0.8);
-//     }
-// }
-//
-// function animateSubscribe(){
-//     var el = $(".subscriber h1");
-//     if (isScrolledIntoView(el) && !viewed_subscribe) {
-//         viewed_subscribe = true;
-//         animateTextRowsSmooth();
-//     }
-// }
 
 
 function elementScrolled(elem) {
@@ -367,8 +337,6 @@ function elementScrolled(elem) {
         });
     });
 
-    // $( ".subtabs_events" ).tabs();
-    // openParentTab();
 
     /* HOMEPAGE intro **/
     $('.video-carousel').slick({
@@ -385,19 +353,6 @@ function elementScrolled(elem) {
         prevArrow: '<div class="custom-arrow custom-prev"><img src="/themes/pensoft-kiel/assets/images/arrow-prev.svg" alt="Previous"></div>',
         nextArrow: '<div class="custom-arrow custom-next"><img src="/themes/pensoft-kiel/assets/images/arrow-next.svg" alt="Next"></div>',
     });
-
-
-    // $('.towns_uppercase_labels').slick({
-    //     dots: false,
-    //     infinite: true,
-    //     speed: 1000,
-    //     autoplay: true,
-    //     autoplaySpeed: 3000,
-    //     slidesToShow: 3,
-    //     slidesToScroll: 1,
-    //     centerMode: true,
-    //     arrows: false
-    // });
 
 
 	onHashChange();
@@ -473,11 +428,6 @@ function elementScrolled(elem) {
         $('.work_packages .key_0, .work_packages .key_3, .work_packages .key_6, .work_packages .key_9, .work_packages .key_12, .work_packages .key_15').wrapAll('<div class="col-md-4 col-xs-12" />');
         $('.work_packages .key_1, .work_packages .key_4, .work_packages .key_7, .work_packages .key_10, .work_packages .key_13, .work_packages .key_16').wrapAll('<div class="col-md-4 col-xs-12" />');
         $('.work_packages .key_2, .work_packages .key_5, .work_packages .key_8, .work_packages .key_11, .work_packages .key_14, .work_packages .key_17').wrapAll('<div class="col-md-4 col-xs-12" />');
-
-
-
-        // $('.advisory_board .key_0, .advisory_board .key_2, .advisory_board .key_4, .advisory_board .key_6, .advisory_board .key_8, .advisory_board .key_10, .advisory_board .key_12, .advisory_board .key_14, .advisory_board .key_16, .advisory_board .key_18, .advisory_board .key_20, .advisory_board .key_22').wrapAll('<div class="col-md-6 col-xs-12" />');
-        // $('.advisory_board .key_1, .advisory_board .key_3, .advisory_board .key_5, .advisory_board .key_7, .advisory_board .key_9, .advisory_board .key_11, .advisory_board .key_13, .advisory_board .key_15, .advisory_board .key_17, .advisory_board .key_19, .advisory_board .key_21, .advisory_board .key_23').wrapAll('<div class="col-md-6 col-xs-12" />');
 
     }
 
@@ -561,54 +511,6 @@ function elementScrolled(elem) {
             };
         });
 
-
-    // /* LANGUAGE SWITCH */
-    //
-    // document.querySelectorAll('select.locale-select').forEach(function(select) {
-    //     var wrapper = document.createElement('div');
-    //     wrapper.className = 'custom-select';
-    //     select.parentNode.insertBefore(wrapper, select);
-    //     wrapper.appendChild(select);
-    //
-    //     var selected = select.options[select.selectedIndex];
-    //
-    //     var trigger = document.createElement('div');
-    //
-    //     var selectedCode = selected.value.split('/')[1] || selected.value.split('/')[0];
-    //
-    //     trigger.className = 'custom-select__trigger';
-    //     trigger.innerHTML = '<span class="flag-icon flag-icon-' + selectedCode + '"></span> <span>' + selectedCode + '</span>';
-    //     wrapper.appendChild(trigger);
-    //
-    //     var list = document.createElement('div');
-    //     list.className = 'custom-select__options';
-    //
-    //     for (var i = 0; i < select.options.length; i++) {
-    //         var opt = select.options[i];
-    //         var item = document.createElement('div');
-    //         item.className = 'custom-select__option' + (opt.selected ? ' is-selected' : '');
-    //         item.dataset.value = opt.value;
-    //
-    //         // Extract locale code from option value for display
-    //         var localeCode = opt.value.split('/')[1] || opt.value.split('/')[0];
-    //         item.innerHTML = '<span class="flag-icon flag-icon-' + localeCode + '"></span> ' + opt.text ;
-    //         list.appendChild(item);
-    //     }
-    //     wrapper.appendChild(list);
-    //
-    //     trigger.onclick = function(e) {
-    //         e.stopPropagation();
-    //         document.querySelectorAll('.custom-select.is-open').forEach(function(el) {
-    //             if (el !== wrapper) el.classList.remove('is-open');
-    //         });
-    //         wrapper.classList.toggle('is-open');
-    //     };
-    //
-    //     list.onclick = function(e) {
-    //         var option = e.target.closest('.custom-select__option');
-    //         if (option) window.location.assign(option.dataset.value);
-    //     };
-    // });
 
     document.addEventListener('click', function() {
         document.querySelectorAll('.custom-select.is-open').forEach(function(el) {
@@ -785,7 +687,10 @@ function onHashChange(){
 		var caseStudiesTitle = caseStudiesHashTitle.substring(1, caseStudiesHashTitle.length);
 		$("path[title='"+caseStudiesTitle.toUpperCase()+"']").addClass('active_path');
 
-
+		var $engagementTab = $('.engagement .tabs a[href="'+caseStudiesHashTitle+'"]');
+		if($engagementTab.length && !$engagementTab.hasClass('active')){
+			$engagementTab.trigger('click');
+		}
 	}
 }
 
