@@ -27,6 +27,12 @@ jumbotron = "science-battle"
 background = "transperant"
 templates = "template3"
 description_limit = 0
+
+[jumbotron MutualLearning]
+jumbotron = "mutual-learning"
+background = "transperant"
+templates = "template3"
+description_limit = 0
 ==
 {% component 'siteSearchInclude' %}
 
@@ -36,6 +42,7 @@ description_limit = 0
         <a class="" href="#Co-Creation">{{ 'Co-Creation'|_ }}</a>
         <a class="" href="#JointCitizenScience">{{ 'Joint Citizen Science'|_ }}</a>
         <a class="" href="#ScienceBattle">{{ 'Science Battle'|_ }}</a>
+        <a class="" href="#MutualLearning">{{ 'Mutual Learning'|_ }}</a>
     </div>
 </div>
 
@@ -54,5 +61,10 @@ description_limit = 0
 
     <div class="row" id="ScienceBattle">
         {% component 'ScienceBattle' %}
+    </div>
+
+
+    <div class="row" id="MutualLearning">
+        {% component 'MutualLearning' %}
     </div>
 </div>
