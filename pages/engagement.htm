@@ -34,6 +34,18 @@ background = "transperant"
 templates = "template3"
 description_limit = 0
 ==
+<?php
+use Pensoft\Calendar\Models\Entry;
+
+function onStart()
+{
+    // Mutual Learning events shown in the MutualLearning tab
+    $this['mutual_learning_events'] = Entry::whereIn('id', [1310, 1311])
+        ->orderBy('start', 'asc')
+        ->get();
+}
+?>
+==
 {% component 'siteSearchInclude' %}
 
 <div class="engagement">
@@ -65,6 +77,9 @@ description_limit = 0
         </div>
         <div class="row" id="MutualLearning">
             {% component 'MutualLearning' %}
+            {% if mutual_learning_events.count %}
+            {% partial 'eventslist' records=mutual_learning_events %}
+            {% endif %}
         </div>
     </div>
 </div>
