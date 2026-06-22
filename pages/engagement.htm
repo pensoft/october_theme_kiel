@@ -40,9 +40,8 @@ use Pensoft\Calendar\Models\Entry;
 function onStart()
 {
     // Mutual Learning events shown in the MutualLearning tab
-    $this['mutual_learning_events'] = Entry::whereIn('id', [1310, 1311])
-        ->orderBy('start', 'asc')
-        ->get();
+    $this['museums_event'] = Entry::find(1310);
+    $this['online_workshop_event'] = Entry::find(1310);
 }
 ?>
 ==
@@ -77,9 +76,20 @@ function onStart()
         </div>
         <div class="row" id="MutualLearning">
             {% component 'MutualLearning' %}
-            {% if mutual_learning_events.count %}
-            {% partial 'eventslist' records=mutual_learning_events %}
-            {% endif %}
+            <div class="mutual-learning-items">
+                {% if museums_event %}
+                <div class="mutual-learning-item">
+                    <h3 class="mutual-learning-label">{{ 'For the Museums'|_ }}</h3>
+                    {% partial 'eventslist' records=[museums_event] %}
+                </div>
+                {% endif %}
+                {% if online_workshop_event %}
+                <div class="mutual-learning-item">
+                    <h3 class="mutual-learning-label">{{ 'For the online workshop'|_ }}</h3>
+                    {% partial 'eventslist' records=[online_workshop_event] %}
+                </div>
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>

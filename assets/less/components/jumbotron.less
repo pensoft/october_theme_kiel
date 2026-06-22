@@ -524,6 +524,11 @@
     .tabs{
         display: flex;
         justify-content: center;
+        .breakpoint-large-down({
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        });
         a{
             width: fit-content;
             cursor: pointer;
@@ -682,6 +687,25 @@
         font: normal normal bold 20px/30px Inter;
         letter-spacing: 0px;
         color: #05133A;
+    }
+
+
+    .mutual-learning-items{
+        display: flex;
+        flex-wrap: wrap;
+        .breakpoint-large-down({
+            flex-direction: column;
+        });
+
+        .mutual-learning-item{
+            flex: 1 1 0;
+            min-width: 0;
+
+            .highlight-events{
+                flex-basis: 100% !important;
+                max-width: 100% !important;
+            }
+        }
     }
 
 
