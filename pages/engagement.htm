@@ -76,20 +76,7 @@ function onStart()
         </div>
         <div class="row" id="MutualLearning">
             {% component 'MutualLearning' %}
-            <div class="mutual-learning-items">
-                {% if museums_event %}
-                <div class="mutual-learning-item">
-                    <h3 class="mutual-learning-label">{{ 'For the Museums'|_ }}</h3>
-                    {% partial 'eventslist' records=[museums_event] %}
-                </div>
-                {% endif %}
-                {% if online_workshop_event %}
-                <div class="mutual-learning-item">
-                    <h3 class="mutual-learning-label">{{ 'For the online workshop'|_ }}</h3>
-                    {% partial 'eventslist' records=[online_workshop_event] %}
-                </div>
-                {% endif %}
-            </div>
+            
         </div>
     </div>
 </div>
