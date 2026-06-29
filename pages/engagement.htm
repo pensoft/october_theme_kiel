@@ -78,43 +78,6 @@ function onStart()
         </div>
         <div class="row" id="MutualLearning">
             {% component 'MutualLearning' %}
-            <div class="short-term-card">
-                <div class="card-image">
-                    <a href="/{{currentLang}}/events/{{entry.slug}}">
-                        {% if entry.cover_image %}
-                        <img src="{{entry.cover_image|crop_image|resize(350, 204, { mode: 'crop' })}}" alt="{{ entry.title }}">
-                        {% else %}
-                        <img src="{{'sctt-general.png'|media}}" alt="{{ entry.title }}">
-                        {% endif %}
-                    </a>
-                </div>
-                <div class="card-content">
-                    <div class="event-date">
-                        {% if entry.start == '2026-09-25T09:07:29' %} autumn {{entry.start|date("Y")}} {% else %}
-                        {% if entry.start|date("Y") == entry.end|date("Y") %}
-                        {% if entry.start|date("M") == entry.end|date("M") %}
-                        {% if entry.start|date("j") == entry.end|date("j") %}
-                        {{entry.start|date("j M Y")}}
-                        {% else %}
-                        {{entry.start|date("j")}} - {{entry.end|date("j M Y")}}
-                        {% endif %}
-                        {% else %}
-                        {{entry.start|date("j M")}} - {{entry.end|date("j M Y")}}
-                        {% endif %}
-                        {% else %}
-                        {{entry.start|date("j M Y")}} - {{entry.end|date("j M Y")}}
-                        {% endif %}
-                        {% endif %}{% if entry.start|date("H:i") != '00:00' %}, {{entry.start|date("H:i")}}{% if entry.end|date("H:i") != entry.start|date("H:i")%} - {{entry.end|date("H:i")}}{% endif %}{% endif %}
-                    </div>
-                    <h3><a href="/{{currentLang}}/events/{{entry.slug}}">{{ entry.title|raw }}</a></h3>
-                    {% if entry.institution %}
-                    <div class="event-organiser">
-                        <span class="label">{{ 'ORGANISED BY:'|_ }}</span>
-                        <span class="value">{{ entry.institution }}</span>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
         </div>
     </div>
 </div>
