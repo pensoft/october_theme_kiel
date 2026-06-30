@@ -338,6 +338,33 @@ function elementScrolled(elem) {
     });
 
 
+    /* GALLERY page — each gallery is its own slider with prev/next arrows */
+    $('.gallery-slider').each(function () {
+        $(this).slick({
+            infinite: true,
+            speed: 500,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: true,
+            draggable: true,
+            autoplay: false,
+            prevArrow: '<div class="custom-arrow custom-prev"><img src="/themes/pensoft-kiel/assets/images/pagination-arrow.svg" alt="Previous"></div>',
+            nextArrow: '<div class="custom-arrow custom-next"><img src="/themes/pensoft-kiel/assets/images/pagination-arrow.svg" alt="Next"></div>',
+            responsive: [
+                {
+                    breakpoint: 992,
+                    settings: { slidesToShow: 2 }
+                },
+                {
+                    breakpoint: 576,
+                    settings: { slidesToShow: 1 }
+                }
+            ]
+        });
+    });
+
+
     /* HOMEPAGE intro **/
     $('.video-carousel').slick({
         autoplaySpeed: 5000,
