@@ -1,0 +1,66 @@
+url = "/gallery"
+layout = "default"
+title = "Gallery"
+is_hidden = 0
+meta_description = "Gallery page"
+seo_keywords = "keywords"
+robot_index = "index"
+robot_follow = "follow"
+
+[siteSearchInclude]
+
+==
+<?php
+use Pensoft\Media\Models\Galleries;
+
+function onStart()
+{
+    // Display the first gallery available.
+    $this['gallery'] = Galleries::first();
+}
+?>
+==
+{% component 'siteSearchInclude' %}
+<div class="container gallery-page">
+    {% if gallery and gallery.images.count() %}
+    <div class="row gallery-grid">
+        {% for k, image in gallery.images %}
+        <div class="col-md-3 col-sm-4 col-xs-12 gallery-grid__item">
+            <a class="gallery-grid__link" onclick="openModal(); currentSlide({{ k + 1 }})" title="{{ image.title|default(gallery.name) }}">
+                <img src="{{ image.thumb(400, 300, {'mode':'crop'}) }}" alt="{{ image.title|default(gallery.name) }}">
+                <div class="gallery-grid__zoom"><img src="{{ 'zoom.svg'|media }}" alt="zoom"></div>
+                <div class="gallery-grid__overlay"></div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+
+    {# Full screen popup slideshow #}
+    <div class="gallery-modal" id="imagesModal">
+        <span class="gallery-modal__close" onclick="closeModal()">&times;</span>
+        <a class="gallery-modal__prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="gallery-modal__next" onclick="plusSlides(1)">&#10095;</a>
+
+        <div class="gallery-modal__content">
+            {% for k, image in gallery.images %}
+            <div class="slides">
+                <div class="gallery-modal__counter">{{ k + 1 }} / {{ gallery.images.count() }}</div>
+                <img src="{{ image.path }}" alt="{{ image.title|default(gallery.name) }}">
+                {% if image.title or image.description %}
+                <div class="gallery-modal__caption">
+                    {% if image.title %}<p class="gallery-modal__caption-title">{{ image.title }}</p>{% endif %}
+                    {% if image.description %}<p class="gallery-modal__caption-desc">{{ image.description }}</p>{% endif %}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <h1>{{ 'No gallery to display'|_ }}</h1>
+        </div>
+    </div>
+    {% endif %}
+</div>

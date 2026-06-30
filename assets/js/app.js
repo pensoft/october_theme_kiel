@@ -603,6 +603,30 @@ function showSlides(n) {
     // captionText.innerHTML = dots[slideIndex-1].alt;
 }
 
+/* Gallery popup (/gallery page): close on backdrop click + keyboard navigation */
+$(function () {
+    var $modal = $('#imagesModal');
+
+    if (!$modal.length) {
+        return;
+    }
+
+    $modal.on('click', function (e) {
+        if (e.target === this || $(e.target).hasClass('gallery-modal__content')) {
+            closeModal();
+        }
+    });
+
+    $(document).on('keydown', function (e) {
+        if ($modal.css('display') !== 'block') {
+            return;
+        }
+        if (e.key === 'Escape') { closeModal(); }
+        else if (e.key === 'ArrowLeft') { plusSlides(-1); }
+        else if (e.key === 'ArrowRight') { plusSlides(1); }
+    });
+});
+
 
 
 
