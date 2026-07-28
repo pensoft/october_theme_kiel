@@ -17,7 +17,7 @@ templates = "template3"
 description_limit = 0
 
 [jumbotron joint]
-jumbotron = "joint-citizen-science"
+jumbotron = "citizen-science"
 background = "transperant"
 templates = "template3"
 description_limit = 0
@@ -34,6 +34,23 @@ background = "transperant"
 templates = "template3"
 description_limit = 0
 
+[jumbotron scienceshow]
+jumbotron = "science-show"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron teachertaining]
+jumbotron = "teacher-training"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron childrenuniversity]
+jumbotron = "children-university"
+background = "transperant"
+templates = "template3"
+description_limit = 0
 ==
 <?php
 use Pensoft\Calendar\Models\Entry;
@@ -54,9 +71,12 @@ function onStart()
         <div class="tabs">
             <a class="" href="#Engagement">{{ 'Engagement'|_ }}</a>
             <a class="" href="#Co-Creation">{{ 'Co-Creation'|_ }}</a>
-            <a class="" href="#JointCitizenScience">{{ 'Joint Citizen Science'|_ }}</a>
+            <a class="" href="#CitizenScience">{{ 'Citizen Science'|_ }}</a>
             <a class="" href="#ScienceBattle">{{ 'Science Battle'|_ }}</a>
             <a class="" href="#MutualLearning">{{ 'Mutual Learning'|_ }}</a>
+            <a class="" href="#Scienceshow">{{ 'Science show'|_ }}</a>
+            <a class="" href="#TeacherTraining">{{ 'Teacher Training'|_ }}</a>
+            <a class="" href="#ChildrenUniversity">{{ 'Children University'|_ }}</a>
         </div>
     </div>
 
@@ -69,7 +89,7 @@ function onStart()
         {% component 'cocreation' %}
         </div>
 
-        <div class="row" id="JointCitizenScience">
+        <div class="row" id="CitizenScience">
             {% component 'joint' %}
         </div>
 
@@ -78,6 +98,18 @@ function onStart()
         </div>
         <div class="row" id="MutualLearning">
             {% component 'MutualLearning' %}
+        </div>
+        
+
+        <div class="row" id="Scienceshow">
+            {% component 'scienceshow' %}
+        </div>
+
+        <div class="row" id="TeacherTraining">
+            {% component 'teachertaining' %}
+        </div>
+        <div class="row" id="ChildrenUniversity">
+            {% component 'childrenuniversity' %}
         </div>
     </div>
 </div>
