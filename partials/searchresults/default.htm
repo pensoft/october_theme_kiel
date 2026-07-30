@@ -1,0 +1,68 @@
+{#
+    Theme override of OFFLINE.SiteSearch's searchResults::default partial.
+    Rendered by {% component 'searchResults' %} on the /search page.
+#}
+{% set results = __SELF__.results %}
+{% set query = __SELF__.query %}
+
+{% if (query|length) < __SELF__.minQueryLength %}
+
+    <p class="search-results__notice">
+        {% partial __SELF__ ~ '::query-too-short.htm' %}
+    </p>
+
+{% elseif results.total %}
+
+    <p class="search-results__count">
+        {{ results.total }} {{ (results.total == 1 ? 'result' : 'results')|_ }}
+    </p>
+
+    <ol class="search-results" start="{{ results.firstItem }}">
+        {% for result in results %}
+            <li class="search-result">
+                {% if result.thumb %}
+                    {% if result.thumb.attributes is not defined %}
+                        {% set thumbSrc = result.thumb|media|resize(160, auto) %}
+                    {% else %}
+                        {% set thumbSrc = result.thumb.getThumb(160, auto) %}
+                    {% endif %}
+                    <a class="search-result__aside" href="{{ result.url|app }}" tabindex="-1" aria-hidden="true">
+                        <img class="search-result__image" src="{{ thumbSrc }}" alt="" loading="lazy">
+                    </a>
+                {% endif %}
+
+                <div class="search-result__content">
+                    <h2 class="search-result__title">
+                        <a href="{{ result.url|app }}">{{ result.title|raw }}</a>
+                    </h2>
+
+                    {% if __SELF__.showProviderBadge and result.provider %}
+                        <span class="search-result__badge">{{ result.provider }}</span>
+                    {% endif %}
+
+                    {% if result.excerpt %}
+                        <p class="search-result__text">{{ result.excerpt|raw }}</p>
+                    {% endif %}
+
+                    <a class="search-result__link" href="{{ result.url|app }}">
+                        {{ __SELF__.visitPageMessage|trans }} &rarr;
+                    </a>
+                </div>
+            </li>
+        {% endfor %}
+    </ol>
+
+    {% if results.hasPages %}
+        {% partial 'components/search-pagination' results=results %}
+    {% endif %}
+
+{% else %}
+
+    <div class="search-results__empty">
+        <p class="search-results__empty-title">{% partial __SELF__ ~ '::no-results.htm' %}</p>
+        <p class="search-results__empty-hint">
+            {{ 'Try a different spelling, a shorter phrase or a more general term.'|_ }}
+        </p>
+    </div>
+
+{% endif %}

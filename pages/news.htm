@@ -4,6 +4,10 @@ title = "News"
 is_hidden = 0
 robot_index = "index"
 robot_follow = "follow"
+
+; Pensoft.Articles gallery component. It resolves the article from the :id
+; param itself and exposes the attached Pensoft.Media galleries as "galleries".
+[article_galleries]
 ==
 <?php
 use Pensoft\Articles\Models\Category;
@@ -150,9 +154,7 @@ $this['related'] = $related;
                 {{article.content|raw}}
             </div>
 
-            <div class="image-gallery">
-                {% component 'article_galleries' %}
-            </div>
+            {% component 'article_galleries' %}
 
             <div class="row middle-xs">
                 <div class="col-xs col-md start-md center-xs share_container">

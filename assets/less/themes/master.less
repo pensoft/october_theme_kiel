@@ -1136,6 +1136,20 @@ ul.pagination{
     display: none;
 }
 
+/* Hidden visually but still announced by screen readers — used for the labels
+   on the icon-only search controls in the header. */
+.sr-only{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 .no-padding{
     padding: 0;
 }

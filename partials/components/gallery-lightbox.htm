@@ -1,0 +1,44 @@
+{#
+    Full-screen image viewer for the gallery sliders. One instance per page;
+    JS fills it from the data-* attributes on the activated .gallery-slide__inner
+    and steps through the slides of that same slider.
+
+    Deliberately separate from #imagesModal on /media-center/images — that one
+    has its own markup and its own global plusSlides/currentSlide handlers.
+#}
+<div class="gallery-lightbox" id="gallery-lightbox" role="dialog" aria-modal="true"
+     aria-label="{{ 'Image viewer'|_ }}" aria-hidden="true">
+
+    <div class="gallery-lightbox__backdrop" data-gallery-close></div>
+
+    <button type="button" class="gallery-lightbox__close" data-gallery-close
+            aria-label="{{ 'Close image viewer'|_ }}">
+        <span aria-hidden="true">&#10006;</span>
+    </button>
+
+    <button type="button" class="gallery-lightbox__nav gallery-lightbox__nav--prev"
+            data-gallery-step="-1" aria-label="{{ 'Previous image'|_ }}">
+        <img src="{{ 'assets/images/pagination-arrow.svg'|theme }}" alt="">
+    </button>
+
+    <button type="button" class="gallery-lightbox__nav gallery-lightbox__nav--next"
+            data-gallery-step="1" aria-label="{{ 'Next image'|_ }}">
+        <img src="{{ 'assets/images/pagination-arrow.svg'|theme }}" alt="">
+    </button>
+
+    <figure class="gallery-lightbox__figure">
+        <img class="gallery-lightbox__image" id="gallery-lightbox-image" src="" alt="">
+
+        <figcaption class="gallery-lightbox__caption">
+            <p class="gallery-lightbox__caption-title"></p>
+            <p class="gallery-lightbox__caption-desc"></p>
+
+            <div class="gallery-lightbox__meta">
+                <span class="gallery-lightbox__counter" aria-live="polite"></span>
+                <a class="gallery-lightbox__download" href="#" download>
+                    {{ 'Download image'|_ }}
+                </a>
+            </div>
+        </figcaption>
+    </figure>
+</div>

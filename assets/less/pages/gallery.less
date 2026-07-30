@@ -151,8 +151,13 @@
 /* ==========================================================================
    /gallery page — list of galleries, each shown as a slick slider with arrows
    Scoped under .gallery-page to avoid leaking onto other pages.
+
+   .article-galleries is the same markup rendered under a news article's
+   content (partials/article_galleries/default.htm), so it shares this block
+   verbatim — the two are meant to look identical.
    ========================================================================== */
-.gallery-page {
+.gallery-page,
+.article-galleries {
     padding-top: 40px;
     padding-bottom: 60px;
 
@@ -191,30 +196,68 @@
         outline: none;
     }
 
+    /* A <button> so the tile is keyboard-operable; the chrome is reset away. */
     .gallery-slide__inner {
         position: relative;
+        display: block;
+        width: 100%;
+        padding: 0;
+        border: 0;
+        background: none;
         overflow: hidden;
         border-radius: 10px;
+        cursor: zoom-in;
+        text-align: left;
 
         img {
             width: 100%;
             height: 240px;
             object-fit: cover;
             display: block;
-            transition: transform .35s ease;
+            transition: transform .45s ease;
 
             .breakpoint-small-down({
                 height: 220px;
             });
         }
 
-        &:hover img {
-            transform: scale(1.06);
+        &:hover img,
+        &:focus-visible img {
+            transform: scale(1.1);
         }
 
-        &:hover .gallery-slide__caption {
+        &:hover .gallery-slide__caption,
+        &:focus-visible .gallery-slide__caption {
             opacity: 1;
         }
+
+        &:hover .gallery-slide__zoom,
+        &:focus-visible .gallery-slide__zoom {
+            opacity: 1;
+            transform: none;
+        }
+
+        &:focus-visible {
+            outline: 2px solid @blue-color;
+            outline-offset: 2px;
+        }
+    }
+
+    /* Magnifier badge hinting that the tile opens full screen. Inline data URI
+       so it needs no asset file. */
+    .gallery-slide__zoom {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: rgba(5, 19, 58, .55) url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3ccircle cx='11' cy='11' r='7'%3e%3c/circle%3e%3cline x1='16.5' y1='16.5' x2='21' y2='21'%3e%3c/line%3e%3c/svg%3e") center no-repeat;
+        background-size: 18px;
+        opacity: 0;
+        transform: translateY(-4px);
+        transition: opacity .3s ease, transform .3s ease;
+        pointer-events: none;
     }
 
     .gallery-slide__caption {
@@ -228,6 +271,7 @@
     }
 
     .gallery-slide__caption-title {
+        display: block;
         font-weight: 600;
         font-size: 16px;
         margin-bottom: 4px;
@@ -235,6 +279,7 @@
     }
 
     .gallery-slide__caption-desc {
+        display: block;
         margin-bottom: 0;
         font-size: 13px;
         line-height: 1.4;
@@ -324,5 +369,189 @@
                 }
             }
         }
+    }
+}
+
+/* ==========================================================================
+   Full-screen image viewer (partials/components/gallery-lightbox.htm)
+   Shared by /gallery and the galleries under a news article. Top level rather
+   than nested, since the overlay is fixed to the viewport.
+   ========================================================================== */
+body.gallery-lightbox-open {
+    overflow: hidden;
+}
+
+.gallery-lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 10000; /* above .navbar.fixed (@zindex-fixed) */
+    align-items: center;
+    justify-content: center;
+    padding: 40px 80px;
+    box-sizing: border-box;
+
+    .breakpoint-large-down({
+        padding: 60px 16px 24px 16px;
+    });
+
+    &.is-open {
+        display: flex;
+    }
+
+    .gallery-lightbox__backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(5, 19, 58, .92);
+        cursor: zoom-out;
+    }
+
+    .gallery-lightbox__figure {
+        position: relative;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .gallery-lightbox__image {
+        display: block;
+        max-width: 100%;
+        max-height: 72vh;
+        width: auto;
+        height: auto;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, .04);
+    }
+
+    .gallery-lightbox__caption {
+        max-width: 760px;
+        text-align: center;
+        color: #fff;
+        font-family: Inter;
+    }
+
+    .gallery-lightbox__caption-title {
+        margin: 0 0 6px 0;
+        font-size: 18px;
+        font-weight: 600;
+        color: #fff;
+    }
+
+    .gallery-lightbox__caption-desc {
+        margin: 0 0 12px 0;
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 1.5;
+        color: fade(#ffffff, 80%);
+    }
+
+    .gallery-lightbox__meta {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .gallery-lightbox__counter {
+        font-size: 13px;
+        color: fade(#ffffff, 60%);
+    }
+
+    .gallery-lightbox__download {
+        display: inline-flex;
+        align-items: center;
+        height: 40px;
+        padding: 0 22px;
+        border-radius: 20px;
+        background: @blue-color;
+        color: #fff !important;
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: opacity .2s ease;
+
+        &:hover { .opacity(85); }
+    }
+
+    /* Close + prev/next sit above the backdrop */
+    .gallery-lightbox__close,
+    .gallery-lightbox__nav {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: 0;
+        cursor: pointer;
+        transition: opacity .2s ease;
+
+        &:hover { .opacity(70); }
+
+        &:focus-visible {
+            outline: 2px solid #fff;
+            outline-offset: 2px;
+        }
+    }
+
+    .gallery-lightbox__close {
+        top: 28px;
+        right: 36px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: fade(#ffffff, 14%);
+        color: #fff;
+        font-size: 16px;
+        line-height: 1;
+
+        .breakpoint-large-down({
+            top: 14px;
+            right: 14px;
+        });
+    }
+
+    .gallery-lightbox__nav {
+        top: 50%;
+        transform: translateY(-50%);
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        background: fade(#ffffff, 14%);
+
+        img {
+            width: 14px;
+            height: 14px;
+            filter: brightness(0) invert(1);
+        }
+
+        .breakpoint-large-down({
+            width: 40px;
+            height: 40px;
+            top: auto;
+            bottom: 14px;
+            transform: none;
+        });
+    }
+
+    .gallery-lightbox__nav--prev {
+        left: 24px;
+        img { transform: rotate(180deg); }
+
+        .breakpoint-large-down({
+            left: 24px;
+        });
+    }
+
+    .gallery-lightbox__nav--next {
+        right: 24px;
+
+        .breakpoint-large-down({
+            right: 24px;
+        });
     }
 }

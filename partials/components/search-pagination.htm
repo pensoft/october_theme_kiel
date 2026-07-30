@@ -1,0 +1,57 @@
+{#
+    Pagination for the /search page. Mirrors the markup used by the events
+    listings (partials/events-short-term.htm) so it picks up the existing
+    .pagination-wrapper styles, but links to real URLs instead of AJAX pages.
+
+    Expects: results — a LengthAwarePaginator
+#}
+{% set current = results.currentPage %}
+{% set last = results.lastPage %}
+{% set from = max(1, current - 2) %}
+{% set to = min(last, current + 2) %}
+
+<div class="pagination-wrapper">
+    <nav class="pagination" aria-label="{{ 'Search results pages'|_ }}">
+        {% if current > 1 %}
+            <a href="{{ results.url(current - 1) }}" class="pagination-link pagination-prev" rel="prev" aria-label="{{ 'Previous page'|_ }}">
+                <img src="{{ 'assets/images/pagination-arrow.svg'|theme }}" alt="">
+            </a>
+        {% else %}
+            <span class="pagination-link pagination-prev disabled" aria-hidden="true">
+                <img src="{{ 'assets/images/pagination-arrow.svg'|theme }}" alt="">
+            </span>
+        {% endif %}
+
+        {% if from > 1 %}
+            <a href="{{ results.url(1) }}" class="pagination-link">1</a>
+            {% if from > 2 %}
+                <span class="pagination-ellipsis" aria-hidden="true">&hellip;</span>
+            {% endif %}
+        {% endif %}
+
+        {% for i in from..to %}
+            {% if i == current %}
+                <span class="pagination-link active" aria-current="page">{{ i }}</span>
+            {% else %}
+                <a href="{{ results.url(i) }}" class="pagination-link">{{ i }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if to < last %}
+            {% if to < (last - 1) %}
+                <span class="pagination-ellipsis" aria-hidden="true">&hellip;</span>
+            {% endif %}
+            <a href="{{ results.url(last) }}" class="pagination-link">{{ last }}</a>
+        {% endif %}
+
+        {% if current < last %}
+            <a href="{{ results.url(current + 1) }}" class="pagination-link pagination-next" rel="next" aria-label="{{ 'Next page'|_ }}">
+                <img src="{{ 'assets/images/pagination-arrow.svg'|theme }}" alt="">
+            </a>
+        {% else %}
+            <span class="pagination-link pagination-next disabled" aria-hidden="true">
+                <img src="{{ 'assets/images/pagination-arrow.svg'|theme }}" alt="">
+            </span>
+        {% endif %}
+    </nav>
+</div>

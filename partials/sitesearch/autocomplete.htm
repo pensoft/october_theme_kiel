@@ -1,0 +1,35 @@
+{#
+    Theme override of OFFLINE.SiteSearch's searchInput::autocomplete partial.
+    Rendered into #search-autocomplete by the header search box as the user types.
+#}
+{% if query|trim is empty %}
+
+{% elseif results.count %}
+    <ul class="search-suggestions">
+        {% for result in results|slice(0, __SELF__.autoCompleteResultCount) %}
+            <li class="search-suggestions__item">
+                <a class="search-suggestion" href="{{ result.url|app }}">
+                    <span class="search-suggestion__body">
+                        <span class="search-suggestion__title">{{ result.title|raw }}</span>
+                        {% if result.excerpt %}
+                            <span class="search-suggestion__excerpt">{{ result.excerpt|raw }}</span>
+                        {% endif %}
+                    </span>
+                    {% if __SELF__.showProviderBadge and result.provider %}
+                        <span class="search-suggestion__badge">{{ result.provider }}</span>
+                    {% endif %}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% if __SELF__.searchPage %}
+        <a class="search-suggestions__all" href="{{ __SELF__.searchPage|page }}?q={{ query|url_encode }}">
+            {{ 'Show all %s results'|_|format(results.count) }} &rarr;
+        </a>
+    {% endif %}
+{% else %}
+    <p class="search-suggestions__empty">
+        {{ 'No results for'|_ }} <strong>{{ query }}</strong>
+    </p>
+{% endif %}

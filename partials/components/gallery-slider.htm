@@ -1,0 +1,45 @@
+{#
+    One Pensoft.Media gallery rendered as a slick slider.
+    Shared by /gallery and by the galleries under a news article, so both stay
+    identical. app.js initialises every .gallery-slider on document ready and
+    opens #gallery-lightbox when a tile is activated.
+
+    Expects: gallery — a Pensoft\Media\Models\Galleries record
+
+    Per-image Title / Description come from the gallery's image uploader
+    (useCaption: true), and are shown on hover and in the lightbox.
+#}
+<section class="gallery-block">
+    {% if gallery.name %}
+        <h2 class="gallery-block__title">{{ gallery.name }}</h2>
+    {% endif %}
+
+    <div class="gallery-slider">
+        {% for image in gallery.images %}
+        <div class="gallery-slide">
+            <button type="button"
+                    class="gallery-slide__inner"
+                    data-gallery-open
+                    data-full="{{ image.thumb(1600, auto, {'mode':'auto'}) }}"
+                    data-download="{{ image.path }}"
+                    data-filename="{{ image.file_name }}"
+                    data-title="{{ image.title }}"
+                    data-desc="{{ image.description }}"
+                    aria-label="{{ 'View image full screen'|_ }}{% if image.title %}: {{ image.title }}{% endif %}">
+                <img src="{{ image.thumb(600, 400, {'mode':'crop'}) }}"
+                     alt="{{ image.title|default(gallery.name) }}"
+                     loading="lazy">
+
+                <span class="gallery-slide__zoom" aria-hidden="true"></span>
+
+                {% if image.title or image.description %}
+                <span class="gallery-slide__caption">
+                    {% if image.title %}<span class="gallery-slide__caption-title">{{ image.title }}</span>{% endif %}
+                    {% if image.description %}<span class="gallery-slide__caption-desc">{{ image.description }}</span>{% endif %}
+                </span>
+                {% endif %}
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+</section>

@@ -1,0 +1,25 @@
+{#
+    Theme override of Pensoft.Articles' article_galleries::default partial.
+
+    Replaces the plugin's manual slideshow with the same slick slider used on
+    the /gallery page, so an article's attached Pensoft.Media galleries render
+    with the site's gallery design. Both pages share the slide markup via
+    components/gallery-slider, and the full-screen viewer via
+    components/gallery-lightbox.
+#}
+{% if galleries is not empty %}
+    {% set hasGallery = false %}
+
+    <div class="article-galleries">
+        {% for gallery in galleries %}
+            {% if gallery.images.count() %}
+                {% set hasGallery = true %}
+                {% partial 'components/gallery-slider' gallery=gallery %}
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    {% if hasGallery %}
+        {% partial 'components/gallery-lightbox' %}
+    {% endif %}
+{% endif %}

@@ -111,7 +111,7 @@ function elementScrolled(elem) {
             var checked = $(this).is(":checked");
             if(checked){
                 $('#menu').show("slide", { direction: "right" }, 400);
-                $('#search').hide();
+                hideSearchForm();
                 $('#menu, #menu *').css({
                     'visibility': 'visible'
                 });
@@ -120,7 +120,7 @@ function elementScrolled(elem) {
                 });
             }else{
                 $('#menu').hide("slide", { direction: "right" }, 400);
-                $('#search').hide();
+                hideSearchForm();
                 $('body', 'html').css({
                     'overflow': 'auto'
                 });
@@ -658,6 +658,104 @@ $(function () {
 
 
 
+/* GALLERY LIGHTBOX — full-screen viewer for the .gallery-slider tiles on
+   /gallery and under a news article. Kept separate from #imagesModal on
+   /media-center/images, which has its own markup and its own global
+   plusSlides/currentSlide/showSlides handlers. */
+(function () {
+    var $box, $image, $caption, $title, $desc, $counter, $download, $navs;
+    var $slides = $();
+    var current = 0;
+    var $lastTrigger = null;
+    var pressX = 0, pressY = 0;
+
+    function show(i) {
+        if (!$slides.length) { return; }
+
+        current = (i + $slides.length) % $slides.length;
+
+        var data = $slides.eq(current).find('[data-gallery-open]').data();
+
+        $image.attr('src', data.full || '').attr('alt', data.title || '');
+        $title.text(data.title || '').toggle(!!data.title);
+        $desc.text(data.desc || '').toggle(!!data.desc);
+        $download.attr('href', data.download || '#').attr('download', data.filename || '');
+        $counter.text((current + 1) + ' / ' + $slides.length);
+        $navs.toggle($slides.length > 1);
+    }
+
+    function open($trigger) {
+        // Slick clones slides to fake the infinite loop — count each image once.
+        $slides = $trigger.closest('.gallery-slider')
+                          .find('.gallery-slide').not('.slick-cloned');
+
+        $lastTrigger = $trigger;
+        show($slides.index($trigger.closest('.gallery-slide')));
+
+        $box.addClass('is-open').attr('aria-hidden', 'false');
+        $('body').addClass('gallery-lightbox-open');
+        $box.find('.gallery-lightbox__close').trigger('focus');
+    }
+
+    function close() {
+        $box.removeClass('is-open').attr('aria-hidden', 'true');
+        $('body').removeClass('gallery-lightbox-open');
+        $image.attr('src', '');
+
+        if ($lastTrigger) {
+            $lastTrigger.trigger('focus');
+            $lastTrigger = null;
+        }
+    }
+
+    $(function () {
+        $box = $('#gallery-lightbox');
+        if (!$box.length) { return; }
+
+        $image    = $box.find('.gallery-lightbox__image');
+        $title    = $box.find('.gallery-lightbox__caption-title');
+        $desc     = $box.find('.gallery-lightbox__caption-desc');
+        $counter  = $box.find('.gallery-lightbox__counter');
+        $download = $box.find('.gallery-lightbox__download');
+        $navs     = $box.find('.gallery-lightbox__nav');
+
+        $(document).on('mousedown', '[data-gallery-open]', function (e) {
+            pressX = e.pageX;
+            pressY = e.pageY;
+        });
+
+        $(document).on('click', '[data-gallery-open]', function (e) {
+            e.preventDefault();
+
+            // The tiles sit in a draggable slick track, so a swipe finishes as a
+            // click. Only open if the pointer stayed put. detail === 0 means the
+            // click came from the keyboard, where there is no pointer to check.
+            var fromKeyboard = !e.originalEvent || e.originalEvent.detail === 0;
+            if (!fromKeyboard &&
+                (Math.abs(e.pageX - pressX) > 10 || Math.abs(e.pageY - pressY) > 10)) {
+                return;
+            }
+
+            open($(this));
+        });
+
+        $box.on('click', '[data-gallery-close]', close);
+
+        $box.on('click', '[data-gallery-step]', function () {
+            show(current + parseInt($(this).data('gallery-step'), 10));
+        });
+
+        $(document).on('keydown', function (e) {
+            if (!$box.hasClass('is-open')) { return; }
+
+            if (e.key === 'Escape') { close(); }
+            else if (e.key === 'ArrowLeft') { show(current - 1); }
+            else if (e.key === 'ArrowRight') { show(current + 1); }
+        });
+    });
+})();
+
+
 function handlePilotsSVGMapMouseMove(event) {
     var title = $(event.target).parent().attr('title');
     var tooltip = document.getElementById("tooltip");
@@ -810,21 +908,65 @@ function isBreakpointLarge() {
     return window.innerWidth <= 991;
 }
 
+/* SITE SEARCH — header search box backed by the OFFLINE.SiteSearch plugin.
+   The autocomplete panel is filled by the "sitesearch::onType" AJAX handler
+   declared on the input in partials/site/header.htm. */
+
 function showSearchForm(){
-	$('#layout-header').toggleClass('full-width');
-	$('#search').toggle();
-	$('.navbar a.p-search').css('visibility', 'hidden');
-	// $('#menu li').hide();
-	// $('nav a:not(.navbar-brand)').hide();
+    var $search = $('#search');
+    if(!$search.length){ return; }
+
+    $('#layout-header').addClass('full-width');
+    $search.show();
+    // Only the toggle itself — the submit button also carries .p-search.
+    $('.navbar a.p-search.search-btn').attr('aria-expanded', 'true').css('visibility', 'hidden');
+    $('#search-input').trigger('focus');
 }
 
 function hideSearchForm(){
-	$('#layout-header').toggleClass('full-width');
-	$('#search').hide();
-    $('.navbar a.p-search').css('visibility', 'visible');
-	// $('#menu li').show();
-    // $('nav a').show();
+    var $search = $('#search');
+    if(!$search.length){ return; }
+
+    $('#layout-header').removeClass('full-width');
+    $search.hide();
+    hideSearchAutocomplete();
+    $('.navbar a.p-search.search-btn').attr('aria-expanded', 'false').css('visibility', 'visible');
 }
+
+function hideSearchAutocomplete(){
+    $('#search-autocomplete').removeClass('is-visible').empty();
+    $('#search-input').attr('aria-expanded', 'false');
+}
+
+$(function () {
+    var $panel = $('#search-autocomplete');
+    if (!$panel.length) { return; }
+
+    // Show the panel only once the handler has returned something to show.
+    $(document).on('ajaxUpdate', '#search-autocomplete', function () {
+        var hasResults = $.trim($(this).html()).length > 0;
+        $(this).toggleClass('is-visible', hasResults);
+        $('#search-input').attr('aria-expanded', hasResults ? 'true' : 'false');
+    });
+
+    // Clearing the field should drop the suggestions immediately rather than
+    // waiting for the debounced request to come back empty.
+    $(document).on('input', '#search-input', function () {
+        if (!$.trim(this.value).length) { hideSearchAutocomplete(); }
+    });
+
+    $(document).on('keydown', function (e) {
+        if (e.key === 'Escape' && $('#search').is(':visible')) { hideSearchForm(); }
+    });
+
+    // A click anywhere outside the overlay closes it.
+    $(document).on('click', function (e) {
+        var $search = $('#search');
+        if (!$search.is(':visible')) { return; }
+        if ($(e.target).closest('#search, .search-btn').length) { return; }
+        hideSearchForm();
+    });
+});
 
 function requestFormLibrary() {
 	$('#mylibraryForm').on('click', 'a', function () {

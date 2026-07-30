@@ -28,26 +28,7 @@ function onStart()
     {% for gallery in galleries %}
         {% if gallery.images.count() %}
             {% set hasGallery = true %}
-            <section class="gallery-block">
-                <h2 class="gallery-block__title">{{ gallery.name }}</h2>
-
-                <div class="gallery-slider">
-                    {% for image in gallery.images %}
-                    <div class="gallery-slide">
-                        <div class="gallery-slide__inner">
-                            <img src="{{ image.thumb(600, 400, {'mode':'crop'}) }}"
-                                 alt="{{ image.title|default(gallery.name) }}">
-                            {% if image.title or image.description %}
-                            <div class="gallery-slide__caption">
-                                {% if image.title %}<p class="gallery-slide__caption-title">{{ image.title }}</p>{% endif %}
-                                {% if image.description %}<p class="gallery-slide__caption-desc">{{ image.description }}</p>{% endif %}
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </section>
+            {% partial 'components/gallery-slider' gallery=gallery %}
         {% endif %}
     {% endfor %}
 
@@ -59,3 +40,7 @@ function onStart()
     </div>
     {% endif %}
 </div>
+
+{% if hasGallery %}
+    {% partial 'components/gallery-lightbox' %}
+{% endif %}

@@ -221,8 +221,18 @@
 .p-country-pl:before {
     content: "\e900";
 }
+/* The icomoon "search1" glyph (\ea82) does not render, so this one icon comes
+   from an SVG asset instead of the font. Sized in em so the .small/.normal/.big
+   size classes still control it; the asset's #4d6c9c stroke is fixed, so
+   "color" has no effect here — put it on a light background. */
 .p-search:before {
-    content: "\ea82";
+    content: "";
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background: url('../../assets/images/search.svg') center no-repeat;
+    background-size: contain;
+    vertical-align: middle;
 }
 .p-facebook:before {
     content: "\eaeb";

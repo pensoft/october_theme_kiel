@@ -14,6 +14,15 @@ escape = 1
 [localePicker]
 forceUrl = 0
 
+; Powers the header search box. Attached to the layout (not to the header
+; partial) because AJAX handlers run before partials are rendered, so a
+; partial-level component would not resolve "sitesearch::onType".
+[searchInput sitesearch]
+useAutoComplete = 1
+autoCompleteResultCount = 6
+showProviderBadge = 1
+searchPage = "search.htm"
+
 ==
 <?php
 function onStart() {

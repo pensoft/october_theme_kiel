@@ -21,11 +21,29 @@ function onInit()
     }
 ?>
 ==
-<div class="container">
+<div class="container search-page">
     <div class="row">
         <div class="col-xs">
 
-            <h1 class="base_heading">{{ 'Search results for'|_ }} {{ searchResults.query }}</h1>
+            {% if searchResults.query %}
+                <h1 class="base_heading">
+                    {{ 'Search results for'|_ }} <span class="search-page__query">{{ searchResults.query }}</span>
+                </h1>
+            {% else %}
+                <h1 class="base_heading">{{ 'Search'|_ }}</h1>
+            {% endif %}
+
+            <form class="search-page__form" action="{{ 'search.htm'|page }}" method="get" role="search">
+                <label for="search-page-input" class="sr-only">{{ 'Search'|_ }}</label>
+                <input class="search-page__input"
+                       id="search-page-input"
+                       name="q"
+                       type="search"
+                       value="{{ searchResults.query }}"
+                       placeholder="{{ 'Search the site'|_ }}"
+                       autocomplete="off">
+                <button class="search-page__submit" type="submit">{{ 'Search'|_ }}</button>
+            </form>
 
             {% component 'searchResults' %}
         </div>
