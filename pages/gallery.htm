@@ -15,8 +15,11 @@ use Pensoft\Media\Models\Galleries;
 
 function onStart()
 {
-    // List every gallery (ordered by the backend sort order, newest first as a fallback).
-    $this['galleries'] = Galleries::orderBy('sort_order', 'asc')
+    // List only standalone galleries - those not attached to any news article or event
+    // (ordered by the backend sort order, newest first as a fallback).
+    $this['galleries'] = Galleries::doesntHave('articles')
+        ->doesntHave('events')
+        ->orderBy('sort_order', 'asc')
         ->orderBy('created_at', 'desc')
         ->get();
 }
