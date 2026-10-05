@@ -52,16 +52,16 @@ templates = "template3"
 description_limit = 0
 ==
 {# Closing Event guest information (/closing-event)
-   Unlisted page linked from the registration flow: not in the Menu Manager menus,
-   no siteSearchInclude component, and noindex (see the robots meta below).
-   Reuses the /engagement tab component (.engagement .tabs, handled in assets/js/app.js),
-   so each button shows its section and /closing-event#hotels deep-links to it.
-   Section texts live in Jumbotron entries "Closing Event – …" (slugs closing-event-*).
-   Hotel cards are rendered from the structured `hotels` list set just above the #hotels section.
-   Open items:
-   - TODO_SHUTTLE_FORM_URL: set shuttleFormUrl below to show the "Send flight details" button
-   - TODO: shuttle pick-up time and meeting point (add to Jumbotron "Closing Event – Getting to Kiel")
-   - TODO: ferry meeting point at Reventloubrücke still to be confirmed (Jumbotron "Closing Event – Venues") #}
+Unlisted page linked from the registration flow: not in the Menu Manager menus,
+no siteSearchInclude component, and noindex (see the robots meta below).
+Reuses the /engagement tab component (.engagement .tabs, handled in assets/js/app.js),
+so each button shows its section and /closing-event#hotels deep-links to it.
+Section texts live in Jumbotron entries "Closing Event – …" (slugs closing-event-*).
+Hotel cards are rendered from the structured `hotels` list set just above the #hotels section.
+Open items:
+- TODO_SHUTTLE_FORM_URL: set shuttleFormUrl below to show the "Send flight details" button
+- TODO: shuttle pick-up time and meeting point (add to Jumbotron "Closing Event – Getting to Kiel")
+- TODO: ferry meeting point at Reventloubrücke still to be confirmed (Jumbotron "Closing Event – Venues") #}
 {# TODO_SHUTTLE_FORM_URL: paste the Tally form URL (flight details + hotel address). While empty, no button is shown. #}
 {% set shuttleFormUrl = '' %}
 
@@ -70,7 +70,7 @@ description_limit = 0
 {% endput %}
 
 {# Tally registration form, embedded in the Jumbotron "Closing Event – Registration" (closing-event-registration), shown under the Registration button.
-   embed.js loads iframes with data-tally-src and resizes them to the form height. #}
+embed.js loads iframes with data-tally-src and resizes them to the form height. #}
 {% put scripts %}
 <script async src="https://tally.so/widgets/embed.js" onload="Tally.loadEmbeds()"></script>
 <script>
@@ -130,115 +130,115 @@ description_limit = 0
         </div>
 
         {# Hotel allocations: edit rates and conditions here; every card below is rendered from this list.
-           codeType: 'keyword' (email with keyword + contact details) or 'subject' (email subject line).
-           Leave bookBy / dates empty to hide that row. #}
+        codeType: 'keyword' (email with keyword + contact details) or 'subject' (email subject line).
+        Leave bookBy / dates empty to hide that row. #}
         {% set hotels = [
-            {
-                name: 'Conti Hansa Steigenberger',
-                url: 'https://hrewards.com/de/steigenberger-conti-hansa-kiel',
-                stars: 4,
-                address: 'Schlossgarten 7, 24103 Kiel',
-                email: 'reservations@kiel.steigenberger.de',
-                codeType: 'keyword',
-                code: 'Science',
-                rates: [
-                    {room: 'Single', price: '€105.00'}
-                ],
-                bookBy: '15 Nov 2026',
-                dates: '13–16 Dec',
-                cancellation: 'Free until 29 Nov',
-                extras: 'Underground parking (fee), EV charging'
-            },
-            {
-                name: 'Hotel Kieler Yacht Club',
-                url: 'https://www.hotel-kyc.de/',
-                stars: 4,
-                address: 'Kiellinie 70, 24105 Kiel',
-                email: 'hallo@hotel-kyc.de',
-                codeType: 'keyword',
-                code: 'Science',
-                rates: [
-                    {room: 'Single, min. 2 nights', price: '€138.00'},
-                    {room: 'Double, min. 2 nights', price: '€154.00'},
-                    {room: 'Single, min. 3 nights', price: '€128.00'},
-                    {room: 'Double, min. 3 nights', price: '€144.00'}
-                ],
-                bookBy: '14 Oct 2026',
-                dates: 'From 13 Dec',
-                cancellation: 'Free up to 7 days before',
-                extras: 'Paid parking'
-            },
-            {
-                name: 'Me & All Hotel',
-                url: 'https://www.hyatt.com/me-and-all-hotels/de-DE/keljk-me-and-all-hotel-kiel',
-                stars: 4,
-                address: 'Kaistr. 80, 24114 Kiel',
-                bookingUrl: 'https://www.hyatt.com/events/en-US/group-booking/KELJK/G-L131',
-                email: 'keljk.gs.reservations@hyatt.com',
-                codeType: 'subject',
-                code: 'GL-L131',
-                rates: [
-                    {room: 'Single', price: '€124.00'}
-                ],
-                bookBy: '29 Nov 2026',
-                dates: '13–16 Dec',
-                cancellation: 'Free until 10 Dec',
-                extras: 'Parking with EV charging'
-            },
-            {
-                name: 'B&B Wissenschaftspark',
-                url: 'https://www.hotel-bb.com/de/hotel/kiel-wissenschaftspark',
-                stars: 3,
-                address: 'Fraunhoferstr. 3, 24118 Kiel',
-                email: 'kiel-wp@hotelbb.com',
-                codeType: 'keyword',
-                code: 'PM Wissenschaft',
-                rates: [
-                    {room: 'Double for single use', price: '€82.57'},
-                    {room: 'Double (2 people)', price: '€106.47'},
-                    {room: 'Twin', price: '€106.47'}
-                ],
-                bookBy: '31 Oct 2026',
-                dates: '14–17 Dec',
-                cancellation: 'Free until 7 pm on the day of arrival',
-                extras: 'Paid parking; check-out by 12 pm'
-            },
-            {
-                name: 'Comfort Hotel tom Kyle',
-                url: 'https://hotel-tomkyle.de/hotel/',
-                stars: 3,
-                address: 'Langer Segen 5a, 24105 Kiel',
-                email: 'info@hotel-tomkyle.de',
-                codeType: 'keyword',
-                code: 'LHK1226',
-                rates: [
-                    {room: 'Single', price: '€104.00'},
-                    {room: 'Double single use', price: '€120.00'},
-                    {room: 'Double (2 people)', price: '€140.00'}
-                ],
-                bookBy: '13 Nov 2026',
-                dates: '13 or 14 – 16 or 17 Dec',
-                cancellation: 'Free until 16 Nov',
-                extras: 'Paid parking; check-in from 2 pm'
-            },
-            {
-                name: 'Motel One Kiel-Schwedenkai',
-                url: 'https://www.motel-one.com/de/hotels/kiel/hotel-kiel-schwedenkai/',
-                stars: 4,
-                address: 'Holstenbrücke 26, 24103 Kiel',
-                email: 'kiel-schwedenkai@motel-one.com',
-                codeType: 'keyword',
-                code: 'BL26',
-                bookingNote: 'No reserved allocation, but a reduced rate for city events',
-                rates: [
-                    {room: 'Single', price: '€82.00'},
-                    {room: 'Double', price: '€99.90'}
-                ],
-                bookBy: '',
-                dates: '',
-                cancellation: 'Free until 6 pm on the day of arrival',
-                extras: 'Limited underground parking; check-out by 12 pm'
-            }
+        {
+        name: 'Conti Hansa Steigenberger',
+        url: 'https://hrewards.com/de/steigenberger-conti-hansa-kiel',
+        stars: 4,
+        address: 'Schlossgarten 7, 24103 Kiel',
+        email: 'reservations@kiel.steigenberger.de',
+        codeType: 'keyword',
+        code: 'Science',
+        rates: [
+        {room: 'Single', price: '€105.00'}
+        ],
+        bookBy: '15 Nov 2026',
+        dates: '13–16 Dec',
+        cancellation: 'Free until 29 Nov',
+        extras: 'Underground parking (fee), EV charging'
+        },
+        {
+        name: 'Hotel Kieler Yacht Club',
+        url: 'https://www.hotel-kyc.de/',
+        stars: 4,
+        address: 'Kiellinie 70, 24105 Kiel',
+        email: 'hallo@hotel-kyc.de',
+        codeType: 'keyword',
+        code: 'Science',
+        rates: [
+        {room: 'Single, min. 2 nights', price: '€138.00'},
+        {room: 'Double, min. 2 nights', price: '€154.00'},
+        {room: 'Single, min. 3 nights', price: '€128.00'},
+        {room: 'Double, min. 3 nights', price: '€144.00'}
+        ],
+        bookBy: '14 Oct 2026',
+        dates: 'From 13 Dec',
+        cancellation: 'Free up to 7 days before',
+        extras: 'Paid parking'
+        },
+        {
+        name: 'Me & All Hotel',
+        url: 'https://www.hyatt.com/me-and-all-hotels/de-DE/keljk-me-and-all-hotel-kiel',
+        stars: 4,
+        address: 'Kaistr. 80, 24114 Kiel',
+        bookingUrl: 'https://www.hyatt.com/events/en-US/group-booking/KELJK/G-L131',
+        email: 'keljk.gs.reservations@hyatt.com',
+        codeType: 'subject',
+        code: 'GL-L131',
+        rates: [
+        {room: 'Single', price: '€124.00'}
+        ],
+        bookBy: '29 Nov 2026',
+        dates: '13–16 Dec',
+        cancellation: 'Free until 10 Dec',
+        extras: 'Parking with EV charging'
+        },
+        {
+        name: 'B&B Wissenschaftspark',
+        url: 'https://www.hotel-bb.com/de/hotel/kiel-wissenschaftspark',
+        stars: 3,
+        address: 'Fraunhoferstr. 3, 24118 Kiel',
+        email: 'kiel-wp@hotelbb.com',
+        codeType: 'keyword',
+        code: 'PM Wissenschaft',
+        rates: [
+        {room: 'Double for single use', price: '€82.57'},
+        {room: 'Double (2 people)', price: '€106.47'},
+        {room: 'Twin', price: '€106.47'}
+        ],
+        bookBy: '31 Oct 2026',
+        dates: '14–17 Dec',
+        cancellation: 'Free until 7 pm on the day of arrival',
+        extras: 'Paid parking; check-out by 12 pm'
+        },
+        {
+        name: 'Comfort Hotel tom Kyle',
+        url: 'https://hotel-tomkyle.de/hotel/',
+        stars: 3,
+        address: 'Langer Segen 5a, 24105 Kiel',
+        email: 'info@hotel-tomkyle.de',
+        codeType: 'keyword',
+        code: 'LHK1226',
+        rates: [
+        {room: 'Single', price: '€104.00'},
+        {room: 'Double single use', price: '€120.00'},
+        {room: 'Double (2 people)', price: '€140.00'}
+        ],
+        bookBy: '13 Nov 2026',
+        dates: '13 or 14 – 16 or 17 Dec',
+        cancellation: 'Free until 16 Nov',
+        extras: 'Paid parking; check-in from 2 pm'
+        },
+        {
+        name: 'Motel One Kiel-Schwedenkai',
+        url: 'https://www.motel-one.com/de/hotels/kiel/hotel-kiel-schwedenkai/',
+        stars: 4,
+        address: 'Holstenbrücke 26, 24103 Kiel',
+        email: 'kiel-schwedenkai@motel-one.com',
+        codeType: 'keyword',
+        code: 'BL26',
+        bookingNote: 'No reserved allocation, but a reduced rate for city events',
+        rates: [
+        {room: 'Single', price: '€82.00'},
+        {room: 'Double', price: '€99.90'}
+        ],
+        bookBy: '',
+        dates: '',
+        cancellation: 'Free until 6 pm on the day of arrival',
+        extras: 'Limited underground parking; check-out by 12 pm'
+        }
         ] %}
         {% set hotelsFootnote = 'All rates are per night and include breakfast. Allocations are limited. Unless stated otherwise: check-in from 3 pm, check-out by 11 am.' %}
 
@@ -273,10 +273,10 @@ description_limit = 0
                             </table>
 
                             {% for label, value in {
-                                ('Book by'|_): hotel.bookBy,
-                                ('Dates'|_): hotel.dates,
-                                ('Cancellation'|_): hotel.cancellation,
-                                ('Extras'|_): hotel.extras
+                            ('Book by'|_): hotel.bookBy,
+                            ('Dates'|_): hotel.dates,
+                            ('Cancellation'|_): hotel.cancellation,
+                            ('Extras'|_): hotel.extras
                             } %}
                             {% if value %}
                             <p style="margin: 4px 0 0; font-size: 14px; line-height: 1.55; color: #4A5568;"><strong style="color: #05133A;">{{ label }}:</strong> {{ value }}</p>

@@ -1,4 +1,4 @@
-url = "/closing-event"
+url = "/events/closing-event"
 layout = "default"
 title = "Closing event"
 
@@ -15,7 +15,7 @@ templates = "template3"
 description_limit = 0
 
 [jumbotron ceremony]
-jumbotron = "registration-item"
+jumbotron = "closing-event-registration"
 background = "transperant"
 templates = "template3"
 description_limit = 0
@@ -40,21 +40,23 @@ description_limit = 0
 
     <div class="container700">
 
-        <div class="row" id="general-information">
-        {% component 'closing_information' %}
+        <div class="row" id="Welcome & General Information">
+            {% component 'closing_information' %}
         </div>
 
-        <div class="row" id="workshop">
+        <div class="row" id="Closing Event">
             {% component 'workshop' %}
         </div>
 
-        <div class="row" id="ceremony">
+        <div class="row" id="Closing Ceremony">
             {% component 'ceremony' %}
         </div>
 
 
-        <div class="row" id="working-groups">
+        <div class="row" id="Working Groups">
             {% component 'working_groups' %}
         </div>
+
+
     </div>
 </div>
