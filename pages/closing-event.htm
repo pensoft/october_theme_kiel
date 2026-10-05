@@ -1,4 +1,4 @@
-url = "/events/closing-event"
+url = "/closing-event"
 layout = "default"
 title = "Closing event"
 
@@ -40,24 +40,21 @@ description_limit = 0
 
     <div class="container700">
 
-        <div class="row" id="Welcome & General Information">
+        <div class="row" id="general-information">
         {% component 'closing_information' %}
         </div>
 
-        <div class="row" id="Closing Event">
+        <div class="row" id="workshop">
             {% component 'workshop' %}
         </div>
-        
-        <div class="row" id="Closing Ceremony">
+
+        <div class="row" id="ceremony">
             {% component 'ceremony' %}
         </div>
-        
 
-        <div class="row" id="Working Groups">
+
+        <div class="row" id="working-groups">
             {% component 'working_groups' %}
-        </div>
-
-   
         </div>
     </div>
 </div>
