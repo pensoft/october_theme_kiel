@@ -1,0 +1,301 @@
+url = "/closing-event"
+layout = "default"
+title = "Welcome to Kiel"
+meta_title = "Closing Event – Science Comes to Town"
+
+[jumbotron ce_intro]
+jumbotron = "closing-event-intro"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron ce_registration]
+jumbotron = "closing-event-registration"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron ce_programme]
+jumbotron = "closing-event-programme"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron ce_venues]
+jumbotron = "closing-event-venues"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron ce_travel]
+jumbotron = "closing-event-travel"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron ce_hotels]
+jumbotron = "closing-event-hotels"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron ce_stay]
+jumbotron = "closing-event-stay"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron ce_contact]
+jumbotron = "closing-event-contact"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+==
+{# Closing Event guest information (/closing-event)
+   Unlisted page linked from the registration flow: not in the Menu Manager menus,
+   no siteSearchInclude component, and noindex (see the robots meta below).
+   Reuses the /engagement tab component (.engagement .tabs, handled in assets/js/app.js),
+   so each button shows its section and /closing-event#hotels deep-links to it.
+   Section texts live in Jumbotron entries "Closing Event – …" (slugs closing-event-*).
+   Hotel cards are rendered from the structured `hotels` list set just above the #hotels section.
+   Open items:
+   - TODO_SHUTTLE_FORM_URL: set shuttleFormUrl below to show the "Send flight details" button
+   - TODO: shuttle pick-up time and meeting point (add to Jumbotron "Closing Event – Getting to Kiel")
+   - TODO: ferry meeting point at Reventloubrücke still to be confirmed (Jumbotron "Closing Event – Venues") #}
+{# TODO_SHUTTLE_FORM_URL: paste the Tally form URL (flight details + hotel address). While empty, no button is shown. #}
+{% set shuttleFormUrl = '' %}
+
+{% put styles %}
+<meta name="robots" content="noindex, nofollow">
+{% endput %}
+
+{# Tally registration form, embedded in the Jumbotron "Closing Event – Registration" (closing-event-registration), shown under the Registration button.
+   embed.js loads iframes with data-tally-src and resizes them to the form height. #}
+{% put scripts %}
+<script async src="https://tally.so/widgets/embed.js" onload="Tally.loadEmbeds()"></script>
+<script>
+    // Fallback if embed.js cannot load: show the form anyway.
+    window.addEventListener('load', function () {
+        setTimeout(function () {
+            if (typeof Tally === 'undefined') {
+                document.querySelectorAll('iframe[data-tally-src]:not([src])').forEach(function (el) { el.src = el.dataset.tallySrc; });
+            }
+        }, 3000);
+    });
+</script>
+{% endput %}
+
+<div class="engagement">
+    <div class="container700">
+        {% component 'ce_intro' %}
+
+        <div class="tabs">
+            <a class="" href="#registration">{{ 'Registration'|_ }}</a>
+            <a class="" href="#programme">{{ 'Programme'|_ }}</a>
+            <a class="" href="#venues">{{ 'Venues'|_ }}</a>
+            <a class="" href="#travel">{{ 'Getting to Kiel'|_ }}</a>
+            <a class="" href="#hotels">{{ 'Hotels'|_ }}</a>
+            <a class="" href="#stay">{{ 'Your stay'|_ }}</a>
+            <a class="" href="#contact">{{ 'Contact'|_ }}</a>
+        </div>
+    </div>
+
+    <div class="container700">
+        <div class="row" id="registration">
+            {# Tally registration form (embed.js is loaded in the put scripts block above) #}
+            {% component 'ce_registration' %}
+        </div>
+
+        <div class="row" id="programme">
+            {% component 'ce_programme' %}
+        </div>
+
+        <div class="row" id="venues">
+            {% component 'ce_venues' %}
+        </div>
+
+        <div class="row" id="travel">
+            {% component 'ce_travel' %}
+            {# TODO_SHUTTLE_FORM_URL: button appears once shuttleFormUrl is set at the top of this template #}
+            {% if shuttleFormUrl %}
+            <div class="container-fluid banner">
+                <div class="container">
+                    <div style="background: #E9EFFF; border: 1px solid #E7E9ED; border-radius: 14px; padding: 20px 22px; margin-bottom: 20px;">
+                        <p style="margin: 0 0 12px; font-size: 14.5px; line-height: 1.6; color: #4A5568;">{{ 'Interested in the shuttle service? Send us your flight details for both the outbound and return journeys.'|_ }}</p>
+                        <a href="{{ shuttleFormUrl }}" rel="noopener noreferrer" target="_blank" style="display: inline-block; background: #3268FF; color: #ffffff; font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: 20px; text-decoration: none;">{{ 'Send flight details'|_ }}</a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        {# Hotel allocations: edit rates and conditions here; every card below is rendered from this list.
+           codeType: 'keyword' (email with keyword + contact details) or 'subject' (email subject line).
+           Leave bookBy / dates empty to hide that row. #}
+        {% set hotels = [
+            {
+                name: 'Conti Hansa Steigenberger',
+                url: 'https://hrewards.com/de/steigenberger-conti-hansa-kiel',
+                stars: 4,
+                address: 'Schlossgarten 7, 24103 Kiel',
+                email: 'reservations@kiel.steigenberger.de',
+                codeType: 'keyword',
+                code: 'Science',
+                rates: [
+                    {room: 'Single', price: '€105.00'}
+                ],
+                bookBy: '15 Nov 2026',
+                dates: '13–16 Dec',
+                cancellation: 'Free until 29 Nov',
+                extras: 'Underground parking (fee), EV charging'
+            },
+            {
+                name: 'Hotel Kieler Yacht Club',
+                url: 'https://www.hotel-kyc.de/',
+                stars: 4,
+                address: 'Kiellinie 70, 24105 Kiel',
+                email: 'hallo@hotel-kyc.de',
+                codeType: 'keyword',
+                code: 'Science',
+                rates: [
+                    {room: 'Single, min. 2 nights', price: '€138.00'},
+                    {room: 'Double, min. 2 nights', price: '€154.00'},
+                    {room: 'Single, min. 3 nights', price: '€128.00'},
+                    {room: 'Double, min. 3 nights', price: '€144.00'}
+                ],
+                bookBy: '14 Oct 2026',
+                dates: 'From 13 Dec',
+                cancellation: 'Free up to 7 days before',
+                extras: 'Paid parking'
+            },
+            {
+                name: 'Me & All Hotel',
+                url: 'https://www.hyatt.com/me-and-all-hotels/de-DE/keljk-me-and-all-hotel-kiel',
+                stars: 4,
+                address: 'Kaistr. 80, 24114 Kiel',
+                bookingUrl: 'https://www.hyatt.com/events/en-US/group-booking/KELJK/G-L131',
+                email: 'keljk.gs.reservations@hyatt.com',
+                codeType: 'subject',
+                code: 'GL-L131',
+                rates: [
+                    {room: 'Single', price: '€124.00'}
+                ],
+                bookBy: '29 Nov 2026',
+                dates: '13–16 Dec',
+                cancellation: 'Free until 10 Dec',
+                extras: 'Parking with EV charging'
+            },
+            {
+                name: 'B&B Wissenschaftspark',
+                url: 'https://www.hotel-bb.com/de/hotel/kiel-wissenschaftspark',
+                stars: 3,
+                address: 'Fraunhoferstr. 3, 24118 Kiel',
+                email: 'kiel-wp@hotelbb.com',
+                codeType: 'keyword',
+                code: 'PM Wissenschaft',
+                rates: [
+                    {room: 'Double for single use', price: '€82.57'},
+                    {room: 'Double (2 people)', price: '€106.47'},
+                    {room: 'Twin', price: '€106.47'}
+                ],
+                bookBy: '31 Oct 2026',
+                dates: '14–17 Dec',
+                cancellation: 'Free until 7 pm on the day of arrival',
+                extras: 'Paid parking; check-out by 12 pm'
+            },
+            {
+                name: 'Comfort Hotel tom Kyle',
+                url: 'https://hotel-tomkyle.de/hotel/',
+                stars: 3,
+                address: 'Langer Segen 5a, 24105 Kiel',
+                email: 'info@hotel-tomkyle.de',
+                codeType: 'keyword',
+                code: 'LHK1226',
+                rates: [
+                    {room: 'Single', price: '€104.00'},
+                    {room: 'Double single use', price: '€120.00'},
+                    {room: 'Double (2 people)', price: '€140.00'}
+                ],
+                bookBy: '13 Nov 2026',
+                dates: '13 or 14 – 16 or 17 Dec',
+                cancellation: 'Free until 16 Nov',
+                extras: 'Paid parking; check-in from 2 pm'
+            },
+            {
+                name: 'Motel One Kiel-Schwedenkai',
+                url: 'https://www.motel-one.com/de/hotels/kiel/hotel-kiel-schwedenkai/',
+                stars: 4,
+                address: 'Holstenbrücke 26, 24103 Kiel',
+                email: 'kiel-schwedenkai@motel-one.com',
+                codeType: 'keyword',
+                code: 'BL26',
+                bookingNote: 'No reserved allocation, but a reduced rate for city events',
+                rates: [
+                    {room: 'Single', price: '€82.00'},
+                    {room: 'Double', price: '€99.90'}
+                ],
+                bookBy: '',
+                dates: '',
+                cancellation: 'Free until 6 pm on the day of arrival',
+                extras: 'Limited underground parking; check-out by 12 pm'
+            }
+        ] %}
+        {% set hotelsFootnote = 'All rates are per night and include breakfast. Allocations are limited. Unless stated otherwise: check-in from 3 pm, check-out by 11 am.' %}
+
+        <div class="row" id="hotels">
+            {% component 'ce_hotels' %}
+            <div class="container-fluid banner">
+                <div class="container">
+                    <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 14px;">
+                        {% for hotel in hotels %}
+                        <div style="flex: 1 1 280px; min-width: 0; overflow-wrap: anywhere; background: #ffffff; border: 1px solid #E7E9ED; border-radius: 12px; padding: 20px 22px;">
+                            <p style="margin: 0 0 2px; font-size: 16px; font-weight: 700; color: #05133A;">
+                                <a href="{{ hotel.url }}" rel="noopener noreferrer" target="_blank" style="color: #05133A; text-decoration: underline;">{{ hotel.name }}</a>
+                            </p>
+                            <p style="margin: 0 0 12px; font-size: 13.5px; line-height: 1.55; color: #7A8699;">
+                                <span style="color: #FF009E; letter-spacing: 0.08em;" aria-label="{{ hotel.stars }} {{ 'stars'|_ }}">{% for i in 1..hotel.stars %}★{% endfor %}</span> · {{ hotel.address }}
+                            </p>
+
+                            <p style="margin: 0 0 6px; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #FF009E;">{{ 'How to book'|_ }}</p>
+                            <p style="margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: #4A5568;">
+                                {% if hotel.bookingUrl|default %}<a href="{{ hotel.bookingUrl }}" rel="noopener noreferrer" target="_blank" style="color: #3268FF; text-decoration: underline;">{{ 'Online booking'|_ }}</a> {{ 'or email'|_ }}{% else %}{{ 'Email'|_ }}{% endif %}
+                                <a href="mailto:{{ hotel.email }}" style="color: #3268FF; text-decoration: underline;">{{ hotel.email }}</a>{% if hotel.codeType == 'subject' %} {{ 'with subject'|_ }}{% else %}, {{ 'keyword'|_ }}{% endif %}
+                                <code style="display: inline-block; background: #E9EFFF; color: #05133A; font-weight: 700; font-size: 13px; padding: 1px 8px; border-radius: 6px; border: 1px solid rgba(50, 104, 255, 0.16);">{{ hotel.code }}</code>{% if hotel.codeType != 'subject' %} + {{ 'contact details'|_ }}{% endif %}.{% if hotel.bookingNote|default %} {{ hotel.bookingNote }}.{% endif %}
+                            </p>
+
+                            <table style="width: 100%; border-collapse: collapse; margin: 0 0 14px; font-size: 14px; color: #05133A;">
+                                {% for rate in hotel.rates %}
+                                <tr>
+                                    <td style="padding: 6px 8px 6px 0; border-bottom: 1px solid #E7E9ED; color: #4A5568;">{{ rate.room }}</td>
+                                    <td style="padding: 6px 0; border-bottom: 1px solid #E7E9ED; text-align: right; font-weight: 700; white-space: nowrap;">{{ rate.price }}</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+
+                            {% for label, value in {
+                                ('Book by'|_): hotel.bookBy,
+                                ('Dates'|_): hotel.dates,
+                                ('Cancellation'|_): hotel.cancellation,
+                                ('Extras'|_): hotel.extras
+                            } %}
+                            {% if value %}
+                            <p style="margin: 4px 0 0; font-size: 14px; line-height: 1.55; color: #4A5568;"><strong style="color: #05133A;">{{ label }}:</strong> {{ value }}</p>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <p style="margin: 0 0 20px; font-size: 13.5px; line-height: 1.55; color: #7A8699;">{{ hotelsFootnote|_ }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="stay">
+            {% component 'ce_stay' %}
+        </div>
+
+        <div class="row" id="contact">
+            {% component 'ce_contact' %}
+        </div>
+    </div>
+</div>

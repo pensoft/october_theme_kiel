@@ -1,0 +1,63 @@
+url = "/events/closing-event"
+layout = "default"
+title = "Closing event"
+
+[jumbotron closing_information]
+jumbotron = "closing-event-intro"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron workshop]
+jumbotron = "closing-event-programme"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron ceremony]
+jumbotron = "closing-event-registration"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron working_groups]
+jumbotron = "closing-event-venues"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+==
+{% component 'siteSearchInclude' %}
+
+<div class="engagement">
+    <div class="container700">
+        <div class="tabs">
+            <a class="" href="#general-information">{{ 'Welcome & General Information'|_ }}</a>
+            <a class="" href="#workshop">{{ 'Closing Event'|_ }}</a>
+            <a class="" href="#ceremony">{{ 'Closing Ceremony'|_ }}</a>
+            <a class="" href="#working-groups">{{ 'Working Groups'|_ }}</a>
+        </div>
+    </div>
+
+    <div class="container700">
+
+        <div class="row" id="Welcome & General Information">
+        {% component 'closing_information' %}
+        </div>
+
+        <div class="row" id="Closing Event">
+            {% component 'workshop' %}
+        </div>
+        
+        <div class="row" id="Closing Ceremony">
+            {% component 'ceremony' %}
+        </div>
+        
+
+        <div class="row" id="Working Groups">
+            {% component 'working_groups' %}
+        </div>
+
+   
+        </div>
+    </div>
+</div>
